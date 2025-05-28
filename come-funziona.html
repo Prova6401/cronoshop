@@ -1,10 +1,70 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Come Funziona - Cronoshop</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'League Spartan', sans-serif;
+      background: linear-gradient(to bottom right, #e0f7ff, #d0ebff);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background-color: #007aff;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+    .container {
+      background-color: white;
+      border-radius: 2rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      padding: 3rem;
+      max-width: 700px;
+      text-align: center;
+      animation: slideIn 1s ease forwards;
+    }
+    h1 {
+      color: #fffff;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    p {
+      font-size: 1.5rem;
+      color: #333;
+    }
+    @keyframes slideIn {
+      from {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -12,28 +72,18 @@
     <nav>
       <a href="index.html">Home</a>
       <a href="products.html">Prodotti</a>
-      <a href="cart.html">Carrello</a>
       <a href="gruppi.html">Gruppi</a>
-      <a href="come-funziona.html">Come funziona</a>
+      <a href="come-funziona.html">Come Funziona</a>
     </nav>
   </header>
-
-  <main class="container">
-    <section>
-      <h2>Come funziona Cronoshop</h2>
-      <p>Cronoshop non è un vero e proprio e-commerce. Qui trovi le migliori offerte Amazon selezionate da noi ogni giorno.</p>
-      <ul>
-        <li>⚡ Selezioniamo le offerte più pazze su Amazon</li>
-        <li>🔗 Ti mandiamo al link Amazon ufficiale</li>
-        <li>💳 Paghi direttamente su Amazon con tutta la sicurezza</li>
-        <li>🎁 A volte abbiamo sconti esclusivi solo per i membri del nostro gruppo</li>
-      </ul>
-      <p>Così hai lo sconto senza pensieri, e compri con la garanzia Amazon. Facile no?</p>
-    </section>
+  <main>
+    <div class="container">
+      <h1>Come Funziona</h1>
+      <p>
+        Cronoshop ti mostra le migliori offerte di Amazon ogni giorno. Cliccando su un prodotto verrai indirizzato direttamente su Amazon, dove potrai acquistare in totale sicurezza. Noi non gestiamo i pagamenti: riceverai semplicemente uno sconto!
+      </p>
+    </div>
   </main>
-
-  <footer>
-    <p>&copy; 2025 Cronoshop. Tutti i diritti riservati.</p>
-  </footer>
 </body>
 </html>
+
