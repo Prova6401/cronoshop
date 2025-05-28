@@ -59,19 +59,23 @@
     }
 
     .cta-button {
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      font-size: 1.3rem;
       background-color: #007bff;
       color: #fff;
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
-      transition: transform 0.3s ease, filter 0.3s ease;
+      transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+      margin-top: 2rem;
     }
 
     .cta-button:hover {
       transform: scale(1.1);
-      filter: blur(0.3px) brightness(1.2);
+      filter: blur(0.3px) brightness(1.15);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
     }
 
     footer {
@@ -98,7 +102,6 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
-
   </style>
 </head>
 <body>
@@ -115,7 +118,9 @@
       Acquistando sarai reindirizzato direttamente su Amazon, dove potrai pagare in completa sicurezza. Noi non vendiamo direttamente:
       riceverai lo stesso prodotto, semplicemente con un <strong>sconto extra</strong>!
     </p>
-    <a href="products.html"><button class="cta-button">Vai alle offerte</button></a>
+    <a href="products.html">
+      <button class="cta-button">Vai ai nostri prodotti</button>
+    </a>
   </main>
 
   <footer>
