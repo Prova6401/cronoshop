@@ -4,9 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cronoshop - Le migliori offerte Amazon</title>
+  
+  <!-- Font e Favicon -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Meta SEO -->
+  <meta name="description" content="Scopri Cronoshop: le migliori offerte Amazon aggiornate ogni giorno. Sconti esclusivi, zero rischi.">
+  <meta property="og:title" content="Cronoshop - Le migliori offerte Amazon">
+  <meta property="og:description" content="Una selezione unica dei prodotti Amazon più convenienti.">
+  <meta property="og:image" content="URL_TUA_IMMAGINE_ANTEPRIMA">
+  <meta property="og:url" content="https://tuodominio.it">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Stile -->
   <style>
     * {
       margin: 0;
@@ -40,6 +53,26 @@
       color: #666;
     }
 
+    nav {
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #007bff;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #0056b3;
+    }
+
     main {
       padding: 3rem 2rem;
       text-align: center;
@@ -64,18 +97,47 @@
       font-size: 1.3rem;
       background-color: #007bff;
       color: #fff;
-      border: none;
       border-radius: 12px;
       cursor: pointer;
       transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
       box-shadow: 0 8px 15px rgba(0,0,0,0.1);
       margin-top: 2rem;
+      text-decoration: none;
     }
 
     .cta-button:hover {
       transform: scale(1.1);
       filter: blur(0.3px) brightness(1.15);
       box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .whatsapp-banner {
+      background-color: #25D366;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .whatsapp-banner a {
+      background: white;
+      color: #25D366;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .whatsapp-banner a:hover {
+      background: #e0f7eb;
     }
 
     footer {
@@ -102,6 +164,30 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2.2rem;
+      }
+
+      main h2 {
+        font-size: 2rem;
+      }
+
+      .cta-button {
+        font-size: 1.1rem;
+        padding: 0.8rem 2rem;
+      }
+
+      nav {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .whatsapp-banner {
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -110,13 +196,13 @@
     <h1>Cronoshop</h1>
     <p>Le migliori offerte selezionate da Amazon, tutte in un unico posto</p>
   </header>
-      <nav>
-      <a href="index.html">Home</a>
-      <a href="products.html">Prodotti</a>
-      <a href="gropus.html">Gruppi</a>
-      <a href="come-funziona.html">Come Funziona</a>
-    </nav>
-  
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Prodotti</a>
+    <a href="groups.html">Gruppi</a>
+    <a href="come-funziona.html">Come Funziona</a>
+  </nav>
 
   <main>
     <h2>Offerte incredibili, prezzi imbattibili</h2>
@@ -125,22 +211,17 @@
       Acquistando sarai reindirizzato direttamente su Amazon, dove potrai pagare in completa sicurezza. Noi non vendiamo direttamente:
       riceverai lo stesso prodotto, semplicemente con un <strong>sconto extra</strong>!
     </p>
-    <a href="products.html">
-      <button class="cta-button">Vai ai nostri prodotti</button>
-    </a>
+    <a href="products.html" class="cta-button">Vai ai nostri prodotti</a>
   </main>
+
+  <div class="whatsapp-banner">
+    📢 UNISCITI AL NOSTRO GRUPPO WHATSAPP PER RICEVERE LE OFFERTE OGNI GIORNO!
+    <a href="https://whatsapp.com/channel/0029Vb5wE6mDeON8PBORW02R" target="_blank">CLICCA QUI</a>
+  </div>
 
   <footer>
     © 2025 Cronoshop - Powered by Amazon Affiliate Program
   </footer>
-  <div style="background-color: #25D366; color: white; padding: 1rem; text-align: center; font-weight: bold; font-size: 1.2rem; position: relative;">
-  📢 UNISCITI AL NOSTRO GRUPPO WHATSAPP PER RICEVERE LE OFFERTE OGNI GIORNO!
-  <a href="https://whatsapp.com/channel/0029Vb5wE6mDeON8PBORW02R" target="_blank" style="display: inline-block; margin-left: 1rem; background: white; color: #25D366; padding: 0.5rem 1rem; border-radius: 8px; font-weight: bold; text-decoration: none; transition: all 0.3s ease;">
-    CLICCA QUI
-    
-  </a>
-</div>
-
 
 </body>
 </html>
