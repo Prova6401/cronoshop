@@ -3,26 +3,124 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cronoshop - Offerte Amazon</title>
-  <link rel="stylesheet" href="style.css"/>
+  <title>Cronoshop - Le migliori offerte Amazon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'League Spartan', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f2f2f2, #e6e6e6);
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    header {
+      padding: 2rem;
+      text-align: center;
+      background: #ffffff;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      animation: fadeDown 1s ease-out;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      color: #007bff;
+    }
+
+    header p {
+      margin-top: 0.5rem;
+      font-size: 1.2rem;
+      color: #666;
+    }
+
+    main {
+      padding: 3rem 2rem;
+      text-align: center;
+      animation: fadeUp 1s ease-out;
+    }
+
+    main h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    main p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto 2rem auto;
+      color: #444;
+    }
+
+    .cta-button {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .cta-button:hover {
+      transform: scale(1.1);
+      filter: blur(0.3px) brightness(1.2);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #f9f9f9;
+      color: #888;
+      font-size: 0.9rem;
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    /* Animazioni */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+  </style>
 </head>
 <body>
+
   <header>
-    <h1>Benvenuto nel Cronoshop</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="products.html">Prodotti</a>
-      <a href="cart.html">Carrello</a>
-    </nav>
+    <h1>Cronoshop</h1>
+    <p>Le migliori offerte selezionate da Amazon, tutte in un unico posto</p>
   </header>
+
   <main>
-    <section>
-      <h2>Le offerte di oggi</h2>
-      <p>Solo oggi: le migliori arance rubate a -50%!</p>
-    </section>
+    <h2>Offerte incredibili, prezzi imbattibili</h2>
+    <p>
+      Su <strong>Cronoshop</strong> trovi una selezione esclusiva dei migliori prodotti Amazon, con sconti aggiornati ogni giorno.
+      Acquistando sarai reindirizzato direttamente su Amazon, dove potrai pagare in completa sicurezza. Noi non vendiamo direttamente:
+      riceverai lo stesso prodotto, semplicemente con un <strong>sconto extra</strong>!
+    </p>
+    <a href="products.html"><button class="cta-button">Vai alle offerte</button></a>
   </main>
+
   <footer>
-    <p>&copy; 2025 RuboArance Inc. Tutti i diritti rubati.</p>
+    © 2025 Cronoshop - Powered by Amazon Affiliate Program
   </footer>
+
 </body>
 </html>
