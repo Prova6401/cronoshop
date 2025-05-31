@@ -5,587 +5,733 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Prodotti - Cronoshop</title>
   <link rel="stylesheet" href="style.css"/>
+  <style>
+    .like-btn, .cart-btn {
+      background: #f5f5f7;
+      border: 1px solid #e0e0e5;
+      border-radius: 8px;
+      color: #0071e3;
+      font-weight: 600;
+      padding: 0.4rem 1rem;
+      margin: 0.2rem 0.2rem 0.7rem 0.2rem;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      font-size: 1rem;
+      outline: none;
+    }
+    .like-btn.liked {
+      background: #ff3b30;
+      color: #fff;
+      border-color: #ff3b30;
+    }
+    .cart-btn.added {
+      background: #30d158;
+      color: #fff;
+      border-color: #30d158;
+    }
+    .global-ranking {
+      max-width: 700px;
+      margin: 2rem auto 1rem auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      padding: 1.5rem 1rem;
+      text-align: center;
+    }
+    .global-ranking h2 {
+      color: var(--primary-color, #0071e3);
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+    .global-ranking ol {
+      padding-left: 1.5rem;
+      text-align: left;
+      margin: 0 auto;
+      max-width: 350px;
+    }
+    .global-ranking li {
+      margin-bottom: 0.5rem;
+      font-size: 1.08rem;
+    }
+    .user-score {
+      color: #0071e3;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 1.2rem;
+      display: block;
+    }
+    .product-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+    .product-card {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+      padding: 1.5rem 1rem 1.5rem 1rem;
+      text-align: center;
+      max-width: 320px;
+      min-width: 260px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .product-card img {
+      width: 100%;
+      max-width: 180px;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      object-fit: contain;
+      background: #f5f5f7;
+    }
+    .product-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+      color: #0071e3;
+    }
+    .product-card .price {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #222;
+    }
+    .product-card p {
+      font-size: 0.98rem;
+      color: #444;
+      margin-bottom: 0.7rem;
+    }
+    .product-card button {
+      margin-bottom: 0.2rem;
+    }
+    .product-card .amazon-link-btn {
+      background: #ff9900;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-top: 0.5rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(255,153,0,0.10);
+    }
+    .product-card .amazon-link-btn:hover {
+      background: #e68a00;
+    }
+    @media (max-width: 900px) {
+      .product-grid {
+        gap: 1rem;
+      }
+      .product-card {
+        max-width: 95vw;
+        min-width: 220px;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
     <h1>I nostri prodotti</h1>
-   <nav>
-    <a href="index.html">Home</a>
-    <a href="products.html">Prodotti</a>
-    <a href="groups.html">Gruppi</a>
-    <a href="come-funziona.html">Come Funziona</a>
-    <a href="faq.html">FAQ</a>
-    <a href="account.html">Area Personale</a>
-  </nav>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Prodotti</a>
+      <a href="groups.html">Gruppi</a>
+      <a href="come-funziona.html">Come Funziona</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
   </header>
 
   <main>
-  <section class="product-grid">
-<div class="product-card">
-      <a href="https://amzn.to/3Z551fa" target="_blank">
-        <img src="https://m.media-amazon.com/images/I/61hiFJPpY9L._AC_SL1500_.jpg" alt="Cambiami" class="product-img">
-        <h3>Samsung Galaxy S25 Ultra</h3>
-        <p class="price">1.199€</p>
-        <p>Samsung Galaxy S25 Ultra Smartphone AI, 3 anni di Garanzia del produttore, Display 6.9'' QHD+ Dynamic AMOLED 2X, Fotocamera 200MP, RAM 12GB, 256GB, 5.000 mAh, Titanium Silverblue</p>
-        <button>Compra su Amazon</button>
-      </a>
-    </div>
+    <div class="user-score" id="user-score"></div>
+    <section class="global-ranking" id="global-ranking">
+      <h2>Classifica utenti più attivi</h2>
+      <ol id="ranking-list"></ol>
+    </section>
+    <section class="product-grid" id="product-grid">
+      <!-- I prodotti saranno inseriti via JS -->
+    </section>
+  </main>
 
-    <!-- Prodotto 2 -->
-    <div class="product-card">
-      <a href="https://www.amazon.it/dp/B0CHWV5HTM" target="_blank">
-        <img src="https://m.media-amazon.com/images/I/71d7rfSl0wL._AC_SL1500_.jpg" alt="iPhone 15" class="product-img">
-        <h3>Apple iPhone 15</h3>
-        <p class="price">
-      <span style="text-decoration: line-through; color: #888;">879,00€</span>
-      <span style="color: #007aff; font-weight: bold;">645,00€</span>
-      <span style="color: red; font-weight: bold;">-27%</span>
-    </p>
-        <p>Prestazioni top per l'uso quotidiano</p>
-        <button>Compra su Amazon</button>
-      </a>
-    </div>
-      
-    <div class="product-card">
-  <a href="https://amzn.to/4kCH9aV" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/618ha2Ia5tL._AC_SL1500_.jpg" alt="Samsung Galaxy S25 Smartphone AI" class="product-img">
-    <h3>Samsung Galaxy S25 Smartphone AI</h3>
-    <p class="price">929,00€</p>
-    <p>Smartphone con display 6.2'' FHD+ Dynamic AMOLED 2X, fotocamera da 50MP, RAM 12GB, memoria interna 256GB, batteria da 4.000 mAh. Include 3 anni di garanzia del produttore. Colore: Mint.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
+  <script>
+    // --- DATI PRODOTTI ---
+    const prodotti = [
+      {
+        id: "prod1",
+        link: "https://amzn.to/3Z551fa",
+        img: "https://m.media-amazon.com/images/I/61hiFJPpY9L._AC_SL1500_.jpg",
+        nome: "Samsung Galaxy S25 Ultra",
+        prezzo: "1.199€",
+        descrizione: "Smartphone AI con display 6.9\" QHD+ Dynamic AMOLED 2X, fotocamera da 200MP, RAM 12GB, memoria interna da 256GB, batteria da 5000 mAh. Colore Titanium Silverblue. Garanzia 3 anni."
+      },
+      {
+        id: "prod2",
+        link: "https://amzn.to/4mB7UhK",
+        img: "https://m.media-amazon.com/images/I/71b8mpCMTOL._AC_SL1500_.jpg",
+        nome: "by Amazon Quinoa biologica, 500g",
+        prezzo: "5,49€",
+        descrizione: "Quinoa biologica di alta qualità, ricca di proteine e fibre. Perfetta per insalate e piatti salutari."
+      },
+      {
+        id: "prod3",
+        link: "https://www.amazon.it/dp/B0CHWV5HTM",
+        img: "https://m.media-amazon.com/images/I/71d7rfSl0wL._AC_SL1500_.jpg",
+        nome: "Apple iPhone 15",
+        prezzo: `<span style="text-decoration: line-through; color: #888;">879,00€</span> <span style="color: #007aff; font-weight: bold;">645,00€</span> <span style="color: red; font-weight: bold;">-27%</span>`,
+        descrizione: "Prestazioni top per l'uso quotidiano."
+      },
+      {
+        id: "prod4",
+        link: "https://amzn.to/4kCH9aV",
+        img: "https://m.media-amazon.com/images/I/618ha2Ia5tL._AC_SL1500_.jpg",
+        nome: "Samsung Galaxy S25 Smartphone AI",
+        prezzo: "929,00€",
+        descrizione: "Smartphone con display 6.2'' FHD+ Dynamic AMOLED 2X, fotocamera da 50MP, RAM 12GB, memoria interna 256GB, batteria da 4.000 mAh. Include 3 anni di garanzia del produttore. Colore: Mint."
+      },
+      {
+        id: "prod5",
+        link: "https://amzn.to/3ZAt8T4",
+        img: "https://m.media-amazon.com/images/I/61Wj-1t3TwL._AC_SL1500_.jpg",
+        nome: "SAMSUNG Galaxy S25 Edge",
+        prezzo: "1.299,00€",
+        descrizione: "Smartphone AI con display 6.7'' QHD+ Dynamic AMOLED 2X, fotocamera da 200MP, RAM 12GB, memoria interna da 512GB, batteria da 3.900 mAh. Include 3 anni di garanzia del produttore. Colore: Titanium Jetblack."
+      },
+      {
+        id: "prod6",
+        link: "https://amzn.to/45gPEUX",
+        img: "https://m.media-amazon.com/images/I/61y0hmQWlsL._AC_SL1500_.jpg",
+        nome: "Samsung Galaxy S25+ Smartphone AI",
+        prezzo: "1.189,00€",
+        descrizione: "Smartphone AI con display 6.7'' QHD+ Dynamic AMOLED 2X, fotocamera da 50MP, RAM 12GB, memoria interna da 512GB, batteria da 4.900 mAh. Include 3 anni di garanzia del produttore. Colore: Silver Shadow. Versione italiana."
+      },
+      {
+        id: "prod7",
+        link: "https://amzn.to/3Z6Kc2W",
+        img: "https://m.media-amazon.com/images/I/610vqacJO2L.__AC_SY445_SX342_QL70_ML2_.jpg",
+        nome: "Apple iPhone 16e – 128 GB",
+        prezzo: "699,00€",
+        descrizione: "Progettato per Apple Intelligence, dotato di chip A18, autonomia grandiosa, fotocamera Fusion da 48MP e display Super Retina XDR da 6,1\". Colore: Bianco."
+      },
+      {
+        id: "prod8",
+        link: "https://amzn.to/3ZEqKut",
+        img: "https://m.media-amazon.com/images/I/61cUeqowwZL._AC_SL1500_.jpg",
+        nome: "Apple iPhone 16 Pro Max – 256 GB",
+        prezzo: "1.195,00€",
+        descrizione: "Telefono 5G con controllo fotocamera avanzato, registrazione video Dolby Vision 4K a 120 fps e autonomia senza precedenti. Compatibile con AirPods. Colore: Titanio Nero."
+      },
+      {
+        id: "prod9",
+        link: "https://amzn.to/43t1D0l",
+        img: "https://m.media-amazon.com/images/I/61BGE6iu4AL.__AC_SY445_SX342_QL70_ML2_.jpg",
+        nome: "Apple iPhone 14 Plus – 128 GB",
+        prezzo: "871,00€",
+        descrizione: "Smartphone Apple con 128 GB di memoria, display Super Retina XDR da 6,7\", ottime prestazioni e autonomia, colore Azzurro. Un mix di potenza e stile."
+      },
+      {
+        id: "prod10",
+        link: "https://amzn.to/4mBncTC",
+        img: "https://m.media-amazon.com/images/I/51v1hYXGsdL._AC_SL1500_.jpg",
+        nome: "Google Pixel 9 Pro XL",
+        prezzo: "879,00€",
+        descrizione: "Smartphone Android sbloccato con Gemini, sistema a tripla fotocamera posteriore, batteria con autonomia fino a 24 ore e display Super Actua da 6,8\". Colore: Grigio Verde. Memoria: 128GB."
+      },
+      {
+  id: "prod11",
+  link: "https://amzn.to/4mBncTC",
+  img: "https://m.media-amazon.com/images/I/51v1hYXGsdL._AC_SL1500_.jpg",
+  nome: "Google Pixel 9 Pro XL",
+  prezzo: "879,00€",
+  descrizione: "Smartphone Android sbloccato con Gemini, sistema a tripla fotocamera posteriore, batteria con autonomia fino a 24 ore e display Super Actua da 6,8\". Colore: Grigio Verde. Memoria: 128GB."
+},
+{
+  id: "prod12",
+  link: "https://amzn.to/4jlRfvO",
+  img: "https://m.media-amazon.com/images/I/71yzJoE7WlL._AC_SL1500_.jpg",
+  nome: "Apple iPhone 14 Pro Max – 128 GB (Ricondizionato)",
+  prezzo: "689,00€",
+  descrizione: "iPhone 14 Pro Max ricondizionato in ottime condizioni, con 128 GB di memoria e finitura Deep Purple. La qualità Apple con un ottimo risparmio."
+},
+{
+  id: "prod13",
+  link: "https://amzn.eu/d/j40eOtX",
+  img: "https://m.media-amazon.com/images/I/619HAuZ95QL._AC_SL1500_.jpg",
+  nome: "iPhone 16 (128GB) - Nero",
+  prezzo: "759€",
+  descrizione: "Altissima qualità Apple"
+},
+{
+  id: "prod14",
+  link: "https://amzn.to/3SnXwfz",
+  img: "https://m.media-amazon.com/images/I/41sNR0PJCaL._AC_SX569_.jpg",
+  nome: "SSC NAPOLI Maglietta Campioni",
+  prezzo: "30€",
+  descrizione: "Maglia ufficiale celebrativa"
+},
+{
+  id: "prod15",
+  link: "https://amzn.to/4kbOb6E",
+  img: "https://m.media-amazon.com/images/I/71BHou6YJKL._AC_SY879_.jpg",
+  nome: "Calvin Klein T-Shirt Uomo",
+  prezzo: "18€",
+  descrizione: "Stile minimal, 100% cotone"
+},
+{
+  id: "prod16",
+  link: "https://amzn.to/43xa5u6",
+  img: "https://m.media-amazon.com/images/I/51V1TTs1U2L._AC_SX569_.jpg",
+  nome: "adidas Squadra25 Jersey Short Sleeve T-Shirt Uomo",
+  prezzo: "14,99€ (prima 23,00€, -35%)",
+  descrizione: ""
+},
+{
+  id: "prod17",
+  link: "https://www.amazon.it/dp/B0F1P4F8SR/ref=cm_sw_r_as_gl_apa_gl_i_HYDVV9DGWX2M1DGRM3X2?linkCode=ml1&tag=tony6401-21",
+  img: "https://m.media-amazon.com/images/I/71GSwlTsPDL.__AC_SX300_SY300_QL70_ML2_.jpg",
+  nome: "Sunsilk Crema Onde Meravigliose Crema Styling Capelli Mossi, Effetto Anticrespo",
+  prezzo: "5,99€ (prima 32,34€, -81%)",
+  descrizione: "Styling perfetto per capelli mossi, effetto anticrespo a lunga durata."
+},
+{
+  id: "prod18",
+  link: "https://amzn.to/4kGcGJg",
+  img: "https://m.media-amazon.com/images/I/6171T++Z2mL._AC_SL1095_.jpg",
+  nome: "Caffè Borbone Cialda Compostabile, Miscela Oro - 100 Cialde",
+  prezzo: "15,19€ (prima 16,00€, -5%)",
+  descrizione: "Prezzo consigliato: 22,34€ -32% di sconto"
+},
+{
+  id: "prod19",
+  link: "https://amzn.to/3Fbh43W",
+  img: "https://m.media-amazon.com/images/I/8120xtA5GaL._AC_SL1500_.jpg",
+  nome: "King C. Gillette Kit REGOLABARBA UOMO",
+  prezzo: "27,37€",
+  descrizione: "Kit professionale: Testina, 3 Pettini Regolatori, Spazzolina, Caricatore. Rasoio elettrico, idea regalo."
+},
+{
+  id: "prod20",
+  link: "https://amzn.to/3Ssmcnb",
+  img: "https://m.media-amazon.com/images/I/31SLM5sJK4L.__AC_SY300_SX300_QL70_ML2_.jpg",
+  nome: "Samsung Galaxy S24 Ultra – 12GB / 256GB",
+  prezzo: "864,90€",
+  descrizione: "Smartphone top di gamma Samsung, 12GB RAM, 256GB memoria, colore Black. Prestazioni e design premium."
+}
+{
+  id: "prod21",
+  link: "https://amzn.to/3SUojjE",
+  img: "https://m.media-amazon.com/images/I/812azAWbm2L.__AC_SX300_SY300_QL70_ML2_.jpg",
+  nome: "Oral-B Testine Di Ricambio Original",
+  prezzo: "24,99€",
+  descrizione: "10 testine Pro Cross Action per spazzolino elettrico Oral-B, ricambio originale."
+}
+[
+  {
+    id: "prod22",
+    link: "https://amzn.to/4jhgwHr",
+    img: "https://m.media-amazon.com/images/I/51B45gaTgjL._AC_SL1000_.jpg",
+    nome: "Amazon Fire TV Stick HD",
+    prezzo: "28,99€",
+    descrizione: "Amazon Fire TV Stick HD (Ultimo modello), TV gratuita e in diretta, telecomando vocale Alexa, controlli per Casa Intelligente, streaming HD."
+  },
+  {
+    id: "prod23",
+    link: "https://amzn.to/4dCu1QL",
+    img: "https://m.media-amazon.com/images/I/618HDC8rPXL.__AC_SX300_SY300_QL70_ML2_.jpg",
+    nome: "Bronzi® Portafoglio Uomo Slim Piccolo",
+    prezzo: "22,99€",
+    descrizione: "Portacarte uomo e donna, portatessere con protezione RFID, porta carte di credito e portamonete. Mini, slim, con box regalo. Brand italiano di qualità."
+  },
+  {
+    id: "prod24",
+    link: "https://amzn.to/4kEfeHI",
+    img: "https://m.media-amazon.com/images/I/61oxHY8kFbL._AC_SX569_.jpg",
+    nome: "Vittorio Y Camicia Donna in Cotone e Lino",
+    prezzo: "19,99€",
+    descrizione: "Camicia casual tinta unita, comoda e traspirante, perfetta per la stagione calda. Resi gratuiti su Amazon."
+  },
+  {
+    id: "prod25",
+    link: "https://amzn.to/4dF2SwD",
+    img: "https://m.media-amazon.com/images/I/618FhFPg8+L._AC_SX575_.jpg",
+    nome: "Nike Air Force 1 '07 Lv8 4",
+    prezzo: "116,00€",
+    descrizione: "Scarpe da basket uomo, modello iconico Nike Air Force 1 con design classico e comfort duraturo."
+  },
+  {
+    id: "prod26",
+    link: "https://amzn.to/3Z7S8Rr",
+    img: "https://m.media-amazon.com/images/I/41vC0GMKWJL._AC_SY695_.jpg",
+    nome: "adidas Breaknet Lifestyle Court Lace Shoes",
+    prezzo: "28,80€",
+    descrizione: "Scarpe da tennis unisex per bambini e ragazzi. Prezzo più basso ultimi 30 giorni: 32,73€. Offerta a tempo con risparmio del 12% rispetto al prezzo recente."
+  },
+  {
+    id: "prod27",
+    link: "https://amzn.to/4dCt9LX",
+    img: "https://m.media-amazon.com/images/I/71XHPuLiHVL._AC_SY606_.jpg",
+    nome: "Nike Everyday Cush Crew Calze Uomo",
+    prezzo: "14,99€",
+    descrizione: "Calze da uomo Nike, modello Everyday Cush Crew, ideali per comfort quotidiano e performance sportive."
+  }
+]
+[
+  {
+    "id": "prod28",
+    "link": "https://amzn.to/4kFlpLJ",
+    "img": "https://m.media-amazon.com/images/I/71ZfLtLMYyL._AC_SX679_.jpg",
+    "nome": "Smart Sir Calzini Sportivi Uomo e Donna (4 paia)",
+    "prezzo": "9,49€",
+    "descrizione": "Calzini lunghi in cotone di alta qualità, comodi e traspiranti. Prezzo più basso ultimi 30 giorni: 9,99€. Offerta a tempo."
+  },
+  {
+    "id": "prod29",
+    "link": "https://amzn.to/3Z7eYZz",
+    "img": "https://m.media-amazon.com/images/I/51kcic+JN-L._AC_SL1095_.jpg.jpg",
+    "nome": "Caffè Borbone Respresso, Miscela Blu - 100 Capsule",
+    "prezzo": "19,49€",
+    "descrizione": "Caffè Borbone Respresso, Miscela Blu - 100 Capsule - Compatibili con le Macchine ad uso domestico Nespresso"
+  },
+  {
+    "id": "prod30",
+    "link": "https://amzn.to/43PvEHy",
+    "img": "https://m.media-amazon.com/images/I/81irfL63EQL.__AC_SX300_SY300_QL70_ML2_.jpg",
+    "nome": "Samsung Galaxy S22+ 5G – 128GB (Ricondizionato)",
+    "prezzo": "284,99€",
+    "descrizione": "Smartphone ricondizionato con SIM singola + e-SIM, colore Phantom Black, memoria 128GB. Risparmia 155,00€ rispetto al prezzo nuovo."
+  },
+  {
+    "id": "prod31",
+    "link": "https://amzn.to/3HsKGdy",
+    "img": "https://m.media-amazon.com/images/I/61CY-+ZEN6L._AC_SY300_SX300_.jpg",
+    "nome": "Samsung Galaxy S21 Ultra 5G – 128GB (Ricondizionato)",
+    "prezzo": "294,99€",
+    "descrizione": "Smartphone ricondizionato, RAM 12GB, Dual SIM (e-SIM), colore Nero. Ottima occasione con risparmio di 155,00€ rispetto al prezzo nuovo."
+  },
+  {
+    "id": "prod32",
+    "link": "https://amzn.to/3FcZUD1",
+    "img": "https://m.media-amazon.com/images/I/61pc4vR8BoL._AC_SL1500_.jpg",
+    "nome": "Samsung Galaxy A16",
+    "prezzo": "120,98€",
+    "descrizione": "Samsung Galaxy A16 Smartphone Android 14, Display Super AMOLED 6.7\" FHD+, 4GB RAM, 128GB, Batteria 5.000 mAh, Resistenza IP54, memoria espandibile fino a 1.5TB, Black"
+  },
+  {
+    "id": "prod33",
+    "link": "https://amzn.to/43ECrTf",
+    "img": "https://m.media-amazon.com/images/I/616+oTRo6-L._AC_SL1500_.jpg",
+    "nome": "Samsung Galaxy A56 5G",
+    "prezzo": "342,68€",
+    "descrizione": "Samsung Galaxy A56 5G, smartphone Android, 256 GB di memoria, 8 GB di RAM, antracite, aggiornamento del sistema operativo 6X, grande schermo, lunga durata della batteria"
+  },
+  {
+    "id": "prod34",
+    "link": "https://amzn.to/43gLxGT",
+    "img": "https://m.media-amazon.com/images/I/61waTtq8hCL._AC_SL1500_.jpg",
+    "nome": "GALAXY A26 5G – 8GB + 256GB",
+    "prezzo": "234,69€",
+    "descrizione": "Smartphone GALAXY A26 5G con 8GB di RAM e 256GB di memoria interna. Colore: Black."
+  },
+  {
+    "id": "prod35",
+    "link": "https://amzn.to/43RhVzW",
+    "img": "https://m.media-amazon.com/images/I/713AzRHXYeL._AC_SL1500_.jpg",
+    "nome": "UpCircle Cotton fioc di bambù – 200 pezzi –",
+    "prezzo": "5,49€",
+    "descrizione": "UpCircle Cotton fioc di bambù – 200 pezzi – biodegradabili, sostenibili, senza plastica, completamente riciclabili – un punto fermo per qualsiasi bagno"
+  }
+]
+[
+  {
+    "id": "prod36",
+    "link": "https://amzn.to/3FoIjIi",
+    "img": "https://m.media-amazon.com/images/I/61MKKroaphL.__AC_SX300_SY300_QL70_ML2_.jpg",
+    "nome": "Supradyn Energy Multivitaminico – 70 Caramelle",
+    "prezzo": "11,19€",
+    "descrizione": "Integratore multivitaminico con vitamine A, B, C, D, E e Coenzima Q10. 70 caramelle gommose al gusto ciliegia, lampone e arancia."
+  },
+  {
+    "id": "prod37",
+    "link": "https://amzn.to/4jnbTvu",
+    "img": "https://m.media-amazon.com/images/I/51HcFzY9EmL._AC_SL1080_.jpg",
+    "nome": "ZPAPER - 6 Rotoli Asciugamani",
+    "prezzo": "29,95€",
+    "descrizione": "Pura cellulosa, 2 veli, confezionati. Rotoloni asciugatutto multiuso per pulire i disastri."
+  },
+  {
+    "id": "prod38",
+    "link": "https://amzn.to/4jrHVq9",
+    "img": "https://m.media-amazon.com/images/I/91krk-VZlwL._AC_SL1500_.jpg",
+    "nome": "Amazon Basics Cerniera Sacchetti di stoccaggio sottovuoto",
+    "prezzo": "27,19€",
+    "descrizione": "20 unità con pompa a mano, per risparmiare spazio con efficienza e semplicità."
+  },
+  {
+    "id": "prod39",
+    "link": "https://amzn.to/43PsHqs",
+    "img": "https://m.media-amazon.com/images/I/7107Ze-04CL._AC_SL1500_.jpg",
+    "nome": "Amazon Basics - 8 Batterie Ricaricabili AA NiMH",
+    "prezzo": "13,52€",
+    "descrizione": "2000 mAh, ricaricabili fino a 1000 volte, pre-caricate e pronte all'uso."
+  },
+  {
+    "id": "prod40",
+    "link": "https://amzn.to/44Xo3rC",
+    "img": "https://m.media-amazon.com/images/I/812hFM3JmTL._AC_SL1500_.jpg",
+    "nome": "Fabuloso Ammorbidente Concentrato - 4x1,25L",
+    "prezzo": "18,72€",
+    "descrizione": "Profumo Fresco Mattino, 224 lavaggi. Fragranza attivata dal movimento, facilita la stiratura e lascia i capi morbidi e profumati."
+  },
+  {
+    "id": "prod41",
+    "link": "https://amzn.to/4mChp0i",
+    "img": "https://m.media-amazon.com/images/I/61QKPdoU5TL.__AC_SX300_SY300_QL70_ML2_.jpg",
+    "nome": "ZPAPER - 60 Rotoli di Carta Igienica",
+    "prezzo": "32,36€",
+    "descrizione": "60 rotoli, 250 fogli per rotolo, 2 veli, morbida e resistente. Ideale per casa o ufficio."
+  },
+  {
+    "id": "prod42",
+    "link": "https://amzn.to/3Hfvl04",
+    "img": "https://m.media-amazon.com/images/I/617i66nvMxL._AC_SY741_.jpg",
+    "nome": "Vitamina B12 Vegan 365 Compresse PiùLife",
+    "prezzo": "14,30€",
+    "descrizione": "Vitamina B12 Cianocobalamina, per sistema immunitario e riduzione stanchezza fisica e mentale. 1000 mcg."
+  },
+  {
+    "id": "prod43",
+    "link": "https://amzn.to/4dM4hSk",
+    "img": "https://m.media-amazon.com/images/I/71uuRXQz1JL._AC_SL1500_.jpg",
+    "nome": "Magnesio Citrato Vegano Tamponato (240 Capsule)",
+    "prezzo": "17,09€",
+    "descrizione": "Con 444mg polvere elementare, riduce stanchezza e affaticamento, senza additivi né glutine."
+  },
+  {
+    "id": "prod44",
+    "link": "https://amzn.to/4jq1SOj",
+    "img": "https://m.media-amazon.com/images/I/71GXfnVPsPL.__AC_SX300_SY300_QL70_ML2_.jpg",
+    "nome": "Zzzquil Natura Integratore Per Il Sonno",
+    "prezzo": "36,99€",
+    "descrizione": "Melatonina con estratti di lavanda, valeriana e camomilla. Maxi formato 2x72 pastiglie gommose per favorire il sonno."
+  }
+]
+[
+  {
+    "id": "prod45",
+    "link": "https://amzn.to/3Z3U39Q",
+    "img": "https://m.media-amazon.com/images/I/71NY7I+OLQL._AC_SY300_SX300_.jpg",
+    "nome": "Novanight Tripla Azione Melatonina per Dormire",
+    "prezzo": "23,21€",
+    "descrizione": "Integratore per disturbi del sonno, senza glutine. Contiene melatonina, escolzia, passiflora e melissa. Non induce dipendenza."
+  },
+  {
+    "id": "prod46",
+    "link": "https://amzn.to/43PEXay",
+    "img": "https://m.media-amazon.com/images/I/61NUQEFRTFL._AC_SX522_.jpg",
+    "nome": "SWISSE Ultivit - Multivitaminico Ragazza (60 Compresse)",
+    "prezzo": "13,46€",
+    "descrizione": "Multivitaminico con zinco e vitamine per riduzione stanchezza e supporto sistema immunitario. Integratore con ferro, made in Italy."
+  },
+  {
+    "id": "prod47",
+    "link": "https://amzn.to/4mAMTnv",
+    "img": "https://m.media-amazon.com/images/I/51AyIO7mVXL._AC_SX569_.jpg",
+    "nome": "N-K PULABO Anello Intelligente Temperatura In Acciaio Inox",
+    "prezzo": "1,82€",
+    "descrizione": "Anello per coppie e amanti, cambia colore in base alla temperatura e all’umore. Unisex, in acciaio inox di alta qualità e design alla moda."
+  },
+  {
+    "id": "prod48",
+    "link": "https://amzn.to/4jlkrDe",
+    "img": "https://m.media-amazon.com/images/I/81Ev1JwtPhL._AC_SX569_.jpg",
+    "nome": "Amazon Essentials T-Shirt Basic Uomo - Pacco da 6",
+    "prezzo": "25,99€",
+    "descrizione": "Magliette girocollo in cotone, versatili e morbide, ideali per ogni occasione. Qualità Amazon Essentials in un conveniente pacco da 6."
+  },
+  {
+    "id": "prod49",
+    "link": "https://amzn.to/3SUAqNE",
+    "img": "https://m.media-amazon.com/images/I/61KSB-CGSyL._AC_SX569_.jpg",
+    "nome": "ALPIDEX T-Shirt Uomo - Confezione da 5",
+    "prezzo": "39,99€",
+    "descrizione": "Magliette da uomo con girocollo disponibili in varie taglie dalla S alla 5XL. Perfette per tutti i giorni, comode e resistenti."
+  },
+  {
+    "id": "prod50",
+    "link": "https://amzn.to/3Z60eKn",
+    "img": "https://m.media-amazon.com/images/I/81Auh7uuz1L._AC_SX466_.jpg",
+    "nome": "Amazon Essentials Felpa con Cappuccio Donna",
+    "prezzo": "19,60€",
+    "descrizione": "Felpa da donna in pile, con cappuccio e cerniera. Calda, comoda e ideale per l’uso quotidiano. Disponibile in vari colori e taglie."
+  },
+  {
+    "id": "prod51",
+    "link": "https://amzn.to/43qkEio",
+    "img": "https://m.media-amazon.com/images/I/61V8VUE1dFL.__AC_SX300_SY300_QL70_ML2_.jpg",
+    "nome": "Amazfit Bip 5 Smartwatch 46 mm",
+    "prezzo": "57,99€",
+    "descrizione": "Smartwatch con schermo grande, chiamate Bluetooth, Alexa integrata, GPS, durata batteria 10 giorni, fitness tracker con battito cardiaco e monitoraggio ossigeno nel sangue."
+  }
+]
+[
+  {
+    "id": "prod52",
+    "link": "https://amzn.to/4jlczlj",
+    "img": "https://m.media-amazon.com/images/I/51Kmnt241oL.__AC_SX300_SY300_QL70_ML2_.jpg",
+    "nome": "Imou 3MP Telecamera Wi-Fi Interno",
+    "prezzo": "22,99€",
+    "descrizione": "Videocamera di sorveglianza 2K con tracciamento del movimento, rilevamento umano, audio bidirezionale e connessione 2,4GHz. Perfetta per la sicurezza domestica."
+  },
+  {
+    "id": "prod53",
+    "link": "https://amzn.to/43GhYgW",
+    "img": "https://m.media-amazon.com/images/I/81UE75N+r1L._AC_SL1500_.jpg",
+    "nome": "SEHMUA 4G LTE Telecamera Esterno senza Fili, Telecamera con Sim, 2K 360 PTZ, con Pannello Solare e Batterie",
+    "prezzo": "51,43€",
+    "prezzo_originale": "79,99€",
+    "sconto": "-36%",
+    "descrizione": "Marca: SEHMUA. 4,3 su 5 stelle (134 recensioni). Amazon Choice. 200+ acquistati nel mese scorso. Offerta a tempo! Prezzo più basso ultimi 30 giorni: 54,14€"
+  },
+  {
+    "id": "prod54",
+    "link": "https://amzn.to/4kg3QC7",
+    "img": "https://m.media-amazon.com/images/I/71dy+yYz4iL._AC_SX522_.jpg",
+    "nome": "Amazon Essentials Maglietta Intima con Scollo A V",
+    "prezzo": "25,99€",
+    "descrizione": "Pacco da 6 magliette intime da uomo, traspiranti e in cotone, perfette per il comfort quotidiano."
+  },
+  {
+    "id": "prod55",
+    "link": "https://amzn.to/4mB7UhK",
+    "img": "https://m.media-amazon.com/images/I/71b8mpCMTOL.__AC_SX300_SY300_QL70_ML2_.jpg",
+    "nome": "by Amazon Quinoa biologica, 500g",
+    "prezzo": "5,49€",
+    "descrizione": ""
+  }
+]
+    ];
 
-   <div class="product-card">
-  <a href="https://amzn.to/3ZAt8T4" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/61Wj-1t3TwL._AC_SL1500_.jpg" alt="SAMSUNG Galaxy S25 Edge" class="product-img">
-    <h3>SAMSUNG Galaxy S25 Edge</h3>
-    <p class="price">1.299,00€</p>
-    <p>Smartphone AI con display 6.7'' QHD+ Dynamic AMOLED 2X, fotocamera da 200MP, RAM 12GB, memoria interna da 512GB, batteria da 3.900 mAh. Include 3 anni di garanzia del produttore. Colore: Titanium Jetblack.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
+    // --- UTENTE ---
+    function getUser() {
+      return JSON.parse(localStorage.getItem('cronoshop_user') || 'null');
+    }
+    function getUsername() {
+      const user = getUser();
+      return user && user.username ? user.username : "ospite";
+    }
 
-    <div class="product-card">
-  <a href="https://amzn.to/45gPEUX" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/61y0hmQWlsL._AC_SL1500_.jpg" alt="Samsung Galaxy S25+ Smartphone AI" class="product-img">
-    <h3>Samsung Galaxy S25+ Smartphone AI</h3>
-    <p class="price">1.189,00€</p>
-    <p>Smartphone AI con display 6.7'' QHD+ Dynamic AMOLED 2X, fotocamera da 50MP, RAM 12GB, memoria interna da 512GB, batteria da 4.900 mAh. Include 3 anni di garanzia del produttore. Colore: Silver Shadow. Versione italiana.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-      
-    <div class="product-card">
-  <a href="https://amzn.to/3Z6Kc2W" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/610vqacJO2L.__AC_SY445_SX342_QL70_ML2_.jpg" alt="Apple iPhone 16e 128 GB" class="product-img">
-    <h3>Apple iPhone 16e – 128 GB</h3>
-    <p class="price">699,00€</p>
-    <p>Progettato per Apple Intelligence, dotato di chip A18, autonomia grandiosa, fotocamera Fusion da 48MP e display Super Retina XDR da 6,1". Colore: Bianco.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
+    // --- MI PIACE E CARRELLO ---
+    function getLikes() {
+      return JSON.parse(localStorage.getItem('cronoshop_likes') || '{}');
+    }
+    function setLikes(likes) {
+      localStorage.setItem('cronoshop_likes', JSON.stringify(likes));
+    }
+    function getCart() {
+      return JSON.parse(localStorage.getItem('cronoshop_cart') || '[]');
+    }
+    function setCart(cart) {
+      localStorage.setItem('cronoshop_cart', JSON.stringify(cart));
+    }
 
+    // --- PUNTI E CLASSIFICA ---
+    function getPoints() {
+      return JSON.parse(localStorage.getItem('cronoshop_points') || '{}');
+    }
+    function setPoints(points) {
+      localStorage.setItem('cronoshop_points', JSON.stringify(points));
+    }
 
-  <div class="product-card">
-  <a href="https://amzn.to/3ZEqKut" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/61cUeqowwZL._AC_SL1500_.jpg" alt="Apple iPhone 16 Pro Max" class="product-img">
-    <h3>Apple iPhone 16 Pro Max – 256 GB</h3>
-    <p class="price">1.195,00€</p>
-    <p>Telefono 5G con controllo fotocamera avanzato, registrazione video Dolby Vision 4K a 120 fps e autonomia senza precedenti. Compatibile con AirPods. Colore: Titanio Nero.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
+    // --- RENDER PRODOTTI ---
+    function renderProducts() {
+      const likes = getLikes();
+      const cart = getCart();
+      const grid = document.getElementById('product-grid');
+      grid.innerHTML = '';
+      prodotti.forEach(prod => {
+        const liked = likes[prod.id] === true;
+        const inCart = cart.includes(prod.id);
+        const priceHtml = prod.prezzo.toString().includes('<span') ? prod.prezzo : `<span class="price">${prod.prezzo}</span>`;
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+          <img src="${prod.img}" alt="${prod.nome}" class="product-img">
+          <h3>${prod.nome}</h3>
+          <p class="price">${priceHtml}</p>
+          <p>${prod.descrizione}</p>
+          <button class="like-btn${liked ? ' liked' : ''}" data-id="${prod.id}">${liked ? '❤️' : '🤍'} Mi piace</button>
+          <button class="cart-btn${inCart ? ' added' : ''}" data-id="${prod.id}">${inCart ? 'Aggiunto!' : 'Aggiungi al carrello'}</button>
+          <a href="${prod.link}" class="amazon-link" data-id="${prod.id}" target="_blank" rel="noopener noreferrer">
+            <button class="amazon-link-btn">Compra su Amazon</button>
+          </a>
+        `;
+        grid.appendChild(card);
+      });
+    }
 
-   <div class="product-card">
-  <a href="https://amzn.to/43t1D0l" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/61BGE6iu4AL.__AC_SY445_SX342_QL70_ML2_.jpg" alt="Apple iPhone 14 Plus 128 GB Azzurro" class="product-img">
-    <h3>Apple iPhone 14 Plus – 128 GB</h3>
-    <p class="price">871,00€</p>
-    <p>Smartphone Apple con 128 GB di memoria, display Super Retina XDR da 6,7", ottime prestazioni e autonomia, colore Azzurro. Un mix di potenza e stile.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
+    // --- EVENTI ---
+    document.addEventListener('click', function(e) {
+      // Mi piace
+      if (e.target.classList.contains('like-btn')) {
+        const id = e.target.getAttribute('data-id');
+        const likes = getLikes();
+        likes[id] = !likes[id];
+        setLikes(likes);
+        renderProducts();
+      }
+      // Carrello
+      if (e.target.classList.contains('cart-btn')) {
+        const id = e.target.getAttribute('data-id');
+        let cart = getCart();
+        if (!cart.includes(id)) {
+          cart.push(id);
+        } else {
+          cart = cart.filter(pid => pid !== id);
+        }
+        setCart(cart);
+        renderProducts();
+      }
+      // Tracciamento click Amazon
+      if (e.target.closest('.amazon-link')) {
+        const id = e.target.closest('.amazon-link').getAttribute('data-id');
+        addPoint(getUsername());
+        updateRanking();
+      }
+    });
 
+    // --- PUNTI E CLASSIFICA ---
+    function addPoint(username) {
+      const points = getPoints();
+      if (!points[username]) points[username] = 0;
+      points[username]++;
+      setPoints(points);
+      updateUserScore();
+    }
+    function updateUserScore() {
+      const points = getPoints();
+      const username = getUsername();
+      const score = points[username] || 0;
+      document.getElementById('user-score').textContent = `Il tuo punteggio: ${score} punto${score === 1 ? '' : 'i'}`;
+    }
+    function updateRanking() {
+      const points = getPoints();
+      const ranking = Object.entries(points)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 10);
+      const list = document.getElementById('ranking-list');
+      list.innerHTML = '';
+      ranking.forEach(([user, score], i) => {
+        list.innerHTML += `<li>${i === 0 ? '🏆 ' : ''}${user} <span style="color:#0071e3;font-weight:600;">${score}</span></li>`;
+      });
+    }
 
-
-   <div class="product-card">
-  <a href="https://amzn.to/4mBncTC" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/51v1hYXGsdL._AC_SL1500_.jpg" alt="Google Pixel 9 Pro XL" class="product-img">
-    <h3>Google Pixel 9 Pro XL</h3>
-    <p class="price">879,00€</p>
-    <p>Smartphone Android sbloccato con Gemini, sistema a tripla fotocamera posteriore, batteria con autonomia fino a 24 ore e display Super Actua da 6,8". Colore: Grigio Verde. Memoria: 128GB.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
-  <div class="product-card">
-  <a href="https://amzn.to/4jlRfvO" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/71yzJoE7WlL._AC_SL1500_.jpg" alt="Apple iPhone 14 Pro Max Ricondizionato" class="product-img">
-    <h3>Apple iPhone 14 Pro Max – 128 GB (Ricondizionato)</h3>
-    <p class="price">689,00€</p>
-    <p>iPhone 14 Pro Max ricondizionato in ottime condizioni, con 128 GB di memoria e finitura Deep Purple. La qualità Apple con un ottimo risparmio.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
-
-    <!-- Prodotto 3 -->
-    <div class="product-card">
-      <a href="https://amzn.eu/d/j40eOtX" target="_blank">
-        <img src="https://m.media-amazon.com/images/I/619HAuZ95QL._AC_SL1500_.jpg" alt="iPhone 16" class="product-img">
-        <h3>iPhone 16 (128GB) - Nero</h3>
-        <p class="price">759€</p>
-        <p>Altissima qualità Apple</p>
-        <button>Compra su Amazon</button>
-      </a>
-    </div>
-
-    <!-- Prodotto 4 -->
-    <div class="product-card">
-      <a href="https://amzn.to/3SnXwfz" target="_blank">
-        <img src="https://m.media-amazon.com/images/I/41sNR0PJCaL._AC_SX569_.jpg" alt="T-shirt Napoli" class="product-img">
-        <h3>SSC NAPOLI Maglietta Campioni</h3>
-        <p class="price">30€</p>
-        <p>Maglia ufficiale celebrativa</p>
-        <button>Compra su Amazon</button>
-      </a>
-    </div>
-
-    <!-- Prodotto 5 -->
-    <div class="product-card">
-      <a href="https://amzn.to/4kbOb6E" target="_blank">
-        <img src="https://m.media-amazon.com/images/I/71BHou6YJKL._AC_SY879_.jpg" alt="Calvin Klein Tee" class="product-img">
-        <h3>Calvin Klein T-Shirt Uomo</h3>
-        <p class="price">18€</p>
-        <p>Stile minimal, 100% cotone</p>
-        <button>Compra su Amazon</button>
-      </a>
-    </div>
-
-      <div class="product-card">
-  <a href="https://amzn.to/43xa5u6" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/51V1TTs1U2L._AC_SX569_.jpg" alt="adidas Squadra25 Jersey Short Sleeve T-Shirt Uomo" class="product-img">
-    <h3>adidas Squadra25 Jersey Short Sleeve T-Shirt Uomo</h3>
-    <p class="price">14,99€ <span style="text-decoration: line-through; color: #888; font-size: 0.9em;">23,00€</span> <strong style="color: #d32f2f;">-35%</strong></p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-      
-      <div class="product-card">
-  <a href="https://www.amazon.it/dp/B0F1P4F8SR/ref=cm_sw_r_as_gl_apa_gl_i_HYDVV9DGWX2M1DGRM3X2?linkCode=ml1&tag=tony6401-21" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/71GSwlTsPDL.__AC_SX300_SY300_QL70_ML2_.jpg" alt="Sunsilk Crema Onde Meravigliose" class="product-img">
-    <h3>💥 💣 POTREBBE TERMINARE SUBITO 💣 Sunsilk Crema Onde Meravigliose Crema Styling Capelli Mossi, Effetto Anticrespo</h3>
-    <p class="price">
-      <span style="text-decoration: line-through; color: #888;">32,34€</span>
-      <span style="color: #007aff; font-weight: bold;">5,99€</span>
-      <span style="color: red; font-weight: bold;">-81%</span>
-    </p>
-    <p>⚡️ Sunsilk Crema Onde Meravigliose: Styling perfetto per capelli mossi, effetto anticrespo a lunga durata!</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
-
-    <div class="product-card">
-      <a href="https://amzn.to/3SUojjE" target="_blank">
-        <img src="https://m.media-amazon.com/images/I/812azAWbm2L.__AC_SX300_SY300_QL70_ML2_.jpg" alt="Cambiami" class="product-img">
-        <h3>Oral-B Testine Di Ricambio Original</h3>
-        <p class="price">24,99€</p>
-        <p>Oral-B Testine Di Ricambio Originali per Spazzolino Elettrico, 10 Testine Pro Cross Action</p>
-        <button>Compra su Amazon</button>
-      </a>
-    </div>
-
-      <div class="product-card">
-  <a href="https://amzn.to/4kGcGJg" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/6171T++Z2mL._AC_SL1095_.jpg" alt="Caffè Borbone Cialda Compostabile Miscela Oro - 100 Cialde" class="product-img">
-    <h3>Caffè Borbone Cialda Compostabile, Miscela Oro - 100 Cialde</h3>
-    <p class="price">15,19€ <span style="text-decoration: line-through; color: #888; font-size: 0.9em;">16,00€</span> <strong style="color: #d32f2f;">-5%</strong></p>
-    <p>Prezzo consigliato: 22,34€ -32% di sconto</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
-    <div class="product-card">
-      <a href="https://amzn.to/3Fbh43W" target="_blank">
-        <img src="https://m.media-amazon.com/images/I/8120xtA5GaL._AC_SL1500_.jpg" alt="Cambiami" class="product-img">
-        <h3>King C. Gillette Kit REGOLABARBA UOMO</h3>
-        <p class="price">27,37€</p>
-        <p>King C. Gillette Kit REGOLABARBA UOMO, 1 Testina, 3 Pettini Regolatori, 1 Spazzolina, 1 Caricatore, RASOIO BARBA ELETTRICO, Idea Regalo Uomo Kit professionale</p>
-        <button>Compra su Amazon</button>
-      </a>
-    </div>
-
-    <div class="product-card">
-  <a href="https://amzn.to/3Ssmcnb" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/31SLM5sJK4L.__AC_SY300_SX300_QL70_ML2_.jpg" alt="Samsung Galaxy S24 Ultra Black" class="product-img">
-    <h3>Samsung Galaxy S24 Ultra – 12GB / 256GB</h3>
-    <p class="price">864,90€</p>
-    <p>Smartphone Samsung top di gamma con 12GB di RAM e 256GB di memoria interna. Colore: Black. Prestazioni eccezionali e design premium.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
-    <div class="product-card"> 
-      <a href="https://amzn.to/4jhgwHr" target="_blank">
-        <img src="https://m.media-amazon.com/images/I/51B45gaTgjL._AC_SL1000_.jpg" alt="Cambiami" class="product-img">
-        <h3>Amazon Fire TV Stick HD</h3>
-        <p class="price">28,99€</p>
-        <p>Amazon Fire TV Stick HD (Ultimo modello), TV gratuita e in diretta, telecomando vocale Alexa, controlli per Casa Intelligente, streaming HD</p>
-        <button>Compra su Amazon</button>
-      </a>
-    </div>
-
-      <div class="product-card">
-  <a href="https://amzn.to/4dCu1QL" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/618HDC8rPXL.__AC_SX300_SY300_QL70_ML2_.jpg" alt="Bronzi Portafoglio Uomo Slim Piccolo" class="product-img">
-    <h3>Bronzi® Portafoglio Uomo Slim Piccolo</h3>
-    <p class="price">22,99€ <span style="text-decoration: line-through; color: #888; font-size: 0.9em;">34,00€</span> <strong style="color: #d32f2f;">-32%</strong></p>
-    <p>Portacarte uomo e donna, portatessere con protezione RFID, porta carte di credito e portamonete. Mini, slim, con box regalo. Brand italiano di qualità.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
-    <div class="product-card">
-  <a href="https://amzn.to/4kEfeHI" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/61oxHY8kFbL._AC_SX569_.jpg" alt="Vittorio Y Camicia Donna in Cotone e Lino" class="product-img">
-    <h3>Vittorio Y Camicia Donna in Cotone e Lino</h3>
-    <p class="price">19,99€</p>
-    <p>Camicia casual tinta unita, comoda e traspirante, perfetta per la stagione calda. Resi gratuiti su Amazon.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
-    <div class="product-card">
-  <a href="https://amzn.to/4dF2SwD" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/618FhFPg8+L._AC_SX575_.jpg" alt="Nike Air Force 1 '07 Lv8 4 Scarpe da Basket Uomo" class="product-img">
-    <h3>Nike Air Force 1 '07 Lv8 4</h3>
-    <p class="price">116,00€</p>
-    <p>Scarpe da basket uomo, modello iconico Nike Air Force 1 con design classico e comfort duraturo.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
-
-    <div class="product-card">
-  <a href="https://amzn.to/3Z7S8Rr" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/41vC0GMKWJL._AC_SY695_.jpg" alt="adidas Breaknet Lifestyle Court Lace Shoes" class="product-img">
-    <h3>adidas Breaknet Lifestyle Court Lace Shoes</h3>
-    <p class="price">28,80€ <span style="text-decoration: line-through; color: #888; font-size: 0.9em;">45,00€</span> <strong style="color: #d32f2f;">-36%</strong></p>
-    <p>Scarpe da tennis unisex per bambini e ragazzi. Prezzo più basso ultimi 30 giorni: 32,73€. Offerta a tempo con risparmio del 12% rispetto al prezzo recente.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
-    <div class="product-card">
-  <a href="https://amzn.to/4dCt9LX" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/71XHPuLiHVL._AC_SY606_.jpg" alt="Nike Everyday Cush Crew Calze Uomo" class="product-img">
-    <h3>Nike Everyday Cush Crew Calze Uomo</h3>
-    <p class="price">14,99€</p>
-    <p>Calze da uomo Nike, modello Everyday Cush Crew, ideali per comfort quotidiano e performance sportive.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-      <div class="product-card">
-  <a href="https://amzn.to/4kFlpLJ" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/71ZfLtLMYyL._AC_SX679_.jpg" alt="Smart Sir Calzini Sportivi Uomo e Donna" class="product-img">
-    <h3>Smart Sir Calzini Sportivi Uomo e Donna (4 paia)</h3>
-    <p class="price">9,49€ <span style="text-decoration: line-through; color: #888; font-size: 0.9em;">9,99€</span> <strong style="color: #d32f2f;">-5%</strong></p>
-    <p>Calzini lunghi in cotone di alta qualità, comodi e traspiranti. Prezzo più basso ultimi 30 giorni: 9,99€. Offerta a tempo.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
-   <div class="product-card">
-      <a href="https://amzn.to/3Z7eYZz" target="_blank">
-        <img src="https://m.media-amazon.com/images/I/51kcic+JN-L._AC_SL1095_.jpg.jpg" alt="Cambiami" class="product-img">
-        <h3>Caffè Borbone Respresso, Miscela Blu - 100 Capsule</h3>
-        <p class="price">19,49€</p>
-        <p>Caffè Borbone Respresso, Miscela Blu - 100 Capsule - Compatibili con le Macchine ad uso domestico Nespresso </p>
-        <button>Compra su Amazon</button>
-      </a>
-    </div>
-
-    <div class="product-card">
-  <a href="https://amzn.to/43PvEHy" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/81irfL63EQL.__AC_SX300_SY300_QL70_ML2_.jpg" alt="Samsung Galaxy S22+ 5G 128GB Phantom Black Ricondizionato" class="product-img">
-    <h3>Samsung Galaxy S22+ 5G – 128GB (Ricondizionato)</h3>
-    <p class="price">284,99€ <span style="text-decoration: line-through; color: #888; font-size: 0.9em;">439,99€</span> <strong style="color: #d32f2f;">-35%</strong></p>
-    <p>Smartphone ricondizionato con SIM singola + e-SIM, colore Phantom Black, memoria 128GB. Risparmia 155,00€ rispetto al prezzo nuovo.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
-    <div class="product-card">
-  <a href="https://amzn.to/3HsKGdy" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/61CY-+ZEN6L._AC_SY300_SX300_.jpg" alt="Samsung Galaxy S21 Ultra 5G 128GB Ricondizionato" class="product-img">
-    <h3>Samsung Galaxy S21 Ultra 5G – 128GB (Ricondizionato)</h3>
-    <p class="price">294,99€ <span style="text-decoration: line-through; color: #888; font-size: 0.9em;">449,99€</span> <strong style="color: #d32f2f;">-34%</strong></p>
-    <p>Smartphone ricondizionato, RAM 12GB, Dual SIM (e-SIM), colore Nero. Ottima occasione con risparmio di 155,00€ rispetto al prezzo nuovo.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
-
-
-  <div class="product-card">
-      <a href="https://amzn.to/3FcZUD1" target="_blank">
-        <img src="https://m.media-amazon.com/images/I/61pc4vR8BoL._AC_SL1500_.jpg" alt="Cambiami" class="product-img">
-        <h3>Samsung Galaxy A16 </h3>
-        <p class="price">120,98€</p>
-        <p>Samsung Galaxy A16 Smartphone Android 14, Display Super AMOLED 6.7" FHD+, 4GB RAM, 128GB, Batteria 5.000 mAh, Resistenza IP54, memoria espandibile fino a 1.5TB, Black</p>
-        <button>Compra su Amazon</button>
-      </a>
-    </div>
-
-  <div class="product-card">
-      <a href="https://amzn.to/43ECrTf" target="_blank">
-        <img src="https://m.media-amazon.com/images/I/616+oTRo6-L._AC_SL1500_.jpg" alt="Cambiami" class="product-img">
-        <h3>Samsung Galaxy A56 5G</h3>
-        <p class="price">342,68€</p>
-        <p>Samsung Galaxy A56 5G, smartphone Android, 256 GB di memoria, 8 GB di RAM, antracite, aggiornamento del sistema operativo 6X, grande schermo, lunga durata della batteria</p>
-        <button>Compra su Amazon</button>
-      </a>
-    </div>
-
-    <div class="product-card">
-  <a href="https://amzn.to/43gLxGT" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/61waTtq8hCL._AC_SL1500_.jpg" alt="GALAXY A26 5G Black" class="product-img">
-    <h3>GALAXY A26 5G – 8GB + 256GB</h3>
-    <p class="price">234,69€</p>
-    <p>Smartphone GALAXY A26 5G con 8GB di RAM e 256GB di memoria interna. Colore: Black.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
-
-  <div class="product-card">
-      <a href="https://amzn.to/43RhVzW" target="_blank">
-        <img src="https://m.media-amazon.com/images/I/713AzRHXYeL._AC_SL1500_.jpg" alt="Cambiami" class="product-img">
-        <h3>UpCircle Cotton fioc di bambù – 200 pezzi –</h3>
-        <p class="price">5,49€</p>
-        <p>UpCircle Cotton fioc di bambù – 200 pezzi – biodegradabili, sostenibili, senza plastica, completamente riciclabili – un punto fermo per qualsiasi bagno</p>
-        <button>Compra su Amazon</button>
-      </a>
-    </div>
-
-    <div class="product-card">
-  <a href="https://amzn.to/3FoIjIi" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/61MKKroaphL.__AC_SX300_SY300_QL70_ML2_.jpg" alt="Supradyn Energy Multivitaminico Caramelle" class="product-img">
-    <h3>Supradyn Energy Multivitaminico – 70 Caramelle</h3>
-    <p class="price">11,19€</p>
-    <p>Integratore multivitaminico completo con vitamine A, B, C, D, E e Coenzima Q10. 70 caramelle gommose al gusto ciliegia, lampone e arancia. Energia e benessere quotidiano in formato divertente.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
-
-  <div class="product-card">
-      <a href="https://amzn.to/4jnbTvu" target="_blank">
-        <img src="https://m.media-amazon.com/images/I/51HcFzY9EmL._AC_SL1080_.jpg" alt="Cambiami" class="product-img">
-        <h3>ZPAPER - 6 Rotoli Asciugamani</h3>
-        <p class="price">29,95€</p>
-        <p>ZPAPER - 6 Rotoli Asciugamani - Pura Cellulosa, 2 Veli, Confezionati. Rotoloni Asciugatutto Asciugamano Multiuso</p>
-        <button>Compra su Amazon</button>
-      </a>
-    </div>
-      
- <div class="product-card">
-  <a href="https://amzn.to/4jrHVq9" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/91krk-VZlwL._AC_SL1500_.jpg" alt="Amazon Basics Cerniera Sacchetti" class="product-img">
-    <h3>Amazon Basics Cerniera Sacchetti di stoccaggio sottovuoto</h3>
-    <p class="price">27,19€</p>
-    <p>20 unità con pompa a mano - Ideali per risparmiare spazio con efficienza e semplicità.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
- <div class="product-card">
-  <a href="https://amzn.to/43PsHqs" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/7107Ze-04CL._AC_SL1500_.jpg" alt="Amazon Basics Batterie AA" class="product-img">
-    <h3>Amazon Basics - 8 Batterie Ricaricabili AA NiMH</h3>
-    <p class="price">13,52€</p>
-    <p>2000 mAh, ricaricabili fino a 1000 volte, pre-caricate e pronte all'uso.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
- <div class="product-card">
-  <a href="https://amzn.to/44Xo3rC" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/812hFM3JmTL._AC_SL1500_.jpg" alt="Fabuloso Ammorbidente" class="product-img">
-    <h3>Fabuloso Ammorbidente Concentrato - 4x1,25L</h3>
-    <p class="price">18,72€</p>
-    <p>Profumo Fresco Mattino, 224 lavaggi. Fragranza attivata dal movimento, facilita la stiratura e lascia i capi morbidi e profumati per settimane.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-      <div class="product-card">
-  <a href="https://amzn.to/4mChp0i" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/61QKPdoU5TL.__AC_SX300_SY300_QL70_ML2_.jpg" alt="ZPAPER - 60 Rotoli di Carta Igienica" class="product-img">
-    <h3>ZPAPER - 60 Rotoli di Carta Igienica</h3>
-    <p class="price">32,36€</p>
-    <p>60 rotoli, 250 fogli per rotolo, 2 veli, morbida e resistente. Ideale per casa o ufficio.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
-      <div class="product-card">
-  <a href="https://amzn.to/3Hfvl04" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/617i66nvMxL._AC_SY741_.jpg" alt="Vitamina B12 Vegan 365 Compresse PiùLife" class="product-img">
-    <h3>Vitamina B12 Vegan 365 Compresse PiùLife</h3>
-    <p class="price">14,30€ <span style="text-decoration: line-through; color: #888; font-size: 0.9em;">15,90€</span> <strong style="color: #d32f2f;">-10%</strong></p>
-    <p>Vitamina B12 Cianocobalamina, integratore per sistema immunitario, sintesi globuli rossi, riduzione stanchezza fisica e mentale. 1000 mcg.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
-      <div class="product-card">
-  <a href="https://amzn.to/4dM4hSk" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/71uuRXQz1JL._AC_SL1500_.jpg" alt="Magnesio Citrato Vegano Tamponato (240 Capsule)" class="product-img">
-    <h3>Magnesio Citrato Vegano Tamponato (240 Capsule)</h3>
-    <p class="price">17,09€ <span style="text-decoration: line-through; color: #888; font-size: 0.9em;">17,99€</span> <strong style="color: #d32f2f;">-5%</strong></p>
-    <p>Magnesio con 444mg di polvere elementare, contribuisce alla riduzione di stanchezza e affaticamento, senza additivi né glutine.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
-      <div class="product-card">
-  <a href="https://amzn.to/4jq1SOj" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/71GXfnVPsPL.__AC_SX300_SY300_QL70_ML2_.jpg" alt="Zzzquil Natura Integratore Per Il Sonno" class="product-img">
-    <h3>Zzzquil Natura Integratore Per Il Sonno</h3>
-    <p class="price">36,99€ <span style="text-decoration: line-through; color: #888; font-size: 0.9em;">44,32€</span> <strong style="color: #d32f2f;">-17%</strong></p>
-    <p>Integratore con melatonina, estratti di lavanda, valeriana e camomilla. Maxi formato 2x72 pastiglie gommose per favorire il sonno.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
-      <div class="product-card">
-  <a href="https://amzn.to/3Z3U39Q" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/71NY7I+OLQL._AC_SY300_SX300_.jpg" alt="Novanight Tripla Azione Melatonina per Dormire" class="product-img">
-    <h3>Novanight Tripla Azione Melatonina per Dormire</h3>
-    <p class="price">23,21€ <span style="text-decoration: line-through; color: #888; font-size: 0.9em;">32,90€</span> <strong style="color: #d32f2f;">-29%</strong></p>
-    <p>Integratore per disturbi del sonno, senza glutine. Contiene melatonina, escolzia, passiflora e melissa. Non induce dipendenza.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-     
-    <div class="product-card">
-  <a href="https://amzn.to/43PEXay" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/61NUQEFRTFL._AC_SX522_.jpg" alt="SWISSE Ultivit Multivitaminico Ragazza" class="product-img">
-    <h3>SWISSE Ultivit - Multivitaminico Ragazza (60 Compresse)</h3>
-    <p class="price">13,46€ <span style="text-decoration: line-through; color: #888; font-size: 0.9em;">14,24€</span> <strong style="color: #d32f2f;">-5%</strong></p>
-    <p>Multivitaminico con zinco e vitamine per riduzione stanchezza e supporto sistema immunitario. Integratore con ferro, made in Italy.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-      
-    <div class="product-card">
-  <a href="https://amzn.to/4mAMTnv" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/51AyIO7mVXL._AC_SX569_.jpg" alt="N-K PULABO Anello Intelligente Temperatura In Acciaio Inox" class="product-img">
-    <h3>N-K PULABO Anello Intelligente Temperatura In Acciaio Inox</h3>
-    <p class="price">1,82€ <strong style="color: #d32f2f;">PREZZO 💣 BOMBA!</strong></p>
-    <p>Anello per coppie e amanti, cambia colore in base alla temperatura e all’umore. Unisex, in acciaio inox di alta qualità e design alla moda.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
- <div class="product-card">
-  <a href="https://amzn.to/4jlkrDe" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/81Ev1JwtPhL._AC_SX569_.jpg" alt="Amazon Essentials T-Shirt Basic" class="product-img">
-    <h3>Amazon Essentials T-Shirt Basic Uomo - Pacco da 6</h3>
-    <p class="price">25,99€</p>
-    <p>Magliette girocollo in cotone, versatili e morbide, ideali per ogni occasione. Qualità Amazon Essentials in un conveniente pacco da 6.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
- <div class="product-card">
-  <a href="https://amzn.to/3SUAqNE" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/61KSB-CGSyL._AC_SX569_.jpg" alt="ALPIDEX T-Shirt Uomo" class="product-img">
-    <h3>ALPIDEX T-Shirt Uomo - Confezione da 5</h3>
-    <p class="price">39,99€</p>
-    <p>Magliette da uomo con girocollo disponibili in varie taglie dalla S alla 5XL. Perfette per tutti i giorni, comode e resistenti.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
-<div class="product-card">
-  <a href="https://amzn.to/3Z60eKn" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/81Auh7uuz1L._AC_SX466_.jpg" alt="Felpa con Cappuccio Donna" class="product-img">
-    <h3>Amazon Essentials Felpa con Cappuccio Donna</h3>
-    <p class="price">19,60€</p>
-    <p>Felpa da donna in pile, con cappuccio e cerniera. Calda, comoda e ideale per l’uso quotidiano. Disponibile in vari colori e taglie.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
- <div class="product-card">
-  <a href="https://amzn.to/43qkEio" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/61V8VUE1dFL.__AC_SX300_SY300_QL70_ML2_.jpg" alt="Amazfit Bip 5 Smartwatch" class="product-img">
-    <h3>Amazfit Bip 5 Smartwatch 46 mm</h3>
-    <p class="price">57,99€</p>
-    <p>Smartwatch con schermo grande, chiamate Bluetooth, Alexa integrata, GPS, durata batteria 10 giorni, fitness tracker con battito cardiaco e monitoraggio ossigeno nel sangue.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
- <div class="product-card">
-  <a href="https://amzn.to/4jlczlj" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/51Kmnt241oL.__AC_SX300_SY300_QL70_ML2_.jpg" alt="Imou Telecamera Wi-Fi Interno" class="product-img">
-    <h3>Imou 3MP Telecamera Wi-Fi Interno</h3>
-    <p class="price">22,99€</p>
-    <p>Videocamera di sorveglianza 2K con tracciamento del movimento, rilevamento umano, audio bidirezionale e connessione 2,4GHz. Perfetta per la sicurezza domestica.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-      <div class="product-card">
-  <a href="https://amzn.to/43GhYgW" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/81UE75N+r1L._AC_SL1500_.jpg" alt="SEHMUA 4G LTE Telecamera Esterno senza Fili" class="product-img">
-    <h3>SEHMUA 4G LTE Telecamera Esterno senza Fili, Telecamera con Sim, 2K 360 PTZ, con Pannello Solare e Batterie</h3>
-    <p class="price">
-      <span style="text-decoration: line-through; color: #888;">79,99€</span>
-      <span style="color: #007aff; font-weight: bold;">51,43€</span>
-      <span style="color: red; font-weight: bold;">-36%</span>
-    </p>
-    <p>
-      Marca: SEHMUA<br>
-      4,3 su 5 stelle (134 recensioni)<br>
-      Amazon Choice<br>
-      200+ acquistati nel mese scorso<br>
-      Offerta a tempo! Prezzo più basso ultimi 30 giorni: 54,14€
-    </p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-
-
- <div class="product-card">
-  <a href="https://amzn.to/4kg3QC7" target="_blank">
-    <img src="https://m.media-amazon.com/images/I/71dy+yYz4iL._AC_SX522_.jpg" alt="Amazon Essentials Maglietta Intima con Scollo A V" class="product-img">
-    <h3>Amazon Essentials Maglietta Intima con Scollo A V</h3>
-    <p class="price">25,99€</p>
-    <p>Pacco da 6 magliette intime da uomo, traspiranti e in cotone, perfette per il comfort quotidiano.</p>
-    <button>Compra su Amazon</button>
-  </a>
-</div>
-    
- <div class="product-card">
-    <a href="https://amzn.to/4mB7UhK" target="_blank">
-      <img src="https://m.media-amazon.com/images/I/71b8mpCMTOL.__AC_SX300_SY300_QL70_ML2_.jpg" alt="Arancia deluxe"/>
-      <h3>by Amazon Quinoa biologica, 500g</h3>
-      <p>Prezzo: 5,49€</p>
-      <button>Compra su Amazon</button>
-    </div>
-
-
-
-
-
-
-
-    <!-- continua fino al Cambiami #20 -->
-    <!-- ... (altre schede) ... -->
-
-  </section>
-</main>
+    // --- INIZIALIZZA ---
+    renderProducts();
+    updateUserScore();
+    updateRanking();
+  </script>
+</body>
+</html>
