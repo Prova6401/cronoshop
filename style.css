@@ -1,1000 +1,169 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Cronoshop - Le migliori offerte Amazon</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="stylesheet" href="style.css">
-  <meta name="description" content="Scopri Cronoshop: le migliori offerte Amazon aggiornate ogni giorno. Sconti esclusivi, zero rischi.">
-  <meta property="og:title" content="Cronoshop - Le migliori offerte Amazon">
-  <meta property="og:description" content="Una selezione unica dei prodotti Amazon più convenienti.">
-  <meta property="og:image" content="URL_TUA_IMMAGINE_ANTEPRIMA">
-  <meta property="og:url" content="https://tuodominio.it">
-  <meta name="twitter:card" content="summary_large_image">
-  <style>
-    /* Banner account */
-    #account-banner {
-      background: #eaf6ff;
-      color: #0071e3;
-      padding: 0.7rem 1.5rem;
-      text-align: center;
-      font-size: 1.05rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1.2rem;
-      border-bottom: 1px solid #d0e6fa;
-    }
-    #account-banner button {
-      background: var(--primary-color);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 0.4rem 1.2rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background 0.2s;
-    }
-    #account-banner button:hover {
-      background: #0051a8;
-    }
-    /* Modale */
-    .modal-bg {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.18);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-    .modal-bg.active { display: flex; }
-    .modal {
-      background: #fff;
-      border-radius: 18px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.13);
-      padding: 2.2rem 2rem 1.5rem 2rem;
-      min-width: 320px;
-      max-width: 95vw;
-      text-align: center;
-      position: relative;
-      animation: fadeIn 0.3s;
-    }
-    .modal h2 { color: var(--primary-color); margin-bottom: 1rem; }
-    .modal input {
-      width: 90%;
-      margin: 0.5rem 0;
-      padding: 0.7rem;
-      border-radius: 8px;
-      border: 1px solid #e0e0e5;
-      font-size: 1rem;
-    }
-    .modal button {
-      margin-top: 1rem;
-      background: var(--primary-color);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 0.6rem 1.5rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background 0.2s;
-    }
-    .modal button:hover { background: #0051a8; }
-    .modal .close-modal {
-      position: absolute;
-      top: 0.7rem; right: 1rem;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: #aaa;
-      cursor: pointer;
-    }
-    .modal .switch-link {
-      color: var(--primary-color);
-      cursor: pointer;
-      font-size: 0.98rem;
-      margin-top: 1rem;
-      display: inline-block;
-    }
-    .modal .error-msg {
-      color: #d32f2f;
-      font-size: 0.98rem;
-      margin-top: 0.5rem;
-    }
-    .user-info {
-      color: #0071e3;
-      font-weight: 600;
-      margin-left: 0.5rem;
-    }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'League Spartan', sans-serif;
-    }
-
-    body {
-      background: linear-gradient(145deg, #f2f2f2, #e6e6e6);
-      color: #333;
-      overflow-x: hidden;
-    }
-
-    header {
-      padding: 2rem;
-      text-align: center;
-      background: #ffffff;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-      animation: fadeDown 1s ease-out;
-    }
-
-    header h1 {
-      font-size: 3rem;
-      color: #007bff;
-    }
-
-    header p {
-      margin-top: 0.5rem;
-      font-size: 1.2rem;
-      color: #666;
-    }
-
-  nav {
-    background: #fff;
-    display: flex;
-    justify-content: center; /* Centra la navbar */
-    align-items: center;     /* Centra verticalmente */
-    gap: 2rem;
-    padding: 1rem;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-  }
-    nav a {
-      text-decoration: none;
-      color: #007bff;
-      font-weight: 600;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-      color: #0056b3;
-    }
-
-    main {
-      padding: 3rem 2rem;
-      text-align: center;
-      animation: fadeUp 1s ease-out;
-    }
-
-    main h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
-    main p {
-      font-size: 1.1rem;
-      max-width: 700px;
-      margin: 0 auto 2rem auto;
-      color: #444;
-    }
-
-    .cta-button {
-      display: inline-block;
-      padding: 1rem 2.5rem;
-      font-size: 1.3rem;
-      background-color: #007bff;
-      color: #fff;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-      margin-top: 2rem;
-      text-decoration: none;
-    }
-
-    .cta-button:hover {
-      transform: scale(1.1);
-      filter: blur(0.3px) brightness(1.15);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    }
-
-    /* Sezione recensioni orizzontali */
-
-    .reviews-section {
-      max-width: 90vw;
-      margin: 3rem auto 2rem auto;
-      background: #fff;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      padding: 2rem 1.5rem 3rem 1.5rem;
-      animation: fadeUp 1s ease-out;
-      user-select: none;
-      overflow: hidden;
-    }
-
-    .reviews-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      justify-content: center;
-    }
-
-    .reviews-header img {
-      width: 40px;
-      height: 40px;
-      filter: grayscale(100%) contrast(0.9);
-    }
-
-    .reviews-header h3 {
-      font-size: 1.8rem;
-      color: #1C1C1E;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-
-    .reviews-wrapper {
-      display: flex;
-      gap: 1.5rem;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      padding-bottom: 1rem;
-      scrollbar-width: thin;
-      scrollbar-color: #007bff #f1f1f1;
-    }
-
-    .reviews-wrapper::-webkit-scrollbar {
-      height: 8px;
-    }
-
-    .reviews-wrapper::-webkit-scrollbar-track {
-      background: #f1f1f1;
-      border-radius: 10px;
-    }
-
-    .reviews-wrapper::-webkit-scrollbar-thumb {
-      background-color: #007bff;
-      border-radius: 10px;
-      border: 2px solid #f1f1f1;
-    }
-
-    .review-card {
-      flex: 0 0 280px;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      border-radius: 16px;
-      background: #f7f7fa;
-      padding: 1rem 1.2rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-      position: relative;
-      transition: box-shadow 0.3s ease;
-    }
-
-    .review-card:hover {
-      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-    }
-
-    .review-photo {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      align-self: center;
-    }
-
-    .reviewer-name {
-      font-weight: 700;
-      color: #007AFF;
-      font-size: 1.1rem;
-      text-align: center;
-    }
-
-    .review-text {
-      font-size: 0.95rem;
-      color: #3a3a3c;
-      line-height: 1.4;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: -webkit-box;
-      -webkit-line-clamp: 4; /* show 4 lines only */
-      -webkit-box-orient: vertical;
-      transition: max-height 0.3s ease;
-      cursor: pointer;
-    }
-
-    .review-text.expanded {
-      -webkit-line-clamp: unset;
-      overflow: visible;
-      cursor: default;
-    }
-
-    .read-more {
-      color: #007bff;
-      font-weight: 600;
-      font-size: 0.9rem;
-      text-align: center;
-      cursor: pointer;
-      user-select: none;
-      margin-top: -0.2rem;
-    }
-
-    .read-more:hover {
-      text-decoration: underline;
-    }
-
-    .whatsapp-banner {
-      background-color: #25D366;
-      color: white;
-      padding: 1rem;
-      text-align: center;
-      font-weight: bold;
-      font-size: 1.2rem;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .whatsapp-banner a {
-      background: white;
-      color: #25D366;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      font-weight: bold;
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-
-    .whatsapp-banner a:hover {
-      background: #e0f7eb;
-    }
-
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background: #f9f9f9;
-      color: #888;
-      font-size: 0.9rem;
-      animation: fadeIn 1.5s ease-out;
-    }
-
-    /* Animazioni */
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    #account-avatar-container { position: relative; }
-    #account-avatar {
-      transition: transform 0.25s cubic-bezier(.4,1.6,.6,1), box-shadow 0.2s;
-    }
-    #account-avatar.open {
-      transform: translateX(-70px) scale(1.08);
-      box-shadow: 0 8px 32px #0071e344;
-    }
-    #account-menu {
-      transition: opacity 0.25s cubic-bezier(.4,1.6,.6,1), transform 0.25s cubic-bezier(.4,1.6,.6,1);
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-10px) scale(0.98);
-    }
-    #account-menu.open {
-      display: block !important;
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0) scale(1);
-    }
-
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 2.2rem;
-      }
-
-      main h2 {
-        font-size: 2rem;
-      }
-
-      .cta-button {
-        font-size: 1.1rem;
-        padding: 0.8rem 2rem;
-      }
-
-      nav {
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      .whatsapp-banner {
-        font-size: 1rem;
-      }
-
-      .reviews-wrapper {
-        gap: 1rem;
-      }
-
-      .review-card {
-        flex: 0 0 90vw;
-      }
-    }
-  </style>
-</head>
-<body>
-  <!-- Banner account -->
-  <div id="account-banner" style="display:none;">
-    <span>Hai un account Cronoshop? <b>Accedi</b> o <b>registrati</b> per offerte personalizzate!</span>
-    <button id="open-login">Accedi</button>
-    <button id="open-register">Registrati</button>
-  </div>
-
-  <header>
-    <h1>Cronoshop</h1>
-    <p>Le migliori offerte selezionate da Amazon, tutte in un unico posto</p>
-  </header>
-
-  <nav>
-  <a href="index.html">Home</a>
-  <a href="products.html">Prodotti</a>
-  <a href="groups.html">Gruppi</a>
-  <a href="come-funziona.html">Come Funziona</a>
-  <a href="faq.html">FAQ</a>
-  <div id="account-avatar-container" style="margin-left:auto;position:relative;">
-    <img id="account-avatar" src="https://ui-avatars.com/api/?name=?" alt="Account" style="width:38px;height:38px;border-radius:50%;object-fit:cover;cursor:pointer;box-shadow:0 2px 8px #0002;transition:all 0.3s cubic-bezier(.4,1.6,.6,1);background:#f5f5f7;">
-    <div id="account-menu" style="display:none;position:absolute;top:52px;right:0;min-width:210px;background:#fff;border-radius:18px;box-shadow:0 8px 32px #0002;padding:1.2rem 1rem 1rem 1rem;z-index:100;transition:all 0.25s cubic-bezier(.4,1.6,.6,1);opacity:0;pointer-events:none;">
-      <div style="display:flex;align-items:center;gap:0.7rem;margin-bottom:1rem;">
-        <img id="account-menu-avatar" src="https://ui-avatars.com/api/?name=?" style="width:38px;height:38px;border-radius:50%;object-fit:cover;background:#f5f5f7;">
-        <span id="account-menu-username" style="font-weight:600;color:#0071e3;font-size:1.08rem;white-space:nowrap;"></span>
-      </div>
-      <button type="button" id="btn-account-cart" style="width:100%;background:#f5f5f7;color:#222;border:none;border-radius:8px;padding:0.6rem 0;font-weight:600;font-size:1rem;margin-bottom:0.5rem;cursor:pointer;">🛒 Carrello</button>
-      <button type="button" id="btn-account-preferiti" style="width:100%;background:#f5f5f7;color:#222;border:none;border-radius:8px;padding:0.6rem 0;font-weight:600;font-size:1rem;margin-bottom:0.5rem;cursor:pointer;">❤️ Preferiti</button>
-      <button type="button" id="btn-account-area" style="width:100%;background:#f5f5f7;color:#222;border:none;border-radius:8px;padding:0.6rem 0;font-weight:600;font-size:1rem;margin-bottom:0.5rem;cursor:pointer;">👤 Area personale</button>
-      <button type="button" id="btn-account-logout" style="width:100%;background:#fff0f0;color:#ff3b30;border:none;border-radius:8px;padding:0.6rem 0;font-weight:600;font-size:1rem;margin-top:0.7rem;cursor:pointer;">Esci</button>
-    </div>
-  </div>
-</nav>
-
-  <!-- Modale login/registrazione -->
-  <div class="modal-bg" id="modal-bg">
-    <div class="modal" id="modal-login" style="display:none;">
-      <button class="close-modal" onclick="closeModal()">&times;</button>
-      <h2>Accedi</h2>
-      <input type="text" id="login-username" placeholder="Username" autocomplete="username">
-      <input type="password" id="login-password" placeholder="Password" autocomplete="current-password">
-      <div class="error-msg" id="login-error"></div>
-      <button onclick="loginUser()">Accedi</button>
-      <div class="switch-link" onclick="showRegister()">Non hai un account? Registrati</div>
-    </div>
-    <div class="modal" id="modal-register" style="display:none;">
-      <button class="close-modal" onclick="closeModal()">&times;</button>
-      <h2>Registrati</h2>
-      <input type="text" id="register-username" placeholder="Scegli username" autocomplete="username">
-      <input type="password" id="register-password" placeholder="Scegli password" autocomplete="new-password">
-      <div class="error-msg" id="register-error"></div>
-      <button onclick="registerUser()">Registrati</button>
-      <div class="switch-link" onclick="showLogin()">Hai già un account? Accedi</div>
-    </div>
-  </div>
-
-  <main>
-    <h2>Offerte incredibili, prezzi imbattibili</h2>
-    <p>
-      Su <strong>Cronoshop</strong> trovi una selezione esclusiva dei migliori prodotti Amazon, con sconti aggiornati ogni giorno.
-      Acquistando sarai reindirizzato direttamente su Amazon, dove potrai pagare in completa sicurezza. Noi non vendiamo direttamente:
-      riceverai lo stesso prodotto, semplicemente con un <strong>sconto extra</strong>!
-    </p>
-    <a href="products.html" class="cta-button">Vai ai nostri prodotti</a>
-  </main>
-  <main>
-    <h2>PRODOTTO DEL GIORNO:</h2>
-    <p>
-      Su <strong>Cronoshop</strong> qui trovi il prodotto <strong>consigliato</strong> con <strong>sconto extra</strong>!
-    </p>
-    <div id="prodotto-casuale" class="product-card" style="max-width: 400px; margin: 2rem auto;">
-      <!-- Qui JS inserirà il prodotto casuale -->
-    </div>
-  </main>
-
-  <!-- Sezione recensioni -->
-
-  <section class="reviews-section" aria-label="Recensioni degli utenti">
-    <div class="reviews-header">
-      <img src="https://exportcomments.com/resources/content/images/2022/05/google-reviews-1-.png" alt="Logo Google Recensioni" />
-      <h3>Recensioni dei nostri clienti siciliani</h3>
-    </div>
-
-    <div class="reviews-wrapper" tabindex="0">
-      <article class="review-card">
-        <img class="review-photo" src="https://randomuser.me/api/portraits/men/65.jpg" alt="Foto di Giuseppe" />
-        <div>
-          <div class="reviewer-name">Giuseppe Catanese</div>
-          <p class="review-text">Mi fido assai di Cronoshop, perché mi porta direttamente su Amazon, senza fregature. È sicuro e comodo.</p>
-          <div class="read-more" aria-label="Leggi di più">Vedi altro</div>
-        </div>
-      </article>
-
-      <article class="review-card">
-        <img class="review-photo" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Foto di Carmela" />
-        <div>
-          <div class="reviewer-name">Carmela Messinese</div>
-          <p class="review-text">Ho trovato offerte piaciute assai, pure pe' cose che avissi accattatu comunque. Comodissimo il gruppo Whatsapp.</p>
-          <div class="read-more" aria-label="Leggi di più">Vedi altro</div>
-        </div>
-      </article>
-
-      <article class="review-card">
-        <img class="review-photo" src="https://randomuser.me/api/portraits/men/77.jpg" alt="Foto di Salvatore" />
-        <div>
-          <div class="reviewer-name">Salvatore Agrigentino</div>
-          <p class="review-text">Grazie al gruppo Whatsapp ricevo tutte le notifiche in tempo reale, non perdo mai un'offerta buona.</p>
-          <div class="read-more" aria-label="Leggi di più">Vedi altro</div>
-        </div>
-      </article>
-
-      <article class="review-card">
-        <img class="review-photo" src="https://randomuser.me/api/portraits/women/12.jpg" alt="Foto di Rosalia" />
-        <div>
-          <div class="reviewer-name">Rosalia Palermitana</div>
-          <p class="review-text">Mi piace la chiarezza, niente fregature, solo link diretti ad Amazon. Consigliatissimo per chi non ha tempo di cercare offerte da solo.</p>
-          <div class="read-more" aria-label="Leggi di più">Vedi altro</div>
-        </div>
-      </article>
-
-      <article class="review-card">
-        <img class="review-photo" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Foto di Antonino" />
-        <div>
-          <div class="reviewer-name">Antonino Siracusano</div>
-          <p class="review-text">Le offerte sono sempre aggiornate e valide. Cronoshop è il mio alleato per risparmiare senza stress.</p>
-          <div class="read-more" aria-label="Leggi di più">Vedi altro</div>
-        </div>
-      </article>
-
-      <article class="review-card">
-        <img class="review-photo" src="https://randomuser.me/api/portraits/women/58.jpg" alt="Foto di Concetta" />
-        <div>
-          <div class="reviewer-name">Concetta Trapanese</div>
-          <p class="review-text">Non avrei mai pensato di trovare offerte così convenienti senza perdere ore a cercarle. Gruppo Whatsapp top.</p>
-          <div class="read-more" aria-label="Leggi di più">Vedi altro</div>
-        </div>
-      </article>
-
-      <article class="review-card">
-        <img class="review-photo" src="https://randomuser.me/api/portraits/men/14.jpg" alt="Foto di Mimmo" />
-        <div>
-          <div class="reviewer-name">Domenico "Mimmo" Caltanissetta</div>
-          <p class="review-text">Affidabile e semplice da usare, lo consiglio a tutti quelli che vogliono risparmiare davvero.</p>
-          <div class="read-more" aria-label="Leggi di più">Vedi altro</div>
-        </div>
-      </article>
-
-      <article class="review-card">
-        <img class="review-photo" src="https://randomuser.me/api/portraits/women/79.jpg" alt="Foto di Angela" />
-        <div>
-          <div class="reviewer-name">Angela Enna</div>
-          <p class="review-text">Finalmente un servizio che fa il lavoro sporco per me. Tutto molto comodo e sicuro.</p>
-          <div class="read-more" aria-label="Leggi di più">Vedi altro</div>
-        </div>
-      </article>
-
-      <article class="review-card">
-        <img class="review-photo" src="https://randomuser.me/api/portraits/men/88.jpg" alt="Foto di Franco" />
-        <div>
-          <div class="reviewer-name">Franco Ragusano</div>
-          <p class="review-text">Il gruppo Whatsapp è una manna dal cielo, ricevo le offerte senza dover fare nulla.</p>
-          <div class="read-more" aria-label="Leggi di più">Vedi altro</div>
-        </div>
-      </article>
-
-      <article class="review-card">
-        <img class="review-photo" src="https://randomuser.me/api/portraits/women/22.jpg" alt="Foto di Lucia" />
-        <div>
-          <div class="reviewer-name">Lucia Agrigentina</div>
-          <p class="review-text">Ottimo sito, link diretti, niente fregature e offerte sempre aggiornate. Lo uso da mesi e mi trovo benissimo.</p>
-          <div class="read-more" aria-label="Leggi di più">Vedi altro</div>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <div class="whatsapp-banner">
-    📢 UNISCITI AL NOSTRO GRUPPO WHATSAPP PER RICEVERE LE OFFERTE OGNI GIORNO!
-    <a href="https://whatsapp.com/channel/0029Vb5wE6mDeON8PBORW02R" target="_blank" rel="noopener noreferrer">CLICCA QUI</a>
-  </div>
-
-  <footer>
-    © 2025 Cronoshop - Powered by Amazon Affiliate Program
-  </footer>
-
-  <script>
-  // Padrone, qui c'è la roba pe' espandere/contrarre recensioni
-  
-  document.querySelectorAll('.review-card').forEach(card => {
-    const readMore = card.querySelector('.read-more');
-    const reviewText = card.querySelector('.review-text');
-    
-    readMore.addEventListener('click', () => {
-      if (reviewText.classList.contains('expanded')) {
-        reviewText.classList.remove('expanded');
-        readMore.textContent = 'Vedi altro';
-      } else {
-        reviewText.classList.add('expanded');
-        readMore.textContent = 'Vedi meno';
-      }
-    });
-  });
-  </script>
-  <script>
-  const prodotti = [
-    {
-      link: "https://amzn.to/3Z551fa",
-      img: "https://m.media-amazon.com/images/I/61hiFJPpY9L._AC_SL1500_.jpg",
-      nome: "Samsung Galaxy S25 Ultra",
-      prezzo: "1.199€",
-      descrizione: "Samsung Galaxy S25 Ultra Smartphone AI, 3 anni di Garanzia del produttore, Display 6.9'' QHD+ Dynamic AMOLED 2X, Fotocamera 200MP, RAM 12GB, 256GB, 5.000 mAh, Titanium Silverblue"
-    },
-    {
-      link: "https://www.amazon.it/dp/B0CHWV5HTM",
-      img: "https://m.media-amazon.com/images/I/71d7rfSl0wL._AC_SL1500_.jpg",
-      nome: "Apple iPhone 15",
-      prezzo: `<span style="text-decoration: line-through; color: #888;">879,00€</span> <span style="color: #007aff; font-weight: bold;">645,00€</span> <span style="color: red; font-weight: bold;">-27%</span>`,
-      descrizione: "Prestazioni top per l'uso quotidiano"
-    },
-    {
-      link: "https://amzn.to/4kCH9aV",
-      img: "https://m.media-amazon.com/images/I/618ha2Ia5tL._AC_SL1500_.jpg",
-      nome: "Samsung Galaxy S25 Smartphone AI",
-      prezzo: "929,00€",
-      descrizione: "Smartphone con display 6.2'' FHD+ Dynamic AMOLED 2X, fotocamera da 50MP, RAM 12GB, memoria interna 256GB, batteria da 4.000 mAh. Include 3 anni di garanzia del produttore. Colore: Mint."
-    },
-    {
-      link: "https://amzn.to/3ZAt8T4",
-      img: "https://m.media-amazon.com/images/I/61Wj-1t3TwL._AC_SL1500_.jpg",
-      nome: "SAMSUNG Galaxy S25 Edge",
-      prezzo: "1.299,00€",
-      descrizione: "Smartphone AI con display 6.7'' QHD+ Dynamic AMOLED 2X, fotocamera da 200MP, RAM 12GB, memoria interna da 512GB, batteria da 3.900 mAh. Include 3 anni di garanzia del produttore. Colore: Titanium Jetblack."
-    },
-    {
-      link: "https://amzn.to/45gPEUX",
-      img: "https://m.media-amazon.com/images/I/61y0hmQWlsL._AC_SL1500_.jpg",
-      nome: "Samsung Galaxy S25+ Smartphone AI",
-      prezzo: "1.189,00€",
-      descrizione: "Smartphone AI con display 6.7'' QHD+ Dynamic AMOLED 2X, fotocamera da 50MP, RAM 12GB, memoria interna da 512GB, batteria da 4.900 mAh. Include 3 anni di garanzia del produttore. Colore: Silver Shadow. Versione italiana."
-    },
-    {
-      link: "https://amzn.to/3Z6Kc2W",
-      img: "https://m.media-amazon.com/images/I/610vqacJO2L.__AC_SY445_SX342_QL70_ML2_.jpg",
-      nome: "Apple iPhone 16e – 128 GB",
-      prezzo: "699,00€",
-      descrizione: "Progettato per Apple Intelligence, dotato di chip A18, autonomia grandiosa, fotocamera Fusion da 48MP e display Super Retina XDR da 6,1\". Colore: Bianco."
-    },
-    {
-      link: "https://amzn.to/3ZEqKut",
-      img: "https://m.media-amazon.com/images/I/61cUeqowwZL._AC_SL1500_.jpg",
-      nome: "Apple iPhone 16 Pro Max – 256 GB",
-      prezzo: "1.195,00€",
-      descrizione: "Telefono 5G con controllo fotocamera avanzato, registrazione video Dolby Vision 4K a 120 fps e autonomia senza precedenti. Compatibile con AirPods. Colore: Titanio Nero."
-    },
-    {
-      link: "https://amzn.to/43t1D0l",
-      img: "https://m.media-amazon.com/images/I/61BGE6iu4AL.__AC_SY445_SX342_QL70_ML2_.jpg",
-      nome: "Apple iPhone 14 Plus – 128 GB",
-      prezzo: "871,00€",
-      descrizione: "Smartphone Apple con 128 GB di memoria, display Super Retina XDR da 6,7\", ottime prestazioni e autonomia, colore Azzurro. Un mix di potenza e stile."
-    }
-  ];
-
-  function scegliProdottoCasuale() {
-    return prodotti[Math.floor(Math.random() * prodotti.length)];
-  }
-
-  function mostraProdottoCasuale() {
-    const prod = scegliProdottoCasuale();
-    const container = document.getElementById('prodotto-casuale');
-
-    container.innerHTML = `
-      <a href="${prod.link}" target="_blank" rel="noopener noreferrer">
-        <img src="${prod.img}" alt="${prod.nome}" class="product-img">
-        <h3>${prod.nome}</h3>
-        <p class="price">${prod.prezzo}</p>
-        <p>${prod.descrizione}</p>
-        <button>Compra su Amazon</button>
-      </a>
-    `;
-  }
-
-  window.onload = mostraProdottoCasuale;
-</script>
-
-
-<script>
-    // --- Account System JS ---
-
-    // Helpers
-    function hash(str) {
-      // Semplice hash per demo (non sicuro per produzione!)
-      let h = 0, i, chr;
-      if (str.length === 0) return h;
-      for (i = 0; i < str.length; i++) {
-        chr = str.charCodeAt(i);
-        h = ((h << 5) - h) + chr;
-        h |= 0;
-      }
-      return h;
-    }
-
-    function getUser() {
-      return JSON.parse(localStorage.getItem('cronoshop_user') || 'null');
-    }
-    function logoutUser() {
-      localStorage.removeItem('cronoshop_user');
-      window.location.reload();
-    }
-    function updateAccountAvatar() {
-      const user = getUser();
-      const avatar = document.getElementById('account-avatar');
-      const menuAvatar = document.getElementById('account-menu-avatar');
-      const username = document.getElementById('account-menu-username');
-      if (user && user.username) {
-        avatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.username)}&background=eeeeee&color=0071e3`;
-        menuAvatar.src = avatar.src;
-        username.textContent = user.username;
-      } else {
-        avatar.src = "https://ui-avatars.com/api/?name=?";
-        menuAvatar.src = avatar.src;
-        username.textContent = "Ospite";
-      }
-    }
-    document.addEventListener('DOMContentLoaded', function() {
-      updateAccountAvatar();
-      const avatar = document.getElementById('account-avatar');
-      const menu = document.getElementById('account-menu');
-      avatar.addEventListener('click', function() {
-        avatar.classList.toggle('open');
-        menu.classList.toggle('open');
-        if (menu.classList.contains('open')) {
-          menu.style.display = 'block';
-          setTimeout(() => menu.style.opacity = 1, 10);
-        } else {
-          menu.style.opacity = 0;
-          setTimeout(() => menu.style.display = 'none', 250);
-        }
-      });
-      // Chiudi il menu cliccando fuori
-      document.addEventListener('click', function(e) {
-        if (!avatar.contains(e.target) && !menu.contains(e.target)) {
-          avatar.classList.remove('open');
-          menu.classList.remove('open');
-          menu.style.opacity = 0;
-          setTimeout(() => menu.style.display = 'none', 250);
-        }
-      });
-
-      // Gestione click sui bottoni del menu account
-      menu.querySelectorAll('.account-menu-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          menu.classList.remove('open');
-          avatar.classList.remove('open');
-          menu.style.opacity = 0;
-          setTimeout(() => menu.style.display = 'none', 250);
-
-          switch (btn.dataset.action) {
-            case 'cart':
-              window.location.href = 'cart.html';
-              break;
-            case 'preferiti':
-              window.location.href = 'account.html#preferiti';
-              break;
-            case 'account':
-              window.location.href = 'account.html';
-              break;
-            case 'logout':
-              logoutUser();
-              break;
-          }
-        });
-      });
-    });
-
-    // Banner e greeting
-    function updateAccountBanner() {
-      const user = getUser();
-      const banner = document.getElementById('account-banner');
-      const greeting = document.getElementById('user-greeting');
-      if (user && user.username) {
-        banner.style.display = 'none';
-        greeting.innerHTML = `👤 <span class="user-info">${user.username}</span> <button onclick="logoutUser()" style="margin-left:10px;background:#eee;color:#0071e3;border:none;border-radius:6px;padding:2px 10px;cursor:pointer;">Logout</button>`;
-      } else {
-        banner.style.display = 'flex';
-        greeting.innerHTML = '';
-      }
-    }
-
-    // Modale
-    function openModal(type) {
-      document.getElementById('modal-bg').classList.add('active');
-      document.getElementById('modal-login').style.display = type === 'login' ? 'block' : 'none';
-      document.getElementById('modal-register').style.display = type === 'register' ? 'block' : 'none';
-      document.getElementById('login-error').textContent = '';
-      document.getElementById('register-error').textContent = '';
-    }
-    function closeModal() {
-      document.getElementById('modal-bg').classList.remove('active');
-    }
-    function showLogin() { openModal('login'); }
-    function showRegister() { openModal('register'); }
-
-    // Eventi banner
-    document.addEventListener('DOMContentLoaded', function() {
-      updateAccountBanner();
-      document.getElementById('open-login').onclick = showLogin;
-      document.getElementById('open-register').onclick = showRegister;
-      document.getElementById('modal-bg').onclick = function(e) {
-        if (e.target === this) closeModal();
-      };
-    });
-
-    // Registrazione
-    function registerUser() {
-      const username = document.getElementById('register-username').value.trim();
-      const password = document.getElementById('register-password').value;
-      const error = document.getElementById('register-error');
-      if (!username || !password) {
-        error.textContent = 'Compila tutti i campi.';
-        return;
-      }
-      if (localStorage.getItem('cronoshop_user_db_' + username)) {
-        error.textContent = 'Username già registrato.';
-        return;
-      }
-      localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify({
-        username,
-        password: hash(password)
-      }));
-      setUser({ username });
-      closeModal();
-      updateAccountBanner();
-    }
-
-    // Login
-    function loginUser() {
-      const username = document.getElementById('login-username').value.trim();
-      const password = document.getElementById('login-password').value;
-      const error = document.getElementById('login-error');
-      const userDb = JSON.parse(localStorage.getItem('cronoshop_user_db_' + username) || 'null');
-      if (!userDb || userDb.password !== hash(password)) {
-        error.textContent = 'Username o password errati.';
-        return;
-      }
-      setUser({ username });
-      closeModal();
-      updateAccountBanner();
-    }
-
-    // Logout
-    function logoutUser() {
-      removeUser();
-      updateAccountBanner();
-    }
-  </script>
-  <script>
-  // Padrone, qui c'è la roba pe' espandere/contrarre recensioni
-  
-  document.querySelectorAll('.review-card').forEach(card => {
-    const readMore = card.querySelector('.read-more');
-    const reviewText = card.querySelector('.review-text');
-    
-    readMore.addEventListener('click', () => {
-      if (reviewText.classList.contains('expanded')) {
-        reviewText.classList.remove('expanded');
-        readMore.textContent = 'Vedi altro';
-      } else {
-        reviewText.classList.add('expanded');
-        readMore.textContent = 'Vedi meno';
-      }
-    });
-  });
-  </script>
-  <script>
-  const prodotti = [
-    {
-      link: "https://amzn.to/3Z551fa",
-      img: "https://m.media-amazon.com/images/I/61hiFJPpY9L._AC_SL1500_.jpg",
-      nome: "Samsung Galaxy S25 Ultra",
-      prezzo: "1.199€",
-      descrizione: "Samsung Galaxy S25 Ultra Smartphone AI, 3 anni di Garanzia del produttore, Display 6.9'' QHD+ Dynamic AMOLED 2X, Fotocamera 200MP, RAM 12GB, 256GB, 5.000 mAh, Titanium Silverblue"
-    },
-    {
-      link: "https://www.amazon.it/dp/B0CHWV5HTM",
-      img: "https://m.media-amazon.com/images/I/71d7rfSl0wL._AC_SL1500_.jpg",
-      nome: "Apple iPhone 15",
-      prezzo: `<span style="text-decoration: line-through; color: #888;">879,00€</span> <span style="color: #007aff; font-weight: bold;">645,00€</span> <span style="color: red; font-weight: bold;">-27%</span>`,
-      descrizione: "Prestazioni top per l'uso quotidiano"
-    },
-    {
-      link: "https://amzn.to/4kCH9aV",
-      img: "https://m.media-amazon.com/images/I/618ha2Ia5tL._AC_SL1500_.jpg",
-      nome: "Samsung Galaxy S25 Smartphone AI",
-      prezzo: "929,00€",
-      descrizione: "Smartphone con display 6.2'' FHD+ Dynamic AMOLED 2X, fotocamera da 50MP, RAM 12GB, memoria interna 256GB, batteria da 4.000 mAh. Include 3 anni di garanzia del produttore. Colore: Mint."
-    },
-    {
-      link: "https://amzn.to/3ZAt8T4",
-      img: "https://m.media-amazon.com/images/I/61Wj-1t3TwL._AC_SL1500_.jpg",
-      nome: "SAMSUNG Galaxy S25 Edge",
-      prezzo: "1.299,00€",
-      descrizione: "Smartphone AI con display 6.7'' QHD+ Dynamic AMOLED 2X, fotocamera da 200MP, RAM 12GB, memoria interna da 512GB, batteria da 3.900 mAh. Include 3 anni di garanzia del produttore. Colore: Titanium Jetblack."
-    },
-    {
-      link: "https://amzn.to/45gPEUX",
-      img: "https://m.media-amazon.com/images/I/61y0hmQWlsL._AC_SL1500_.jpg",
-      nome: "Samsung Galaxy S25+ Smartphone AI",
-      prezzo: "1.189,00€",
-      descrizione: "Smartphone AI con display 6.7'' QHD+ Dynamic AMOLED 2X, fotocamera da 50MP, RAM 12GB, memoria interna da 512GB, batteria da 4.900 mAh. Include 3 anni di garanzia del produttore. Colore: Silver Shadow. Versione italiana."
-    },
-    {
-      link: "https://amzn.to/3Z6Kc2W",
-      img: "https://m.media-amazon.com/images/I/610vqacJO2L.__AC_SY445_SX342_QL70_ML2_.jpg",
-      nome: "Apple iPhone 16e – 128 GB",
-      prezzo: "699,00€",
-      descrizione: "Progettato per Apple Intelligence, dotato di chip A18, autonomia grandiosa, fotocamera Fusion da 48MP e display Super Retina XDR da 6,1\". Colore: Bianco."
-    },
-    {
-      link: "https://amzn.to/3ZEqKut",
-      img: "https://m.media-amazon.com/images/I/61cUeqowwZL._AC_SL1500_.jpg",
-      nome: "Apple iPhone 16 Pro Max – 256 GB",
-      prezzo: "1.195,00€",
-      descrizione: "Telefono 5G con controllo fotocamera avanzato, registrazione video Dolby Vision 4K a 120 fps e autonomia senza precedenti. Compatibile con AirPods. Colore: Titanio Nero."
-    },
-    {
-      link: "https://amzn.to/43t1D0l",
-      img: "https://m.media-amazon.com/images/I/61BGE6iu4AL.__AC_SY445_SX342_QL70_ML2_.jpg",
-      nome: "Apple iPhone 14 Plus – 128 GB",
-      prezzo: "871,00€",
-      descrizione: "Smartphone Apple con 128 GB di memoria, display Super Retina XDR da 6,7\", ottime prestazioni e autonomia, colore Azzurro. Un mix di potenza e stile."
-    }
-  ];
-
-  function scegliProdottoCasuale() {
-    return prodotti[Math.floor(Math.random() * prodotti.length)];
-  }
-
-  function mostraProdottoCasuale() {
-    const prod = scegliProdottoCasuale();
-    const container = document.getElementById('prodotto-casuale');
-
-    container.innerHTML = `
-      <a href="${prod.link}" target="_blank" rel="noopener noreferrer">
-        <img src="${prod.img}" alt="${prod.nome}" class="product-img">
-        <h3>${prod.nome}</h3>
-        <p class="price">${prod.prezzo}</p>
-        <p>${prod.descrizione}</p>
-        <button>Compra su Amazon</button>
-      </a>
-    `;
-  }
-
-  window.onload = mostraProdottoCasuale;
-</script>
-
-</body>
-</html>
-
+/* Importa il font di sistema di Apple */
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600&display=swap');
+
+:root {
+  --primary-color: #0071e3; /* Apple blue */
+  --background-color: #f5f5f7; /* Apple background */
+  --text-color: #1d1d1f; /* Apple text */
+  --card-background: #fff;
+  --card-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  --border-radius: 18px;
+  --transition-duration: 0.25s;
+  --border-color: #e0e0e5;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  letter-spacing: 0.01em;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+header {
+  background-color: var(--card-background);
+  padding: 1.5rem 2rem;
+  box-shadow: var(--card-shadow);
+  border-bottom: 1px solid var(--border-color);
+  text-align: center;
+}
+
+header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-color);
+}
+
+nav {
+  margin-top: 0.5rem;
+}
+
+nav a {
+  margin: 0 1.2rem;
+  text-decoration: none;
+  color: var(--primary-color);
+  font-weight: 500;
+  font-size: 1.05rem;
+  transition: color var(--transition-duration) cubic-bezier(.4,0,.2,1);
+  border-radius: 8px;
+  padding: 0.2rem 0.6rem;
+}
+
+nav a:hover {
+  background: rgba(0,113,227,0.08);
+  color: #0051a8;
+}
+
+main {
+  padding: 2.5rem 1rem;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2.2rem;
+}
+
+.product-card {
+  background-color: var(--card-background);
+  border-radius: var(--border-radius);
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  text-align: center;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: transform var(--transition-duration) cubic-bezier(.4,0,.2,1), 
+              box-shadow var(--transition-duration) cubic-bezier(.4,0,.2,1);
+}
+
+.product-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+}
+
+.product-card img.product-img {
+  width: 90%;
+  max-width: 220px;
+  height: auto;
+  border-radius: 16px;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  object-fit: cover;
+}
+
+.product-card h3 {
+  font-weight: 600;
+  font-size: 1.35rem;
+  margin-bottom: 0.4rem;
+  color: var(--primary-color);
+  letter-spacing: -0.01em;
+}
+
+.price {
+  font-weight: 500;
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+  color: #30d158; /* Apple green */
+}
+
+.product-card p {
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: #6e6e73;
+  margin-bottom: 1.2rem;
+}
+
+.product-card button {
+  background-color: var(--primary-color);
+  border: none;
+  padding: 0.7rem 2rem;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1.05rem;
+  box-shadow: 0 2px 8px rgba(0,113,227,0.10);
+  transition: background-color var(--transition-duration) cubic-bezier(.4,0,.2,1), 
+              transform var(--transition-duration) cubic-bezier(.4,0,.2,1);
+}
+
+.product-card button:hover {
+  background-color: #0051a8;
+  transform: scale(1.04);
+}
+
+#prodotto-casuale a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  padding: 1.5rem;
+  transition: transform 0.25s cubic-bezier(.4,0,.2,1), box-shadow 0.25s cubic-bezier(.4,0,.2,1);
+  background: var(--card-background);
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+}
+
+#prodotto-casuale a:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+}
+
+#prodotto-casuale img.product-img {
+  max-width: 150px;
+  width: 85%;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+  border-radius: 15px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  object-fit: contain;
+}
