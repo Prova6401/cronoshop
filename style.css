@@ -140,3 +140,15 @@ main {
   transform: scale(1.05);
   box-shadow: 0 12px 30px rgba(0,0,0,0.15);
 }
+
+#prodotto-casuale img.product-img {
+  max-width: 300px;  /* o la misura che ti piace */
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  object-fit: contain;
+}
+
