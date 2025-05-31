@@ -4,172 +4,273 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cronoshop - Le migliori offerte Amazon</title>
+  
+  <!-- Font e Favicon -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="favicon.png">
 
-  <!-- Font Apple System -->
+  <meta name="description" content="Scopri Cronoshop: le migliori offerte Amazon aggiornate ogni giorno. Sconti esclusivi, zero rischi.">
+  <meta property="og:title" content="Cronoshop - Le migliori offerte Amazon">
+  <meta property="og:description" content="Una selezione unica dei prodotti Amazon più convenienti.">
+  <meta property="og:image" content="URL_TUA_IMMAGINE_ANTEPRIMA">
+  <meta property="og:url" content="https://tuodominio.it">
+  <meta name="twitter:card" content="summary_large_image">
+
   <style>
-    /* Reset e base */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: 'League Spartan', sans-serif;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
-      background-color: #F2F2F7; /* sfondo chiaro in stile iOS */
-      color: #1C1C1E; /* testo scuro elegante */
+      background: linear-gradient(145deg, #f2f2f2, #e6e6e6);
+      color: #333;
       overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
     header {
-      background-color: #fff;
-      padding: 2.5rem 1.5rem;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      padding: 2rem;
       text-align: center;
+      background: #ffffff;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
       animation: fadeDown 1s ease-out;
-      border-radius: 0 0 16px 16px;
-      user-select: none;
     }
 
     header h1 {
-      font-weight: 700;
       font-size: 3rem;
-      color: #007AFF; /* blu Apple */
-      letter-spacing: 1.2px;
+      color: #007bff;
     }
 
     header p {
-      margin-top: 0.4rem;
+      margin-top: 0.5rem;
       font-size: 1.2rem;
-      color: #6e6e73;
-      font-weight: 500;
+      color: #666;
     }
 
     nav {
-      background-color: #fff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+      background: #fff;
       display: flex;
       justify-content: center;
-      gap: 2.5rem;
-      padding: 1rem 1rem;
-      user-select: none;
-      border-radius: 0 0 16px 16px;
+      gap: 2rem;
+      padding: 1rem;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     }
 
     nav a {
-      color: #007AFF;
-      font-weight: 600;
       text-decoration: none;
-      font-size: 1.1rem;
-      padding: 6px 12px;
-      border-radius: 10px;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      color: #007bff;
+      font-weight: 600;
+      transition: color 0.3s ease;
     }
 
-    nav a:hover, nav a:focus {
-      background-color: #007AFF;
-      color: white;
-      outline: none;
-      box-shadow: 0 0 8px rgba(0,122,255,0.5);
+    nav a:hover {
+      color: #0056b3;
     }
 
     main {
-      padding: 3rem 1.5rem;
+      padding: 3rem 2rem;
       text-align: center;
       animation: fadeUp 1s ease-out;
-      max-width: 720px;
-      margin: 0 auto;
-      user-select: none;
     }
 
     main h2 {
-      font-size: 2.7rem;
-      font-weight: 700;
+      font-size: 2.5rem;
       margin-bottom: 1rem;
-      color: #1C1C1E;
-      letter-spacing: 0.5px;
     }
 
     main p {
-      font-size: 1.15rem;
-      color: #3a3a3c;
-      margin-bottom: 2rem;
-      line-height: 1.5;
-      font-weight: 500;
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto 2rem auto;
+      color: #444;
     }
 
     .cta-button {
       display: inline-block;
-      padding: 1.1rem 3rem;
+      padding: 1rem 2.5rem;
       font-size: 1.3rem;
-      font-weight: 700;
-      color: white;
-      background-color: #007AFF;
-      border: none;
-      border-radius: 16px;
+      background-color: #007bff;
+      color: #fff;
+      border-radius: 12px;
       cursor: pointer;
+      transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+      margin-top: 2rem;
       text-decoration: none;
-      box-shadow: 0 8px 15px rgba(0,122,255,0.3);
-      transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
-      user-select: none;
     }
 
-    .cta-button:hover, .cta-button:focus {
-      background-color: white;
+    .cta-button:hover {
+      transform: scale(1.1);
+      filter: blur(0.3px) brightness(1.15);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    /* Sezione recensioni orizzontali */
+
+    .reviews-section {
+      max-width: 90vw;
+      margin: 3rem auto 2rem auto;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      padding: 2rem 1.5rem 3rem 1.5rem;
+      animation: fadeUp 1s ease-out;
+      user-select: none;
+      overflow: hidden;
+    }
+
+    .reviews-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+
+    .reviews-header img {
+      width: 40px;
+      height: 40px;
+      filter: grayscale(100%) contrast(0.9);
+    }
+
+    .reviews-header h3 {
+      font-size: 1.8rem;
+      color: #1C1C1E;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .reviews-wrapper {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding-bottom: 1rem;
+      scrollbar-width: thin;
+      scrollbar-color: #007bff #f1f1f1;
+    }
+
+    .reviews-wrapper::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .reviews-wrapper::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border-radius: 10px;
+    }
+
+    .reviews-wrapper::-webkit-scrollbar-thumb {
+      background-color: #007bff;
+      border-radius: 10px;
+      border: 2px solid #f1f1f1;
+    }
+
+    .review-card {
+      flex: 0 0 280px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      border-radius: 16px;
+      background: #f7f7fa;
+      padding: 1rem 1.2rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      position: relative;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .review-card:hover {
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    }
+
+    .review-photo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      align-self: center;
+    }
+
+    .reviewer-name {
+      font-weight: 700;
       color: #007AFF;
-      box-shadow: 0 0 0 3px rgba(0,122,255,0.5);
-      transform: scale(1.05);
-      outline: none;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+
+    .review-text {
+      font-size: 0.95rem;
+      color: #3a3a3c;
+      line-height: 1.4;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 4; /* show 4 lines only */
+      -webkit-box-orient: vertical;
+      transition: max-height 0.3s ease;
+      cursor: pointer;
+    }
+
+    .review-text.expanded {
+      -webkit-line-clamp: unset;
+      overflow: visible;
+      cursor: default;
+    }
+
+    .read-more {
+      color: #007bff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      margin-top: -0.2rem;
+    }
+
+    .read-more:hover {
+      text-decoration: underline;
     }
 
     .whatsapp-banner {
       background-color: #25D366;
       color: white;
-      font-weight: 700;
+      padding: 1rem;
+      text-align: center;
+      font-weight: bold;
       font-size: 1.2rem;
-      padding: 1rem 1.5rem;
-      margin: 2rem auto 0 auto;
-      max-width: 720px;
-      border-radius: 16px;
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 1rem;
-      user-select: none;
       flex-wrap: wrap;
+      gap: 1rem;
     }
 
     .whatsapp-banner a {
       background: white;
       color: #25D366;
-      padding: 0.5rem 1.25rem;
-      border-radius: 12px;
-      font-weight: 700;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: bold;
       text-decoration: none;
-      transition: background-color 0.3s ease;
+      transition: all 0.3s ease;
     }
 
-    .whatsapp-banner a:hover, .whatsapp-banner a:focus {
-      background-color: #e0f7eb;
-      outline: none;
+    .whatsapp-banner a:hover {
+      background: #e0f7eb;
     }
 
     footer {
       text-align: center;
-      padding: 1rem 1rem;
+      padding: 1rem;
       background: #f9f9f9;
-      color: #8e8e93;
+      color: #888;
       font-size: 0.9rem;
-      margin-top: 3rem;
-      border-radius: 12px 12px 0 0;
-      user-select: none;
-      box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
       animation: fadeIn 1.5s ease-out;
-      max-width: 720px;
-      margin-left: auto;
-      margin-right: auto;
     }
 
     /* Animazioni */
@@ -188,7 +289,6 @@
       to { opacity: 1; }
     }
 
-    /* Responsive */
     @media (max-width: 600px) {
       header h1 {
         font-size: 2.2rem;
@@ -200,25 +300,24 @@
 
       .cta-button {
         font-size: 1.1rem;
-        padding: 0.9rem 2rem;
+        padding: 0.8rem 2rem;
       }
 
       nav {
         flex-direction: column;
         gap: 1rem;
-        border-radius: 0 0 12px 12px;
       }
 
       .whatsapp-banner {
         font-size: 1rem;
-        border-radius: 12px;
-        padding: 1rem;
       }
 
-      footer {
-        max-width: 100%;
-        border-radius: 0;
-        margin: 2rem 0 0 0;
+      .reviews-wrapper {
+        gap: 1rem;
+      }
+
+      .review-card {
+        flex: 0 0 90vw;
       }
     }
   </style>
@@ -233,7 +332,7 @@
   <nav>
     <a href="index.html">Home</a>
     <a href="products.html">Prodotti</a>
-    <a href="gropus.html">Gruppi</a>
+    <a href="groups.html">Gruppi</a>
     <a href="come-funziona.html">Come Funziona</a>
     <a href="faq.html">FAQ</a>
   </nav>
@@ -248,7 +347,108 @@
     <a href="products.html" class="cta-button">Vai ai nostri prodotti</a>
   </main>
 
-  <div class="whatsapp-banner" role="region" aria-label="Gruppo WhatsApp">
+  <!-- Sezione recensioni -->
+
+  <section class="reviews-section" aria-label="Recensioni degli utenti">
+    <div class="reviews-header">
+      <img src="https://exportcomments.com/resources/content/images/2022/05/google-reviews-1-.png" alt="Logo Google Recensioni" />
+      <h3>Recensioni dei nostri clienti siciliani</h3>
+    </div>
+
+    <div class="reviews-wrapper" tabindex="0">
+      <article class="review-card">
+        <img class="review-photo" src="https://randomuser.me/api/portraits/men/65.jpg" alt="Foto di Giuseppe" />
+        <div>
+          <div class="reviewer-name">Giuseppe Catanese</div>
+          <p class="review-text">Mi fido assai di Cronoshop, perché mi porta direttamente su Amazon, senza fregature. È sicuro e comodo.</p>
+          <div class="read-more" aria-label="Leggi di più">Vedi altro</div>
+        </div>
+      </article>
+
+      <article class="review-card">
+        <img class="review-photo" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Foto di Carmela" />
+        <div>
+          <div class="reviewer-name">Carmela Messinese</div>
+          <p class="review-text">Ho trovato offerte piaciute assai, pure pe' cose che avissi accattatu comunque. Comodissimo il gruppo Whatsapp.</p>
+          <div class="read-more" aria-label="Leggi di più">Vedi altro</div>
+        </div>
+      </article>
+
+      <article class="review-card">
+        <img class="review-photo" src="https://randomuser.me/api/portraits/men/77.jpg" alt="Foto di Salvatore" />
+        <div>
+          <div class="reviewer-name">Salvatore Agrigentino</div>
+          <p class="review-text">Grazie al gruppo Whatsapp ricevo tutte le notifiche in tempo reale, non perdo mai un'offerta buona.</p>
+          <div class="read-more" aria-label="Leggi di più">Vedi altro</div>
+        </div>
+      </article>
+
+      <article class="review-card">
+        <img class="review-photo" src="https://randomuser.me/api/portraits/women/12.jpg" alt="Foto di Rosalia" />
+        <div>
+          <div class="reviewer-name">Rosalia Palermitana</div>
+          <p class="review-text">Mi piace la chiarezza, niente fregature, solo link diretti ad Amazon. Consigliatissimo per chi non ha tempo di cercare offerte da solo.</p>
+          <div class="read-more" aria-label="Leggi di più">Vedi altro</div>
+        </div>
+      </article>
+
+      <article class="review-card">
+        <img class="review-photo" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Foto di Antonino" />
+        <div>
+          <div class="reviewer-name">Antonino Siracusano</div>
+          <p class="review-text">Le offerte sono sempre aggiornate e valide. Cronoshop è il mio alleato per risparmiare senza stress.</p>
+          <div class="read-more" aria-label="Leggi di più">Vedi altro</div>
+        </div>
+      </article>
+
+      <article class="review-card">
+        <img class="review-photo" src="https://randomuser.me/api/portraits/women/58.jpg" alt="Foto di Concetta" />
+        <div>
+          <div class="reviewer-name">Concetta Trapanese</div>
+          <p class="review-text">Non avrei mai pensato di trovare offerte così convenienti senza perdere ore a cercarle. Gruppo Whatsapp top.</p>
+          <div class="read-more" aria-label="Leggi di più">Vedi altro</div>
+        </div>
+      </article>
+
+      <article class="review-card">
+        <img class="review-photo" src="https://randomuser.me/api/portraits/men/14.jpg" alt="Foto di Mimmo" />
+        <div>
+          <div class="reviewer-name">Domenico "Mimmo" Caltanissetta</div>
+          <p class="review-text">Affidabile e semplice da usare, lo consiglio a tutti quelli che vogliono risparmiare davvero.</p>
+          <div class="read-more" aria-label="Leggi di più">Vedi altro</div>
+        </div>
+      </article>
+
+      <article class="review-card">
+        <img class="review-photo" src="https://randomuser.me/api/portraits/women/79.jpg" alt="Foto di Angela" />
+        <div>
+          <div class="reviewer-name">Angela Enna</div>
+          <p class="review-text">Finalmente un servizio che fa il lavoro sporco per me. Tutto molto comodo e sicuro.</p>
+          <div class="read-more" aria-label="Leggi di più">Vedi altro</div>
+        </div>
+      </article>
+
+      <article class="review-card">
+        <img class="review-photo" src="https://randomuser.me/api/portraits/men/88.jpg" alt="Foto di Franco" />
+        <div>
+          <div class="reviewer-name">Franco Ragusano</div>
+          <p class="review-text">Il gruppo Whatsapp è una manna dal cielo, ricevo le offerte senza dover fare nulla.</p>
+          <div class="read-more" aria-label="Leggi di più">Vedi altro</div>
+        </div>
+      </article>
+
+      <article class="review-card">
+        <img class="review-photo" src="https://randomuser.me/api/portraits/women/22.jpg" alt="Foto di Lucia" />
+        <div>
+          <div class="reviewer-name">Lucia Agrigentina</div>
+          <p class="review-text">Ottimo sito, link diretti, niente fregature e offerte sempre aggiornate. Lo uso da mesi e mi trovo benissimo.</p>
+          <div class="read-more" aria-label="Leggi di più">Vedi altro</div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <div class="whatsapp-banner">
     📢 UNISCITI AL NOSTRO GRUPPO WHATSAPP PER RICEVERE LE OFFERTE OGNI GIORNO!
     <a href="https://whatsapp.com/channel/0029Vb5wE6mDeON8PBORW02R" target="_blank" rel="noopener noreferrer">CLICCA QUI</a>
   </div>
@@ -256,6 +456,25 @@
   <footer>
     © 2025 Cronoshop - Powered by Amazon Affiliate Program
   </footer>
+
+<script>
+  // Padrone, qui c'è la roba pe' espandere/contrarre recensioni
+  
+  document.querySelectorAll('.review-card').forEach(card => {
+    const readMore = card.querySelector('.read-more');
+    const reviewText = card.querySelector('.review-text');
+    
+    readMore.addEventListener('click', () => {
+      if (reviewText.classList.contains('expanded')) {
+        reviewText.classList.remove('expanded');
+        readMore.textContent = 'Vedi altro';
+      } else {
+        reviewText.classList.add('expanded');
+        readMore.textContent = 'Vedi meno';
+      }
+    });
+  });
+</script>
 
 </body>
 </html>
