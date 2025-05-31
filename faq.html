@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ - Cronoshop</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #007aff;
+      --background-color: #f2f2f7;
+      --text-color: #1c1c1e;
+      --card-background: #ffffff;
+      --card-shadow: rgba(0, 0, 0, 0.1);
+      --border-radius: 16px;
+      --transition-duration: 0.3s;
+    }
+
+    body {
+      font-family: 'League Spartan', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--background-color);
+      color: var(--text-color);
+      text-align: center;
+    }
+
+    header {
+      background: var(--card-background);
+      color: var(--text-color);
+      padding: 20px;
+      box-shadow: 0 2px 5px var(--card-shadow);
+      border-bottom: 1px solid #e5e5ea;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 600;
+    }
+
+    nav {
+      margin-top: 0.5rem;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: 500;
+      transition: color var(--transition-duration) ease;
+    }
+
+    nav a:hover {
+      color: #005bb5;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .faq-section {
+      background: var(--card-background);
+      border-radius: var(--border-radius);
+      box-shadow: 0 5px 15px var(--card-shadow);
+      padding: 30px;
+      text-align: left;
+    }
+
+    .faq-section h2 {
+      font-size: 1.75rem;
+      margin-bottom: 20px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .faq-item {
+      margin-bottom: 20px;
+      border-bottom: 1px solid #e5e5ea;
+      padding-bottom: 15px;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-question {
+      font-weight: 600;
+      color: var(--primary-color);
+      cursor: pointer;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+
+    .faq-answer {
+      font-size: 1rem;
+      color: #3a3a3c;
+      line-height: 1.5;
+      display: none;
+    }
+
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+
+    .faq-question::after {
+      content: " ▼";
+      font-size: 0.9rem;
+      transition: transform var(--transition-duration) ease;
+    }
+
+    .faq-item.open .faq-question::after {
+      transform: rotate(180deg);
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>FAQ - Domande Frequenti</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Prodotti</a>
+      <a href="gropus.html">Gruppi</a>
+      <a href="come-funziona.html">Come Funziona</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="faq-section">
+      <h2>Come Funziona Cronoshop</h2>
+      <div class="faq-item">
+        <div class="faq-question">Come funziona Cronoshop?</div>
+        <div class="faq-answer">
+          Cronoshop ti mostra le migliori offerte di Amazon ogni giorno. Cliccando su un prodotto verrai indirizzato direttamente su Amazon, dove potrai acquistare in totale sicurezza. Noi non gestiamo i pagamenti: riceverai semplicemente uno sconto!
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Devo registrarmi per usare Cronoshop?</div>
+        <div class="faq-answer">
+          No, non è richiesta nessuna registrazione. Puoi navigare tra i prodotti e cliccare direttamente sull’offerta per acquistare su Amazon.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">Come ricevo lo sconto?</div>
+        <div class="faq-answer">
+          Cliccando sul prodotto, vieni indirizzato su Amazon dove potrai usufruire dell’offerta speciale direttamente, senza codici o passaggi complicati.
+        </div>
+      </div>
+      <div class="faq-item">
+  <div class="faq-question">Ci sono costi aggiuntivi usando Cronoshop?</div>
+  <div class="faq-answer">
+    Assolutamente no. Cronoshop è gratuito e non applica alcun costo aggiuntivo. Gli eventuali sconti li ricevete direttamente da Amazon.
+  </div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-question">Posso fidarmi delle offerte proposte?</div>
+  <div class="faq-answer">
+    Certamente! Selezioniamo solo offerte verificate da Amazon, in modo che tu possa acquistare in sicurezza. In più, ricevi la garanzia Amazon.
+  </div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-question">Riceverò assistenza post-vendita?</div>
+  <div class="faq-answer">
+    Per qualsiasi problema relativo agli acquisti, dovrai rivolgerti direttamente ad Amazon tramite il loro servizio clienti.
+  </div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-question">Posso restituire un prodotto acquistato tramite Cronoshop?</div>
+  <div class="faq-answer">
+    Sì! Tutti gli acquisti seguono le politiche di reso di Amazon. Basta accedere al tuo account Amazon e seguire la procedura di reso.
+  </div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-question">Posso usare Cronoshop da smartphone o tablet?</div>
+  <div class="faq-answer">
+    Certo! Il sito è ottimizzato per tutti i dispositivi, inclusi smartphone e tablet.
+  </div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-question">Come faccio a sapere se un'offerta è ancora valida?</div>
+  <div class="faq-answer">
+    Le offerte vengono aggiornate quotidianamente, ma possono scadere in base alle disponibilità. Ti consigliamo di controllare sempre la pagina prodotto su Amazon.
+  </div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-question">Cronoshop raccoglie i miei dati personali?</div>
+  <div class="faq-answer">
+    No, Cronoshop non raccoglie dati personali né traccia i tuoi acquisti. Tutto avviene direttamente su Amazon.
+  </div>
+</div>
+
+<div class="faq-item">
+  <div class="faq-question">Posso consigliare un prodotto da aggiungere a Cronoshop?</div>
+  <div class="faq-answer">
+    Al momento no, ma ci piacerebbe implementare questa funzionalità in futuro. Continua a seguirci!
+  </div>
+</div>
+
+
+      <div class="faq-item">
+        <div class="faq-question">Cronoshop vende direttamente i prodotti?</div>
+        <div class="faq-answer">
+          No, Cronoshop non gestisce la vendita diretta. Mostriamo offerte selezionate di Amazon e riceviamo una piccola commissione se decidi di acquistare. Tu non paghi nulla in più!
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // FAQ toggle
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      question.addEventListener('click', () => {
+        item.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html>
