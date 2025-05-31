@@ -78,63 +78,7 @@ main {
   filter: brightness(1.02);
 }
 
-.product-card img {
-  max-width: 100%;
-  border-radius: 12px;
-  margin-bottom: 1rem;
-}
-
-.product-card h3 {
-  font-size: 1.25rem;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-}
-
-.price {
-  font-weight: bold;
-  color: #34c759; /* iOS system green */
-  margin-bottom: 0.5rem;
-}
-
-.product-card p {
-  margin-bottom: 0.5rem;
-  font-size: 0.95rem;
-  color: #3a3a3c;
-}
-
-.product-card button {
-  padding: 0.6rem 1.2rem;
-  background-color: var(--card-background);
-  color: var(--primary-color);
-  border: 1px solid var(--primary-color);
-  border-radius: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color var(--transition-duration) ease, color var(--transition-duration) ease, transform var(--transition-duration) ease;
-}
-
-.product-card button:hover {
-  background-color: var(--primary-color);
-  color: #ffffff;
-  transform: scale(1.05);
-}
-
-#prodotto-casuale a {
-  color: inherit;
-  text-decoration: none;
-  display: block;
-  padding: 1.5rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background: white;
-  border-radius: 20px;
-}
-
-#prodotto-casuale a:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-}
-
-.product-img {
+.product-card img.product-img {
   width: 100%;
   height: auto;
   border-radius: 15px;
@@ -147,14 +91,14 @@ main {
   font-weight: 700;
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
-  color: #007aff; /* Apple blue */
+  color: var(--primary-color);
 }
 
 .price {
   font-weight: 600;
   font-size: 1.3rem;
   margin-bottom: 1rem;
-  color: #333;
+  color: #34c759; /* iOS system green */
 }
 
 .product-card p {
@@ -165,7 +109,7 @@ main {
 }
 
 .product-card button {
-  background-color: #007aff;
+  background-color: var(--primary-color);
   border: none;
   padding: 0.8rem 1.8rem;
   border-radius: 15px;
@@ -174,9 +118,25 @@ main {
   cursor: pointer;
   font-size: 1rem;
   box-shadow: 0 6px 15px rgba(0,122,255,0.4);
-  transition: background-color 0.3s ease;
+  transition: background-color var(--transition-duration) ease, transform var(--transition-duration) ease;
 }
 
 .product-card button:hover {
   background-color: #005bb5;
+  transform: scale(1.05);
+}
+
+#prodotto-casuale a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: var(--card-background);
+  border-radius: 20px;
+}
+
+#prodotto-casuale a:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
 }
