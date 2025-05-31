@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Il tuo Account - Cronoshop</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    .account-container {
+      max-width: 420px;
+      margin: 3rem auto 2rem auto;
+      background: var(--card-background, #fff);
+      border-radius: 20px;
+      box-shadow: var(--card-shadow, 0 4px 16px rgba(0,0,0,0.08));
+      padding: 2.5rem 2rem 2rem 2rem;
+      text-align: center;
+    }
+    .profile-pic {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      margin-bottom: 1.2rem;
+      border: 2px solid var(--primary-color, #0071e3);
+      background: #f5f5f7;
+    }
+    .account-form input[type="text"],
+    .account-form input[type="email"],
+    .account-form input[type="file"] {
+      width: 90%;
+      margin: 0.5rem 0 1rem 0;
+      padding: 0.7rem;
+      border-radius: 8px;
+      border: 1px solid #e0e0e5;
+      font-size: 1rem;
+      background: #fafbfc;
+    }
+    .account-form label {
+      display: block;
+      text-align: left;
+      margin: 0.5rem 0 0.2rem 0.5rem;
+      font-size: 1rem;
+      color: #555;
+      font-weight: 500;
+    }
+    .account-form button {
+      background: var(--primary-color, #0071e3);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 0.7rem 2rem;
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin: 0.5rem 0.3rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(0,113,227,0.10);
+    }
+    .account-form button:hover {
+      background: #0051a8;
+    }
+    .danger-btn {
+      background: #ff3b30 !important;
+      color: #fff !important;
+      margin-top: 1.2rem;
+      transition: background 0.2s;
+    }
+    .danger-btn:hover {
+      background: #c1271a !important;
+    }
+    .success-msg {
+      color: #30d158;
+      font-size: 1rem;
+      margin-bottom: 0.7rem;
+    }
+    .error-msg {
+      color: #d32f2f;
+      font-size: 1rem;
+      margin-bottom: 0.7rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Il tuo Account</h1>
+  </header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Prodotti</a>
+    <a href="groups.html">Gruppi</a>
+    <a href="come-funziona.html">Come Funziona</a>
+    <a href="faq.html">FAQ</a>
+  </nav>
+  <main>
+    <div class="account-container">
+      <img id="profile-pic" class="profile-pic" src="https://ui-avatars.com/api/?name=User&background=eeeeee&color=0071e3" alt="Foto profilo" />
+      <form class="account-form" onsubmit="return false;">
+        <label for="username">Username</label>
+        <input type="text" id="username" maxlength="20" autocomplete="username" />
+        <label for="email">Email (opzionale)</label>
+        <input type="email" id="email" maxlength="40" autocomplete="email" />
+        <label for="profile-pic-input">Foto profilo</label>
+        <input type="file" id="profile-pic-input" accept="image/*" />
+        <div id="account-msg"></div>
+        <button onclick="saveAccount()">Salva modifiche</button>
+        <button class="danger-btn" onclick="disableAccount()">Disabilita account</button>
+        <button class="danger-btn" onclick="deleteAccount()">Elimina account</button>
+      </form>
+    </div>
+  </main>
+  <script>
+    // Helpers
+    function hash(str) {
+      let h = 0, i, chr;
+      if (str.length === 0) return h;
+      for (i = 0; i < str.length; i++) {
+        chr = str.charCodeAt(i);
+        h = ((h << 5) - h) + chr;
+        h |= 0;
+      }
+      return h;
+    }
+    function getUser() {
+      return JSON.parse(localStorage.getItem('cronoshop_user') || 'null');
+    }
+    function setUser(user) {
+      localStorage.setItem('cronoshop_user', JSON.stringify(user));
+    }
+    function removeUser() {
+      localStorage.removeItem('cronoshop_user');
+    }
+    function getUserDb(username) {
+      return JSON.parse(localStorage.getItem('cronoshop_user_db_' + username) || 'null');
+    }
+    function setUserDb(username, data) {
+      localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify(data));
+    }
+    function removeUserDb(username) {
+      localStorage.removeItem('cronoshop_user_db_' + username);
+    }
+
+    // Carica dati utente
+    function loadAccount() {
+      const user = getUser();
+      if (!user || !user.username) {
+        window.location.href = "index.html";
+        return;
+      }
+      const db = getUserDb(user.username);
+      document.getElementById('username').value = db?.username || user.username;
+      document.getElementById('email').value = db?.email || '';
+      if (db?.profilePic) {
+        document.getElementById('profile-pic').src = db.profilePic;
+      } else {
+        document.getElementById('profile-pic').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(db?.username || user.username)}&background=eeeeee&color=0071e3`;
+      }
+    }
+
+    // Cambia foto profilo
+    document.getElementById('profile-pic-input').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        document.getElementById('profile-pic').src = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // Salva modifiche account
+    function saveAccount() {
+      const user = getUser();
+      if (!user || !user.username) return;
+      const db = getUserDb(user.username) || {};
+      const newUsername = document.getElementById('username').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const picSrc = document.getElementById('profile-pic').src;
+      const msg = document.getElementById('account-msg');
+      msg.textContent = '';
+      msg.className = '';
+
+      if (!newUsername) {
+        msg.textContent = "Username obbligatorio.";
+        msg.className = "error-msg";
+        return;
+      }
+      if (newUsername !== user.username && localStorage.getItem('cronoshop_user_db_' + newUsername)) {
+        msg.textContent = "Username già esistente.";
+        msg.className = "error-msg";
+        return;
+      }
+      // Aggiorna DB utente
+      const newDb = {
+        ...db,
+        username: newUsername,
+        email: email,
+        profilePic: picSrc
+      };
+      // Se cambia username, aggiorna chiave
+      if (newUsername !== user.username) {
+        setUserDb(newUsername, newDb);
+        removeUserDb(user.username);
+        setUser({ username: newUsername });
+      } else {
+        setUserDb(newUsername, newDb);
+      }
+      msg.textContent = "Modifiche salvate!";
+      msg.className = "success-msg";
+      setTimeout(() => { msg.textContent = ""; }, 2000);
+    }
+
+    // Disabilita account (logout)
+    function disableAccount() {
+      if (confirm("Vuoi disabilitare temporaneamente il tuo account? Potrai riaccedere in futuro.")) {
+        removeUser();
+        window.location.href = "index.html";
+      }
+    }
+
+    // Elimina account (definitivo)
+    function deleteAccount() {
+      if (confirm("Sei sicuro di voler eliminare DEFINITIVAMENTE il tuo account? Questa azione è irreversibile.")) {
+        const user = getUser();
+        if (user && user.username) {
+          removeUserDb(user.username);
+          removeUser();
+        }
+        window.location.href = "index.html";
+      }
+    }
+
+    // Carica dati all'avvio
+    window.onload = loadAccount;
+  </script>
+</body>
+</html>
