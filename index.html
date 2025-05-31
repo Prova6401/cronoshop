@@ -4,149 +4,172 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Cronoshop - Le migliori offerte Amazon</title>
-  
-  <!-- Font e Favicon -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500&display=swap" rel="stylesheet">
-  <link rel="icon" type="image/png" href="favicon.png">
 
-  <!-- Meta SEO -->
-  <meta name="description" content="Scopri Cronoshop: le migliori offerte Amazon aggiornate ogni giorno. Sconti esclusivi, zero rischi.">
-  <meta property="og:title" content="Cronoshop - Le migliori offerte Amazon">
-  <meta property="og:description" content="Una selezione unica dei prodotti Amazon più convenienti.">
-  <meta property="og:image" content="URL_TUA_IMMAGINE_ANTEPRIMA">
-  <meta property="og:url" content="https://tuodominio.it">
-  <meta name="twitter:card" content="summary_large_image">
-
-  <!-- Stile -->
+  <!-- Font Apple System -->
   <style>
+    /* Reset e base */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'League Spartan', sans-serif;
     }
 
     body {
-      background: linear-gradient(145deg, #f2f2f2, #e6e6e6);
-      color: #333;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background-color: #F2F2F7; /* sfondo chiaro in stile iOS */
+      color: #1C1C1E; /* testo scuro elegante */
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     header {
-      padding: 2rem;
-      text-align: center;
-      background: #ffffff;
+      background-color: #fff;
+      padding: 2.5rem 1.5rem;
       box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+      text-align: center;
       animation: fadeDown 1s ease-out;
+      border-radius: 0 0 16px 16px;
+      user-select: none;
     }
 
     header h1 {
+      font-weight: 700;
       font-size: 3rem;
-      color: #007bff;
+      color: #007AFF; /* blu Apple */
+      letter-spacing: 1.2px;
     }
 
     header p {
-      margin-top: 0.5rem;
+      margin-top: 0.4rem;
       font-size: 1.2rem;
-      color: #666;
+      color: #6e6e73;
+      font-weight: 500;
     }
 
     nav {
-      background: #fff;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.06);
       display: flex;
       justify-content: center;
-      gap: 2rem;
-      padding: 1rem;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+      gap: 2.5rem;
+      padding: 1rem 1rem;
+      user-select: none;
+      border-radius: 0 0 16px 16px;
     }
 
     nav a {
-      text-decoration: none;
-      color: #007bff;
+      color: #007AFF;
       font-weight: 600;
-      transition: color 0.3s ease;
+      text-decoration: none;
+      font-size: 1.1rem;
+      padding: 6px 12px;
+      border-radius: 10px;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    nav a:hover {
-      color: #0056b3;
+    nav a:hover, nav a:focus {
+      background-color: #007AFF;
+      color: white;
+      outline: none;
+      box-shadow: 0 0 8px rgba(0,122,255,0.5);
     }
 
     main {
-      padding: 3rem 2rem;
+      padding: 3rem 1.5rem;
       text-align: center;
       animation: fadeUp 1s ease-out;
+      max-width: 720px;
+      margin: 0 auto;
+      user-select: none;
     }
 
     main h2 {
-      font-size: 2.5rem;
+      font-size: 2.7rem;
+      font-weight: 700;
       margin-bottom: 1rem;
+      color: #1C1C1E;
+      letter-spacing: 0.5px;
     }
 
     main p {
-      font-size: 1.1rem;
-      max-width: 700px;
-      margin: 0 auto 2rem auto;
-      color: #444;
+      font-size: 1.15rem;
+      color: #3a3a3c;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+      font-weight: 500;
     }
 
     .cta-button {
       display: inline-block;
-      padding: 1rem 2.5rem;
+      padding: 1.1rem 3rem;
       font-size: 1.3rem;
-      background-color: #007bff;
-      color: #fff;
-      border-radius: 12px;
+      font-weight: 700;
+      color: white;
+      background-color: #007AFF;
+      border: none;
+      border-radius: 16px;
       cursor: pointer;
-      transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-      margin-top: 2rem;
       text-decoration: none;
+      box-shadow: 0 8px 15px rgba(0,122,255,0.3);
+      transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+      user-select: none;
     }
 
-    .cta-button:hover {
-      transform: scale(1.1);
-      filter: blur(0.3px) brightness(1.15);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    .cta-button:hover, .cta-button:focus {
+      background-color: white;
+      color: #007AFF;
+      box-shadow: 0 0 0 3px rgba(0,122,255,0.5);
+      transform: scale(1.05);
+      outline: none;
     }
 
     .whatsapp-banner {
       background-color: #25D366;
       color: white;
-      padding: 1rem;
-      text-align: center;
-      font-weight: bold;
+      font-weight: 700;
       font-size: 1.2rem;
-      position: relative;
+      padding: 1rem 1.5rem;
+      margin: 2rem auto 0 auto;
+      max-width: 720px;
+      border-radius: 16px;
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-wrap: wrap;
       gap: 1rem;
+      user-select: none;
+      flex-wrap: wrap;
     }
 
     .whatsapp-banner a {
       background: white;
       color: #25D366;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      font-weight: bold;
+      padding: 0.5rem 1.25rem;
+      border-radius: 12px;
+      font-weight: 700;
       text-decoration: none;
-      transition: all 0.3s ease;
+      transition: background-color 0.3s ease;
     }
 
-    .whatsapp-banner a:hover {
-      background: #e0f7eb;
+    .whatsapp-banner a:hover, .whatsapp-banner a:focus {
+      background-color: #e0f7eb;
+      outline: none;
     }
 
     footer {
       text-align: center;
-      padding: 1rem;
+      padding: 1rem 1rem;
       background: #f9f9f9;
-      color: #888;
+      color: #8e8e93;
       font-size: 0.9rem;
+      margin-top: 3rem;
+      border-radius: 12px 12px 0 0;
+      user-select: none;
+      box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
       animation: fadeIn 1.5s ease-out;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     /* Animazioni */
@@ -165,6 +188,7 @@
       to { opacity: 1; }
     }
 
+    /* Responsive */
     @media (max-width: 600px) {
       header h1 {
         font-size: 2.2rem;
@@ -176,16 +200,25 @@
 
       .cta-button {
         font-size: 1.1rem;
-        padding: 0.8rem 2rem;
+        padding: 0.9rem 2rem;
       }
 
       nav {
         flex-direction: column;
         gap: 1rem;
+        border-radius: 0 0 12px 12px;
       }
 
       .whatsapp-banner {
         font-size: 1rem;
+        border-radius: 12px;
+        padding: 1rem;
+      }
+
+      footer {
+        max-width: 100%;
+        border-radius: 0;
+        margin: 2rem 0 0 0;
       }
     }
   </style>
@@ -215,9 +248,9 @@
     <a href="products.html" class="cta-button">Vai ai nostri prodotti</a>
   </main>
 
-  <div class="whatsapp-banner">
+  <div class="whatsapp-banner" role="region" aria-label="Gruppo WhatsApp">
     📢 UNISCITI AL NOSTRO GRUPPO WHATSAPP PER RICEVERE LE OFFERTE OGNI GIORNO!
-    <a href="https://whatsapp.com/channel/0029Vb5wE6mDeON8PBORW02R" target="_blank">CLICCA QUI</a>
+    <a href="https://whatsapp.com/channel/0029Vb5wE6mDeON8PBORW02R" target="_blank" rel="noopener noreferrer">CLICCA QUI</a>
   </div>
 
   <footer>
