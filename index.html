@@ -464,10 +464,10 @@
         <img id="account-menu-avatar" src="https://ui-avatars.com/api/?name=?" style="width:38px;height:38px;border-radius:50%;object-fit:cover;background:#f5f5f7;">
         <span id="account-menu-username" style="font-weight:600;color:#0071e3;font-size:1.08rem;white-space:nowrap;"></span>
       </div>
-      <button type="button" id="btn-account-cart" style="width:100%;background:#f5f5f7;color:#222;border:none;border-radius:8px;padding:0.6rem 0;font-weight:600;font-size:1rem;margin-bottom:0.5rem;cursor:pointer;">🛒 Carrello</button>
-      <button type="button" id="btn-account-preferiti" style="width:100%;background:#f5f5f7;color:#222;border:none;border-radius:8px;padding:0.6rem 0;font-weight:600;font-size:1rem;margin-bottom:0.5rem;cursor:pointer;">❤️ Preferiti</button>
-      <button type="button" id="btn-account-area" style="width:100%;background:#f5f5f7;color:#222;border:none;border-radius:8px;padding:0.6rem 0;font-weight:600;font-size:1rem;margin-bottom:0.5rem;cursor:pointer;">👤 Area personale</button>
-      <button type="button" id="btn-account-logout" style="width:100%;background:#fff0f0;color:#ff3b30;border:none;border-radius:8px;padding:0.6rem 0;font-weight:600;font-size:1rem;margin-top:0.7rem;cursor:pointer;">Esci</button>
+      <button onclick="window.location.href='cart.html'" style="width:100%;background:#f5f5f7;color:#222;border:none;border-radius:8px;padding:0.6rem 0;font-weight:600;font-size:1rem;margin-bottom:0.5rem;cursor:pointer;">🛒 Carrello</button>
+      <button onclick="window.location.href='account.html#preferiti'" style="width:100%;background:#f5f5f7;color:#222;border:none;border-radius:8px;padding:0.6rem 0;font-weight:600;font-size:1rem;margin-bottom:0.5rem;cursor:pointer;">❤️ Preferiti</button>
+      <button onclick="window.location.href='account.html'" style="width:100%;background:#f5f5f7;color:#222;border:none;border-radius:8px;padding:0.6rem 0;font-weight:600;font-size:1rem;margin-bottom:0.5rem;cursor:pointer;">👤 Area personale</button>
+      <button onclick="logoutUser()" style="width:100%;background:#fff0f0;color:#ff3b30;border:none;border-radius:8px;padding:0.6rem 0;font-weight:600;font-size:1rem;margin-top:0.7rem;cursor:pointer;">Esci</button>
     </div>
   </div>
 </nav>
@@ -785,32 +785,6 @@
           menu.style.opacity = 0;
           setTimeout(() => menu.style.display = 'none', 250);
         }
-      });
-
-      // Gestione click sui bottoni del menu account
-      menu.querySelectorAll('.account-menu-btn').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-          e.stopPropagation();
-          menu.classList.remove('open');
-          avatar.classList.remove('open');
-          menu.style.opacity = 0;
-          setTimeout(() => menu.style.display = 'none', 250);
-
-          switch (btn.dataset.action) {
-            case 'cart':
-              window.location.href = 'cart.html';
-              break;
-            case 'preferiti':
-              window.location.href = 'account.html#preferiti';
-              break;
-            case 'account':
-              window.location.href = 'account.html';
-              break;
-            case 'logout':
-              logoutUser();
-              break;
-          }
-        });
       });
     });
 
