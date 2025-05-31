@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -384,27 +385,6 @@
       to { opacity: 1; }
     }
 
-    #account-avatar-container { position: relative; }
-    #account-avatar {
-      transition: transform 0.25s cubic-bezier(.4,1.6,.6,1), box-shadow 0.2s;
-    }
-    #account-avatar.open {
-      transform: translateX(-70px) scale(1.08);
-      box-shadow: 0 8px 32px #0071e344;
-    }
-    #account-menu {
-      transition: opacity 0.25s cubic-bezier(.4,1.6,.6,1), transform 0.25s cubic-bezier(.4,1.6,.6,1);
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-10px) scale(0.98);
-    }
-    #account-menu.open {
-      display: block !important;
-      opacity: 1;
-      pointer-events: auto;
-      transform: translateY(0) scale(1);
-    }
-
     @media (max-width: 600px) {
       header h1 {
         font-size: 2.2rem;
@@ -451,26 +431,15 @@
     <p>Le migliori offerte selezionate da Amazon, tutte in un unico posto</p>
   </header>
 
-  <nav>
-  <a href="index.html">Home</a>
-  <a href="products.html">Prodotti</a>
-  <a href="groups.html">Gruppi</a>
-  <a href="come-funziona.html">Come Funziona</a>
-  <a href="faq.html">FAQ</a>
-  <div id="account-avatar-container" style="margin-left:auto;position:relative;">
-    <img id="account-avatar" src="https://ui-avatars.com/api/?name=?" alt="Account" style="width:38px;height:38px;border-radius:50%;object-fit:cover;cursor:pointer;box-shadow:0 2px 8px #0002;transition:all 0.3s cubic-bezier(.4,1.6,.6,1);background:#f5f5f7;">
-    <div id="account-menu" style="display:none;position:absolute;top:52px;right:0;min-width:210px;background:#fff;border-radius:18px;box-shadow:0 8px 32px #0002;padding:1.2rem 1rem 1rem 1rem;z-index:100;transition:all 0.25s cubic-bezier(.4,1.6,.6,1);opacity:0;pointer-events:none;">
-      <div style="display:flex;align-items:center;gap:0.7rem;margin-bottom:1rem;">
-        <img id="account-menu-avatar" src="https://ui-avatars.com/api/?name=?" style="width:38px;height:38px;border-radius:50%;object-fit:cover;background:#f5f5f7;">
-        <span id="account-menu-username" style="font-weight:600;color:#0071e3;font-size:1.08rem;white-space:nowrap;"></span>
-      </div>
-      <button onclick="window.location.href='cart.html'" style="width:100%;background:#f5f5f7;color:#222;border:none;border-radius:8px;padding:0.6rem 0;font-weight:600;font-size:1rem;margin-bottom:0.5rem;cursor:pointer;">🛒 Carrello</button>
-      <button onclick="window.location.href='account.html#preferiti'" style="width:100%;background:#f5f5f7;color:#222;border:none;border-radius:8px;padding:0.6rem 0;font-weight:600;font-size:1rem;margin-bottom:0.5rem;cursor:pointer;">❤️ Preferiti</button>
-      <button onclick="window.location.href='account.html'" style="width:100%;background:#f5f5f7;color:#222;border:none;border-radius:8px;padding:0.6rem 0;font-weight:600;font-size:1rem;margin-bottom:0.5rem;cursor:pointer;">👤 Area personale</button>
-      <button onclick="logoutUser()" style="width:100%;background:#fff0f0;color:#ff3b30;border:none;border-radius:8px;padding:0.6rem 0;font-weight:600;font-size:1rem;margin-top:0.7rem;cursor:pointer;">Esci</button>
-    </div>
-  </div>
-</nav>
+ <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Prodotti</a>
+    <a href="groups.html">Gruppi</a>
+    <a href="come-funziona.html">Come Funziona</a>
+    <a href="faq.html">FAQ</a>
+    <a href="account.html">Area Personale</a>
+    <a href="cart.html">Carrello</a>
+  </nav>
 
   <!-- Modale login/registrazione -->
   <div class="modal-bg" id="modal-bg">
@@ -743,50 +712,12 @@
     function getUser() {
       return JSON.parse(localStorage.getItem('cronoshop_user') || 'null');
     }
-    function logoutUser() {
+    function setUser(user) {
+      localStorage.setItem('cronoshop_user', JSON.stringify(user));
+    }
+    function removeUser() {
       localStorage.removeItem('cronoshop_user');
-      window.location.reload();
     }
-    function updateAccountAvatar() {
-      const user = getUser();
-      const avatar = document.getElementById('account-avatar');
-      const menuAvatar = document.getElementById('account-menu-avatar');
-      const username = document.getElementById('account-menu-username');
-      if (user && user.username) {
-        avatar.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.username)}&background=eeeeee&color=0071e3`;
-        menuAvatar.src = avatar.src;
-        username.textContent = user.username;
-      } else {
-        avatar.src = "https://ui-avatars.com/api/?name=?";
-        menuAvatar.src = avatar.src;
-        username.textContent = "Ospite";
-      }
-    }
-    document.addEventListener('DOMContentLoaded', function() {
-      updateAccountAvatar();
-      const avatar = document.getElementById('account-avatar');
-      const menu = document.getElementById('account-menu');
-      avatar.addEventListener('click', function() {
-        avatar.classList.toggle('open');
-        menu.classList.toggle('open');
-        if (menu.classList.contains('open')) {
-          menu.style.display = 'block';
-          setTimeout(() => menu.style.opacity = 1, 10);
-        } else {
-          menu.style.opacity = 0;
-          setTimeout(() => menu.style.display = 'none', 250);
-        }
-      });
-      // Chiudi il menu cliccando fuori
-      document.addEventListener('click', function(e) {
-        if (!avatar.contains(e.target) && !menu.contains(e.target)) {
-          avatar.classList.remove('open');
-          menu.classList.remove('open');
-          menu.style.opacity = 0;
-          setTimeout(() => menu.style.display = 'none', 250);
-        }
-      });
-    });
 
     // Banner e greeting
     function updateAccountBanner() {
