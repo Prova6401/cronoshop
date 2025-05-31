@@ -142,8 +142,8 @@ main {
 }
 
 #prodotto-casuale img.product-img {
-  max-width: 300px;
-  width: 100%;
+  max-width: 150px;
+  width: 85%;
   height: auto;
   margin: 0 auto;
   display: block;
