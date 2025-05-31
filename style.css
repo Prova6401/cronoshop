@@ -1,16 +1,15 @@
-
 /* Importa il font di sistema di Apple */
 @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600&display=swap');
 
 :root {
-  /* Colori di sistema dinamici */
-  --primary-color: #007aff; /* iOS system blue */
-  --background-color: #f2f2f7; /* iOS system background */
-  --text-color: #1c1c1e; /* iOS label color */
-  --card-background: #ffffff;
-  --card-shadow: rgba(0, 0, 0, 0.1);
-  --border-radius: 16px;
-  --transition-duration: 0.3s;
+  --primary-color: #0071e3; /* Apple blue */
+  --background-color: #f5f5f7; /* Apple background */
+  --text-color: #1d1d1f; /* Apple text */
+  --card-background: #fff;
+  --card-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  --border-radius: 18px;
+  --transition-duration: 0.25s;
+  --border-color: #e0e0e5;
 }
 
 * {
@@ -19,24 +18,29 @@
   box-sizing: border-box;
   font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  letter-spacing: 0.01em;
 }
 
 body {
   background-color: var(--background-color);
   color: var(--text-color);
+  font-size: 17px;
+  line-height: 1.5;
 }
 
 header {
   background-color: var(--card-background);
-  padding: 1rem 2rem;
-  box-shadow: 0 2px 5px var(--card-shadow);
-  border-bottom: 1px solid #e5e5ea;
+  padding: 1.5rem 2rem;
+  box-shadow: var(--card-shadow);
+  border-bottom: 1px solid var(--border-color);
   text-align: center;
 }
 
 header h1 {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-color);
 }
 
 nav {
@@ -44,87 +48,96 @@ nav {
 }
 
 nav a {
-  margin: 0 1rem;
+  margin: 0 1.2rem;
   text-decoration: none;
   color: var(--primary-color);
   font-weight: 500;
-  transition: color var(--transition-duration) ease;
+  font-size: 1.05rem;
+  transition: color var(--transition-duration) cubic-bezier(.4,0,.2,1);
+  border-radius: 8px;
+  padding: 0.2rem 0.6rem;
 }
 
 nav a:hover {
-  color: #005bb5;
+  background: rgba(0,113,227,0.08);
+  color: #0051a8;
 }
 
 main {
-  padding: 2rem;
+  padding: 2.5rem 1rem;
 }
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2.2rem;
 }
 
 .product-card {
   background-color: var(--card-background);
   border-radius: var(--border-radius);
-  padding: 1.5rem;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
   text-align: center;
-  box-shadow: 0 5px 15px var(--card-shadow);
-  transition: transform var(--transition-duration) ease, filter var(--transition-duration) ease;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  transition: transform var(--transition-duration) cubic-bezier(.4,0,.2,1), 
+              box-shadow var(--transition-duration) cubic-bezier(.4,0,.2,1);
 }
 
 .product-card:hover {
-  transform: translateY(-8px);
-  filter: brightness(1.02);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
 }
 
 .product-card img.product-img {
-  width: 100%;
+  width: 90%;
+  max-width: 220px;
   height: auto;
-  border-radius: 15px;
-  margin-bottom: 1rem;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  border-radius: 16px;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
   object-fit: cover;
 }
 
 .product-card h3 {
-  font-weight: 700;
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
+  font-weight: 600;
+  font-size: 1.35rem;
+  margin-bottom: 0.4rem;
   color: var(--primary-color);
+  letter-spacing: -0.01em;
 }
 
 .price {
-  font-weight: 600;
-  font-size: 1.3rem;
+  font-weight: 500;
+  font-size: 1.15rem;
   margin-bottom: 1rem;
-  color: #34c759; /* iOS system green */
+  color: #30d158; /* Apple green */
 }
 
 .product-card p {
-  font-size: 1rem;
-  line-height: 1.4;
-  color: #666;
+  font-size: 1.02rem;
+  line-height: 1.5;
+  color: #6e6e73;
   margin-bottom: 1.2rem;
 }
 
 .product-card button {
   background-color: var(--primary-color);
   border: none;
-  padding: 0.8rem 1.8rem;
-  border-radius: 15px;
-  color: white;
-  font-weight: 700;
+  padding: 0.7rem 2rem;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 1rem;
-  box-shadow: 0 6px 15px rgba(0,122,255,0.4);
-  transition: background-color var(--transition-duration) ease, transform var(--transition-duration) ease;
+  font-size: 1.05rem;
+  box-shadow: 0 2px 8px rgba(0,113,227,0.10);
+  transition: background-color var(--transition-duration) cubic-bezier(.4,0,.2,1), 
+              transform var(--transition-duration) cubic-bezier(.4,0,.2,1);
 }
 
 .product-card button:hover {
-  background-color: #005bb5;
-  transform: scale(1.05);
+  background-color: #0051a8;
+  transform: scale(1.04);
 }
 
 #prodotto-casuale a {
@@ -132,14 +145,15 @@ main {
   text-decoration: none;
   display: block;
   padding: 1.5rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.25s cubic-bezier(.4,0,.2,1), box-shadow 0.25s cubic-bezier(.4,0,.2,1);
   background: var(--card-background);
   border-radius: 20px;
+  border: 1px solid var(--border-color);
 }
 
 #prodotto-casuale a:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  transform: scale(1.03);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.10);
 }
 
 #prodotto-casuale img.product-img {
@@ -149,6 +163,6 @@ main {
   margin: 0 auto;
   display: block;
   border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
   object-fit: contain;
 }
