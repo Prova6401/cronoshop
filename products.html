@@ -154,7 +154,12 @@
       <h2>Classifica utenti più attivi</h2>
       <ol id="ranking-list"></ol>
     </section>
-    <section class="product-grid" id="product-grid">
+    
+<div style="text-align: center; margin: 2rem 0;">
+  <input type="text" id="search-input" placeholder="Cerca un prodotto..." style="padding: 0.6rem 1.2rem; border-radius: 12px; border: 1px solid #ccc; font-size: 1rem; width: 80%; max-width: 400px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+</div>
+
+<section class="product-grid" id="product-grid">
       <!-- I prodotti saranno inseriti via JS -->
     </section>
   </main>
@@ -635,30 +640,35 @@
     }
 
     // --- RENDER PRODOTTI ---
-    function renderProducts() {
+    
+    function renderProducts(filtro = '') {
       const likes = getLikes();
       const cart = getCart();
       const grid = document.getElementById('product-grid');
       grid.innerHTML = '';
-      prodotti.forEach(prod => {
-        const liked = likes[prod.id] === true;
-        const inCart = cart.includes(prod.id);
-        const priceHtml = prod.prezzo.toString().includes('<span') ? prod.prezzo : `<span class="price">${prod.prezzo}</span>`;
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        card.innerHTML = `
-          <img src="${prod.img}" alt="${prod.nome}" class="product-img">
-          <h3>${prod.nome}</h3>
-          <p class="price">${priceHtml}</p>
-          <p>${prod.descrizione}</p>
-          <button class="like-btn${liked ? ' liked' : ''}" data-id="${prod.id}">${liked ? '❤️' : '🤍'} Mi piace</button>
-          <button class="cart-btn${inCart ? ' added' : ''}" data-id="${prod.id}">${inCart ? 'Aggiunto!' : 'Aggiungi al carrello'}</button>
-          <a href="${prod.link}" class="amazon-link" data-id="${prod.id}" target="_blank" rel="noopener noreferrer">
-            <button class="amazon-link-btn">Compra su Amazon</button>
-          </a>
-        `;
-        grid.appendChild(card);
-      });
+      const filtroLower = filtro.toLowerCase();
+
+      prodotti
+        .filter(prod => prod.nome.toLowerCase().includes(filtroLower) || prod.descrizione.toLowerCase().includes(filtroLower))
+        .forEach(prod => {
+          const liked = likes[prod.id] === true;
+          const inCart = cart.includes(prod.id);
+          const priceHtml = prod.prezzo.toString().includes('<span') ? prod.prezzo : `<span class="price">${prod.prezzo}</span>`;
+          const card = document.createElement('div');
+          card.className = 'product-card';
+          card.innerHTML = `
+            <img src="${prod.img}" alt="${prod.nome}" class="product-img">
+            <h3>${prod.nome}</h3>
+            <p class="price">${priceHtml}</p>
+            <p>${prod.descrizione}</p>
+            <button class="like-btn${liked ? ' liked' : ''}" data-id="${prod.id}">${liked ? '❤️' : '🤍'} Mi piace</button>
+            <button class="cart-btn${inCart ? ' added' : ''}" data-id="${prod.id}">${inCart ? 'Aggiunto!' : 'Aggiungi al carrello'}</button>
+            <a href="${prod.link}" class="amazon-link" data-id="${prod.id}" target="_blank" rel="noopener noreferrer">
+              <button class="amazon-link-btn">Compra su Amazon</button>
+            </a>
+          `;
+          grid.appendChild(card);
+        });
     }
 
     // --- EVENTI ---
@@ -670,6 +680,9 @@
         likes[id] = !likes[id];
         setLikes(likes);
         renderProducts();
+    document.getElementById('search-input').addEventListener('input', function(e) {
+      renderProducts(e.target.value);
+    });
         count();
       }
       // Carrello
@@ -683,6 +696,9 @@
         }
         setCart(cart);
         renderProducts();
+    document.getElementById('search-input').addEventListener('input', function(e) {
+      renderProducts(e.target.value);
+    });
         count();
       }
       // Tracciamento click Amazon
@@ -721,6 +737,9 @@
 
     // --- INIZIALIZZA ---
     renderProducts();
+    document.getElementById('search-input').addEventListener('input', function(e) {
+      renderProducts(e.target.value);
+    });
     count();
     updateUserScore();
     updateRanking();
