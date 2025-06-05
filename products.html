@@ -6,272 +6,120 @@
   <title>Prodotti - Cronoshop</title>
   <link rel="stylesheet" href="style.css"/>
   <style>
-    .like-btn, .cart-btn {
-      background: #f5f5f7;
-      border: 1px solid #e0e0e5;
-      border-radius: 8px;
-      color: #0071e3;
-      font-weight: 600;
-      padding: 0.4rem 1rem;
-      margin: 0.2rem 0.2rem 0.7rem 0.2rem;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-      font-size: 1rem;
-      outline: none;
-    }
-    .like-btn.liked {
-      background: #ff3b30;
-      color: #fff;
-      border-color: #ff3b30;
-    }
-    .cart-btn.added {
-      background: #30d158;
-      color: #fff;
-      border-color: #30d158;
-    }
-    .global-ranking {
-      max-width: 700px;
-      margin: 2rem auto 1rem auto;
-      background: #fff;
-      border-radius: 18px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-      padding: 1.5rem 1rem;
-      text-align: center;
-    }
-    .global-ranking h2 {
-      color: var(--primary-color, #0071e3);
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
-    }
-    .global-ranking ol {
-      padding-left: 1.5rem;
-      text-align: left;
-      margin: 0 auto;
-      max-width: 350px;
-    }
-    .global-ranking li {
-      margin-bottom: 0.5rem;
-      font-size: 1.08rem;
-    }
-    .user-score {
-      color: #0071e3;
-      font-weight: 600;
-      font-size: 1.1rem;
-      margin-bottom: 1.2rem;
-      display: block;
-    }
-    .product-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      justify-content: center;
-      margin-bottom: 3rem;
-    }
-    .product-card {
-      background: #fff;
-      border-radius: 20px;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-      padding: 1.5rem 1rem 1.5rem 1rem;
-      text-align: center;
-      max-width: 320px;
-      min-width: 260px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 1.5rem;
-    }
-    .product-card img {
-      width: 100%;
-      max-width: 180px;
-      border-radius: 12px;
-      margin-bottom: 1rem;
-      object-fit: contain;
-      background: #f5f5f7;
-    }
-    .product-card h3 {
-      font-size: 1.15rem;
-      margin-bottom: 0.5rem;
-      color: #0071e3;
-    }
-    .product-card .price {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: #222;
-    }
-    .product-card p {
-      font-size: 0.98rem;
-      color: #444;
-      margin-bottom: 0.7rem;
-    }
-    .product-card button {
-      margin-bottom: 0.2rem;
-    }
-    .product-card .amazon-link-btn {
-      background: #ff9900;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 0.6rem 1.2rem;
-      font-weight: 600;
-      font-size: 1rem;
-      margin-top: 0.5rem;
-      cursor: pointer;
-      transition: background 0.2s;
-      box-shadow: 0 2px 8px rgba(255,153,0,0.10);
-    }
-    .product-card .amazon-link-btn:hover {
-      background: #e68a00;
-    }
-    @keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-    opacity: 1;
-    box-shadow: 0 0 8px 2px rgba(255, 165, 0, 0.8);
-  }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.8;
-    box-shadow: 0 0 12px 4px rgba(255, 165, 0, 1);
-  }
-}
+    /* ... (stili esistenti e universali come nel tuo products.html attuale) ... */
 
-.badge-animated {
-  display: inline-block;
-  background-color: #FF9900; /* arancione amazon */
-  color: #fff;
-  font-weight: bold;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 0.9rem;
-  animation: pulse 1.5s infinite ease-in-out;
-  box-shadow: 0 0 8px 2px rgba(255, 165, 0, 0.8);
-  user-select: none;
-}
-    @media (max-width: 900px) {
-      .product-grid {
-        gap: 1rem;
-      }
-      .product-card {
-        max-width: 95vw;
-        min-width: 220px;
-      }
+    /* Stili specifici per il convertitore di link */
+    .link-converter-section {
+        max-width: 700px;
+        margin: 2rem auto;
+        background: var(--card-background);
+        border-radius: var(--border-radius);
+        box-shadow: var(--card-shadow);
+        padding: 1.5rem 1rem;
+        text-align: center;
+        border: 1px solid var(--border-color);
+    }
+    .link-converter-section h2 {
+        color: var(--primary-color);
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+    .link-converter-section p {
+        font-size: 1rem;
+        color: #6e6e73;
+        margin-bottom: 1.5rem;
+    }
+    .link-converter-section input[type="text"] {
+        width: calc(100% - 2rem);
+        padding: 0.8rem 1rem;
+        border-radius: 12px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+        color: var(--text-color); /* Adatta al tema */
+        background-color: var(--card-background); /* Adatta al tema */
+    }
+    .link-converter-section button {
+        background-color: var(--primary-color);
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        padding: 0.8rem 1.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 1.05rem;
+        transition: background-color 0.25s cubic-bezier(.4,0,.2,1);
+        box-shadow: 0 2px 8px rgba(0,113,227,0.10);
+        margin-bottom: 1rem;
+    }
+    .link-converter-section button:hover {
+        background-color: #0051a8;
+    }
+    .generated-link-box {
+        background-color: #eaf6ff;
+        border: 1px solid #cce8ff;
+        padding: 1rem;
+        border-radius: 12px;
+        margin-top: 1.5rem;
+        display: none; /* Inizialmente nascosto */
+        flex-direction: column;
+        align-items: center;
+        gap: 0.8rem;
+    }
+    .generated-link-box.active {
+        display: flex;
+    }
+    .generated-link-box input {
+        width: 100%;
+        padding: 0.6rem;
+        border: 1px dashed #0071e3;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        text-align: center;
+        color: #0071e3;
+        background-color: #f7fbff;
+        cursor: text;
+        user-select: all; /* Permette selezione facile */
+    }
+    .generated-link-box button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        margin-bottom: 0;
     }
 
-    /* Stili per il nuovo widget account (copia da index.html) */
-    #user-profile-widget {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      background: #fff;
-      border-radius: 30px; /* Inizialmente rotondo per la foto */
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      padding: 5px;
-      cursor: pointer;
-      overflow: hidden; /* Nasconde il testo quando compatto */
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      width: 50px; /* Larghezza iniziale per la foto */
-      height: 50px; /* Altezza iniziale per la foto */
+    /* Regole Dark Mode per il convertitore di link */
+    body.dark-mode .link-converter-section {
+        background: var(--dark-card-background);
+        box-shadow: 0 4px 16px var(--dark-card-shadow);
+        border-color: var(--dark-border-color);
+    }
+    body.dark-mode .link-converter-section h2 {
+        color: var(--dark-primary-color);
+    }
+    body.dark-mode .link-converter-section p {
+        color: var(--dark-text-color);
+    }
+    body.dark-mode .link-converter-section input[type="text"] {
+        background-color: var(--dark-border-color);
+        border-color: #555;
+        color: var(--dark-text-color);
+    }
+    body.dark-mode .generated-link-box {
+        background-color: #3a3a3c;
+        border-color: #555;
+    }
+    body.dark-mode .generated-link-box input {
+        background-color: #4a4a4e;
+        border-color: var(--dark-primary-color);
+        color: var(--dark-primary-color);
     }
 
-    #user-profile-widget:hover {
-      width: 220px; /* Larghezza estesa per mostrare il testo */
-      border-radius: 10px; /* Bordo meno rotondo quando espanso */
-      padding: 10px; /* Padding maggiore quando espanso */
-    }
 
-    #user-profile-widget img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border: 2px solid var(--primary-color); /* Bordo colorato */
-    }
-
-    #user-profile-widget:hover img {
-        box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.3); /* Effetto ombra sul bordo */
-    }
-
-    #user-info-text {
-      display: flex;
-      flex-direction: column;
-      margin-left: 10px;
-      white-space: nowrap; /* Evita che il testo vada a capo */
-      opacity: 0; /* Inizialmente nascosto */
-      transform: translateX(10px); /* Piccola traslazione per effetto animazione */
-      transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      transition-delay: 0.1s; /* Leggero ritardo per l'animazione */
-    }
-
-    #user-profile-widget:hover #user-info-text {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    #user-profile-widget .username-display {
-      font-weight: 600; /* Grassetto */
-      font-size: 1.1em; /* Più grande */
-      color: var(--text-color);
-      line-height: 1.2;
-    }
-
-    #user-profile-widget .email-display {
-      font-size: 0.8em; /* Più piccolo */
-      color: #6e6e73;
-    }
-
-    #user-profile-widget .logout-button {
-      background-color: #ff3b30; /* Rosso */
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      padding: 5px 10px;
-      font-size: 0.85em;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 5px;
-      opacity: 0; /* Inizialmente nascosto */
-      transform: translateX(10px);
-      transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      transition-delay: 0.15s;
-    }
-
-    #user-profile-widget:hover .logout-button {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    #user-profile-widget .logout-button:hover {
-      background-color: #c1271a; /* Rosso più scuro al hover */
-    }
-
-    @media (max-width: 768px) {
-        #user-profile-widget {
-            top: auto;
-            bottom: 15px;
-            right: 15px;
-            width: 45px;
-            height: 45px;
-        }
-        #user-profile-widget img {
-            width: 35px;
-            height: 35px;
-        }
-        #user-profile-widget:hover {
-            width: 200px;
-        }
-        #user-profile-widget .logout-button {
-            padding: 4px 8px;
-        }
-    }
   </style>
 </head>
 <body>
-  <div id="user-profile-widget" style="display:none;">
+  <div id="user-profile-widget">
     <img id="profile-pic-widget" src="https://ui-avatars.com/api/?name=User&background=eeeeee&color=0071e3" alt="Foto profilo">
     <div id="user-info-text">
       <div class="username-display" id="widget-username"></div>
@@ -280,30 +128,30 @@
     </div>
   </div>
 
-  <div id="account-banner" style="background: #eaf6ff; color: #0071e3; padding: 0.7rem 1.5rem; text-align: center; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; gap: 1.2rem; border-bottom: 1px solid #d0e6fa;">
+  <div id="account-banner">
     <span>Hai un account Cronoshop? <b>Accedi</b> o <b>registrati</b> per offerte personalizzate!</span>
-    <button id="open-login" style="background: var(--primary-color); color: #fff; border: none; border-radius: 8px; padding: 0.4rem 1.2rem; font-weight: 600; cursor: pointer; font-size: 1rem; transition: background 0.2s;">Accedi</button>
-    <button id="open-register" style="background: var(--primary-color); color: #fff; border: none; border-radius: 8px; padding: 0.4rem 1.2rem; font-weight: 600; cursor: pointer; font-size: 1rem; transition: background 0.2s;">Registrati</button>
+    <button id="open-login">Accedi</button>
+    <button id="open-register">Registrati</button>
   </div>
 
-  <div class="modal-bg" id="modal-bg" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.18); display: none; align-items: center; justify-content: center; z-index: 1000;">
-    <div class="modal" id="modal-login" style="background: #fff; border-radius: 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.13); padding: 2.2rem 2rem 1.5rem 2rem; min-width: 320px; max-width: 95vw; text-align: center; position: relative; animation: fadeIn 0.3s; display:none;">
-      <button class="close-modal" onclick="closeModal()" style="position: absolute; top: 0.7rem; right: 1rem; background: none; border: none; font-size: 1.5rem; color: #aaa; cursor: pointer;">&times;</button>
-      <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Accedi</h2>
-      <input type="text" id="login-username" placeholder="Username" autocomplete="username" style="width: 90%; margin: 0.5rem 0; padding: 0.7rem; border-radius: 8px; border: 1px solid #e0e0e5; font-size: 1rem;">
-      <input type="password" id="login-password" placeholder="Password" autocomplete="current-password" style="width: 90%; margin: 0.5rem 0; padding: 0.7rem; border-radius: 8px; border: 1px solid #e0e0e5; font-size: 1rem;">
-      <div class="error-msg" id="login-error" style="color: #d32f2f; font-size: 0.98rem; margin-top: 0.5rem;"></div>
-      <button onclick="loginUser()" style="margin-top: 1rem; background: var(--primary-color); color: #fff; border: none; border-radius: 8px; padding: 0.6rem 1.5rem; font-weight: 600; cursor: pointer; font-size: 1rem; transition: background 0.2s;">Accedi</button>
-      <div class="switch-link" onclick="showRegister()" style="color: var(--primary-color); cursor: pointer; font-size: 0.98rem; margin-top: 1rem; display: inline-block;">Non hai un account? Registrati</div>
+  <div class="modal-bg" id="modal-bg">
+    <div class="modal" id="modal-login">
+      <button class="close-modal" onclick="closeModal()">&times;</button>
+      <h2>Accedi</h2>
+      <input type="text" id="login-username" placeholder="Username" autocomplete="username">
+      <input type="password" id="login-password" placeholder="Password" autocomplete="current-password">
+      <div class="error-msg" id="login-error"></div>
+      <button onclick="loginUser()">Accedi</button>
+      <div class="switch-link" onclick="showRegister()">Non hai un account? Registrati</div>
     </div>
-    <div class="modal" id="modal-register" style="background: #fff; border-radius: 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.13); padding: 2.2rem 2rem 1.5rem 2rem; min-width: 320px; max-width: 95vw; text-align: center; position: relative; animation: fadeIn 0.3s; display:none;">
-      <button class="close-modal" onclick="closeModal()" style="position: absolute; top: 0.7rem; right: 1rem; background: none; border: none; font-size: 1.5rem; color: #aaa; cursor: pointer;">&times;</button>
-      <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Registrati</h2>
-      <input type="text" id="register-username" placeholder="Scegli username" autocomplete="username" style="width: 90%; margin: 0.5rem 0; padding: 0.7rem; border-radius: 8px; border: 1px solid #e0e0e5; font-size: 1rem;">
-      <input type="password" id="register-password" placeholder="Scegli password" autocomplete="new-password" style="width: 90%; margin: 0.5rem 0; padding: 0.7rem; border-radius: 8px; border: 1px solid #e0e0e5; font-size: 1rem;">
-      <div class="error-msg" id="register-error" style="color: #d32f2f; font-size: 0.98rem; margin-top: 0.5rem;"></div>
-      <button onclick="registerUser()" style="margin-top: 1rem; background: var(--primary-color); color: #fff; border: none; border-radius: 8px; padding: 0.6rem 1.5rem; font-weight: 600; cursor: pointer; font-size: 1rem; transition: background 0.2s;">Registrati</button>
-      <div class="switch-link" onclick="showLogin()" style="color: var(--primary-color); cursor: pointer; font-size: 0.98rem; margin-top: 1rem; display: inline-block;">Hai già un account? Accedi</div>
+    <div class="modal" id="modal-register">
+      <button class="close-modal" onclick="closeModal()">&times;</button>
+      <h2>Registrati</h2>
+      <input type="text" id="register-username" placeholder="Scegli username" autocomplete="username">
+      <input type="password" id="register-password" placeholder="Scegli password" autocomplete="new-password">
+      <div class="error-msg" id="register-error"></div>
+      <button onclick="registerUser()">Registrati</button>
+      <div class="switch-link" onclick="showLogin()">Hai già un account? Accedi</div>
     </div>
   </div>
 
@@ -312,7 +160,7 @@
     <nav>
       <a href="index.html">Home</a>
       <a href="products.html">Prodotti <span id="cart-count" style="background:#30d158;color:#fff;border-radius:50%;padding:2px 8px;font-size:0.9em;vertical-align:top;margin-left:2px;">0</span></a>
-      <a href="groups.html">Gruppi</a>
+      <a href="gropus.html">Gruppi</a>
       <a href="come-funziona.html">Come Funziona</a>
       <a href="faq.html">FAQ</a>
       <a href="favorites.html">Preferiti</a>
@@ -328,11 +176,26 @@
       <ol id="ranking-list"></ol>
     </section>
     
-<div style="text-align: center; margin: 2rem 0;">
-  <input type="text" id="search-input" placeholder="Cerca un prodotto..." style="padding: 0.6rem 1.2rem; border-radius: 12px; border: 1px solid #ccc; font-size: 1rem; width: 80%; max-width: 400px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
-</div>
+    <div style="text-align: center; margin: 2rem 0;">
+        <input type="text" id="search-input" placeholder="Cerca un prodotto..." style="padding: 0.6rem 1.2rem; border-radius: 12px; border: 1px solid #ccc; font-size: 1rem; width: 80%; max-width: 400px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+    </div>
 
-<section class="product-grid" id="product-grid">
+    <section class="link-converter-section">
+        <h2>Trasforma un link Amazon nel tuo link affiliato!</h2>
+        <p>Incolla qui il link di un prodotto Amazon per generare il tuo link affiliato e condividere le offerte con i tuoi amici.</p>
+        <input type="text" id="amazon-url-input" placeholder="Incolla qui il link del prodotto Amazon...">
+        <button onclick="generateAffiliateLink()">Genera Link Affiliato</button>
+        <div id="generated-link-output" class="generated-link-box">
+            <span>Ecco il tuo link personalizzato:</span>
+            <input type="text" id="affiliate-output-url" readonly>
+            <button onclick="copyAffiliateLink()">Copia Link</button>
+            <a id="go-to-amazon-link" href="#" target="_blank" rel="noopener noreferrer">
+              <button>Vai su Amazon</button>
+            </a>
+        </div>
+        <div class="error-msg" id="link-converter-error" style="margin-top: 1rem;"></div>
+    </section>
+    <section class="product-grid" id="product-grid">
       </section>
   </main>
 
@@ -505,6 +368,69 @@
     }
 
     // --- Fine Funzioni di Account e Tema Universali ---
+
+    // --- LOGICA DEL CONVERTITORE DI LINK AFFILIATO ---
+    const YOUR_AFFILIATE_TAG = "cronoshop-21"; // <--- INSERISCI QUI IL TUO ID AFFILIATO!
+
+    function generateAffiliateLink() {
+        const inputUrl = document.getElementById('amazon-url-input').value.trim();
+        const outputBox = document.getElementById('generated-link-output');
+        const outputUrlInput = document.getElementById('affiliate-output-url');
+        const errorDisplay = document.getElementById('link-converter-error');
+        const goToAmazonLink = document.getElementById('go-to-amazon-link');
+
+        errorDisplay.textContent = ''; // Pulisce eventuali errori precedenti
+        outputBox.classList.remove('active'); // Nasconde il box di output
+
+        if (!inputUrl) {
+            errorDisplay.textContent = "Per favore, incolla un URL di Amazon.";
+            return;
+        }
+
+        let parsedUrl;
+        try {
+            parsedUrl = new URL(inputUrl);
+        } catch (e) {
+            errorDisplay.textContent = "URL non valido. Assicurati che sia un link completo.";
+            return;
+        }
+
+        // Verifica se l'URL è di Amazon
+        if (!parsedUrl.hostname.includes("amazon.")) {
+            errorDisplay.textContent = "Questo non sembra un link di Amazon. Incolla un URL da amazon.it o simili.";
+            return;
+        }
+
+        // Rimuovi eventuali tag affiliato esistenti
+        parsedUrl.searchParams.delete('tag');
+        
+        // Aggiungi il tuo tag affiliato
+        parsedUrl.searchParams.set('tag', YOUR_AFFILIATE_TAG);
+
+        const newAffiliateUrl = parsedUrl.toString();
+        outputUrlInput.value = newAffiliateUrl;
+        goToAmazonLink.href = newAffiliateUrl; // Imposta il link per il pulsante "Vai su Amazon"
+        outputBox.classList.add('active'); // Mostra il box di output
+
+        // Aggiungi un punto per ogni generazione di link (se l'utente è loggato)
+        const user = getUser();
+        if (user && user.username) {
+            addPoint(user.username); // Assicurati che addPoint() sia definito e funzioni
+            updateUserScore(); // Assicurati che updateUserScore() sia definito
+        }
+    }
+
+    function copyAffiliateLink() {
+        const outputUrlInput = document.getElementById('affiliate-output-url');
+        if (outputUrlInput) {
+            outputUrlInput.select();
+            outputUrlInput.setSelectionRange(0, 99999); // Per mobile
+            document.execCommand("copy");
+            alert("Link copiato!");
+        }
+    }
+    // --- FINE LOGICA DEL CONVERTITORE DI LINK AFFILIATO ---
+
 
     // --- DATI PRODOTTI ---
     const prodotti = [
