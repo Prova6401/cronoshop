@@ -165,12 +165,12 @@
     <nav>
       <a href="index.html">Home</a>
       <a href="products.html">Prodotti <span id="cart-count" style="background:#30d158;color:#fff;border-radius:50%;padding:2px 8px;font-size:0.9em;vertical-align:top;margin-left:2px;">0</span></a>
-      <a href="groups.html">Gruppi</a>
+      <a href="gropus.html">Gruppi</a>
       <a href="come-funziona.html">Come Funziona</a>
       <a href="faq.html">FAQ</a>
       <a href="favorites.html">Preferiti</a>
       <a href="account.html">Area Personale</a>
-      <a href="cart.html">Carrello<a/>
+      <a href="cart.html">Carrello</a>
     </nav>
   </header>
 
@@ -186,8 +186,7 @@
 </div>
 
 <section class="product-grid" id="product-grid">
-      <!-- I prodotti saranno inseriti via JS -->
-    </section>
+      </section>
   </main>
 
   <script>
@@ -632,7 +631,7 @@
     nome: "by Amazon Quinoa biologica, 500g",
     prezzo: "5,49€",
     descrizione: ""
-  }
+  },
   {
   "id": "prod56",
   "link": "https://amzn.to/3HusXTd",
@@ -640,47 +639,47 @@
   "nome": "NEW'C 3 Pezzi, Vetro Temperato per iPhone 16, iPhone 15 (6,1 Pollici)",
   "prezzo": "7,89€",
   "descrizione": "Pellicola protettiva anti graffio - ultra resistente - trasparente HD - strumento di installazione facile incluso. Prezzo per unità: 2,63€."
-}
-{
+  },
+  {
   "id": "prod57",
   "link": "https://amzn.to/3FozrT6",
   "img": "https://m.media-amazon.com/images/I/71+5mYCqy7S._AC_SX342_SY445_.jpg",
   "nome": "Apple AirTag",
   "prezzo": "28,99€",
   "descrizione": "Dispositivo di localizzazione Bluetooth per ritrovare oggetti come chiavi, zaini e altro tramite l'app Dov'è su iPhone."
-}
-{
+  },
+  {
   "id": "prod58",
   "link": "https://amzn.to/3T8pQCT",
   "img": "https://m.media-amazon.com/images/I/71fRnkkqVdL.__AC_SX300_SY300_QL70_ML2_.jpg",
   "nome": "HP 305 Nero e Tricromia, 6ZD17AE - Confezione da 2 Cartucce Originali",
   "prezzo": "24,99€",
   "descrizione": "Compatibili con stampanti HP DeskJet serie 2300, 2700, 2800, 4200, 4100, HP Envy 6010, 6020, 6030 e 6040. Prezzo per cartuccia: 12,50€."
-}
-{
+  },
+  {
   "id": "prod59",
   "link": "https://amzn.to/4dTbdNq",
   "img": "https://m.media-amazon.com/images/I/61DvMw16ITL.__AC_SY445_SX342_QL70_ML2_.jpg",
   "nome": "Apple AirPods 4",
   "prezzo": "128,99€",
   "descrizione": "Auricolari wireless Bluetooth con audio spaziale personalizzato, resistenza al sudore e all’acqua, custodia di ricarica USB-C, chip H2, fino a 24 ore di autonomia."
-}
-{
+  },
+  {
   "id": "prod60",
   "link": "https://amzn.to/3SEY4xJ",
   "img": "https://m.media-amazon.com/images/I/61fSyWVkrYL.__AC_SY300_SX300_QL70_ML2_.jpg",
   "nome": "Tapo C200 Telecamera Wi-Fi Interno FHD, Videocamera sorveglianza, Visione Notturna, 360° Visuale, Audio Bidirezionale, Rilevamento di movimento e notifiche, Allarme acustico e luminoso integrato",
   "prezzo": "21,99€ (-27%)",
   "descrizione": "<span class='badge-animated'>Scelta Amazon</span> - 5000+ acquistati nel mese scorso, valutazione 4,6 su 5 (136.881 recensioni)"
-}
-{
+  },
+  {
   "id": "prod61",
   "link": "https://amzn.to/4kCXBZd",
   "img": "https://m.media-amazon.com/images/I/61c9X3+N4AL._AC_SX300_SY300_.jpg",
   "nome": "Caricatore USB C Rapido 40W 4Porto Presa USB Caricatore Multipla PD & QC3.0 Carica Cellulare, Spina Alimentatore Caricabatterie per Samsung S22 S23 S24 iPhone 15 16 14, Spinotto Muro Adattatore",
   "prezzo": "10,99€",
   "descrizione": "<span class='badge-animated'>Scelta Amazon</span> - 5000+ acquistati nel mese scorso, valutazione 4,6 su 5 (3.438 recensioni). Disponibile anche con coupon 20% e varianti Medium, Medium+Cavo USB C a USB C (14,99€), Large+2Pack (20,99€, -13%)"
-}
+  }
 
 
 ];
@@ -706,6 +705,14 @@
     function setCart(cart) {
       localStorage.setItem('cronoshop_cart', JSON.stringify(cart));
     }
+    function count() { // Aggiunta la definizione della funzione count()
+      const cart = getCart();
+      const cartCountElement = document.getElementById('cart-count');
+      if (cartCountElement) {
+        cartCountElement.textContent = cart.length;
+      }
+    }
+
 
     // --- PUNTI E CLASSIFICA ---
     function getPoints() {
@@ -755,10 +762,7 @@
         const likes = getLikes();
         likes[id] = !likes[id];
         setLikes(likes);
-        renderProducts();
-    document.getElementById('search-input').addEventListener('input', function(e) {
-      renderProducts(e.target.value);
-    });
+        renderProducts(document.getElementById('search-input').value); // Rimuovere il listener duplicato qui
         count();
       }
       // Carrello
@@ -771,10 +775,7 @@
           cart = cart.filter(pid => pid !== id);
         }
         setCart(cart);
-        renderProducts();
-    document.getElementById('search-input').addEventListener('input', function(e) {
-      renderProducts(e.target.value);
-    });
+        renderProducts(document.getElementById('search-input').value); // Rimuovere il listener duplicato qui
         count();
       }
       // Tracciamento click Amazon
