@@ -119,8 +119,8 @@
       letter-spacing: 0.01em;
     }
 
+    /* Rimosso body background e header h1/p per lasciare spazio a style.css per il tema */
     body {
-      background: linear-gradient(145deg, #f2f2f2, #e6e6e6);
       color: #333;
       overflow-x: hidden;
     }
@@ -128,14 +128,13 @@
     header {
       padding: 2rem;
       text-align: center;
-      background: #ffffff;
       box-shadow: 0 5px 10px rgba(0,0,0,0.1);
       animation: fadeDown 1s ease-out;
     }
 
     header h1 {
       font-size: 3rem;
-      color: #007bff;
+      color: #007bff; /* Mantenuto per non sovrascrivere style.css h1 */
     }
 
     header p {
@@ -462,7 +461,7 @@
       background: #0056b3;
     }
 
-    /* Stili per il nuovo widget account */
+    /* Stili per il nuovo widget account (copia da index.html) */
     #user-profile-widget {
       position: fixed;
       top: 15px;
@@ -755,7 +754,6 @@
 
   <script>
   // Padrone, qui c'è la roba pe' espandere/contrarre recensioni
-  
   document.querySelectorAll('.review-card').forEach(card => {
     const readMore = card.querySelector('.read-more');
     const reviewText = card.querySelector('.review-text');
@@ -772,96 +770,10 @@
   });
   </script>
   <script>
-  const prodotti = [
-    {
-      link: "https://amzn.to/3Z551fa",
-      img: "https://m.media-amazon.com/images/I/61hiFJPpY9L._AC_SL1500_.jpg",
-      nome: "Samsung Galaxy S25 Ultra",
-      prezzo: "1.199€",
-      descrizione: "Samsung Galaxy S25 Ultra Smartphone AI, 3 anni di Garanzia del produttore, Display 6.9'' QHD+ Dynamic AMOLED 2X, Fotocamera 200MP, RAM 12GB, 256GB, 5.000 mAh, Titanium Silverblue"
-    },
-    {
-      link: "https://www.amazon.it/dp/B0CHWV5HTM",
-      img: "https://m.media-amazon.com/images/I/71d7rfSl0wL._AC_SL1500_.jpg",
-      nome: "Apple iPhone 15",
-      prezzo: `<span style="text-decoration: line-through; color: #888;">879,00€</span> <span style="color: #007aff; font-weight: bold;">645,00€</span> <span style="color: red; font-weight: bold;">-27%</span>`,
-      descrizione: "Prestazioni top per l'uso quotidiano"
-    },
-    {
-      link: "https://amzn.to/4kCH9aV",
-      img: "https://m.media-amazon.com/images/I/618ha2Ia5tL._AC_SL1500_.jpg",
-      nome: "Samsung Galaxy S25 Smartphone AI",
-      prezzo: "929,00€",
-      descrizione: "Smartphone con display 6.2'' FHD+ Dynamic AMOLED 2X, fotocamera da 50MP, RAM 12GB, memoria interna 256GB, batteria da 4.000 mAh. Include 3 anni di garanzia del produttore. Colore: Mint."
-    },
-    {
-      link: "https://amzn.to/3ZAt8T4",
-      img: "https://m.media-amazon.com/images/I/61Wj-1t3TwL._AC_SL1500_.jpg",
-      nome: "SAMSUNG Galaxy S25 Edge",
-      prezzo: "1.299,00€",
-      descrizione: "Smartphone AI con display 6.7'' QHD+ Dynamic AMOLED 2X, fotocamera da 200MP, RAM 12GB, memoria interna da 512GB, batteria da 3.900 mAh. Include 3 anni di garanzia del produttore. Colore: Titanium Jetblack."
-    },
-    {
-      link: "https://amzn.to/45gPEUX",
-      img: "https://m.media-amazon.com/images/I/61y0hmQWlsL._AC_SL1500_.jpg",
-      nome: "Samsung Galaxy S25+ Smartphone AI",
-      prezzo: "1.189,00€",
-      descrizione: "Smartphone AI con display 6.7'' QHD+ Dynamic AMOLED 2X, fotocamera da 50MP, RAM 12GB, memoria interna da 512GB, batteria da 4.900 mAh. Include 3 anni di garanzia del produttore. Colore: Silver Shadow. Versione italiana."
-    },
-    {
-      link: "https://amzn.to/3Z6Kc2W",
-      img: "https://m.media-amazon.com/images/I/610vqacJO2L.__AC_SY445_SX342_QL70_ML2_.jpg",
-      nome: "Apple iPhone 16e – 128 GB",
-      prezzo: "699,00€",
-      descrizione: "Progettato per Apple Intelligence, dotato di chip A18, autonomia grandiosa, fotocamera Fusion da 48MP e display Super Retina XDR da 6,1\". Colore: Bianco."
-    },
-    {
-      link: "https://amzn.to/3ZEqKut",
-      img: "https://m.media-amazon.com/images/I/61cUeqowwZL._AC_SL1500_.jpg",
-      nome: "Apple iPhone 16 Pro Max – 256 GB",
-      prezzo: "1.195,00€",
-      descrizione: "Telefono 5G con controllo fotocamera avanzato, registrazione video Dolby Vision 4K a 120 fps e autonomia senza precedenti. Compatibile con AirPods. Colore: Titanio Nero."
-    },
-    {
-      link: "https://amzn.to/43t1D0l",
-      img: "https://m.media-amazon.com/images/I/61BGE6iu4AL.__AC_SY445_SX342_QL70_ML2_.jpg",
-      nome: "Apple iPhone 14 Plus – 128 GB",
-      prezzo: "871,00€",
-      descrizione: "Smartphone Apple con 128 GB di memoria, display Super Retina XDR da 6,7\", ottime prestazioni e autonomia, colore Azzurro. Un mix di potenza e stile."
-    }
-  ];
-
-  function scegliProdottoCasuale() {
-    return prodotti[Math.floor(Math.random() * prodotti.length)];
-  }
-
-  function mostraProdottoCasuale() {
-    const prod = scegliProdottoCasuale();
-    const container = document.getElementById('prodotto-casuale');
-
-    container.innerHTML = `
-    <img src="${prod.img}" alt="${prod.nome}" class="product-img">
-    <h3>${prod.nome}</h3>
-    <p class="price">${prod.prezzo}</p>
-    <p>${prod.descrizione}</p>
-    <button id="btn-compra-amazon">Compra su Amazon</button>
-  `;
-
-  document.getElementById('btn-compra-amazon').onclick = function() {
-    window.open(prod.link, '_blank');
-  };
-  }
-
-  window.onload = mostraProdottoCasuale;
-</script>
-
-
-<script>
-    // --- Account System JS ---
+    // --- Funzioni di Account e Tema Universali (copia da index.html) ---
 
     // Helpers
     function hash(str) {
-      // Semplice hash per demo (non sicuro per produzione!)
       let h = 0, i, chr;
       if (str.length === 0) return h;
       for (i = 0; i < str.length; i++) {
@@ -881,13 +793,40 @@
     function removeUser() {
       localStorage.removeItem('cronoshop_user');
     }
-    // Funzione per ottenere i dati completi dell'utente dal DB (non solo la sessione)
     function getUserDb(username) {
         return JSON.parse(localStorage.getItem('cronoshop_user_db_' + username) || 'null');
     }
+    function setUserDb(username, data) {
+      localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify(data));
+    }
 
-    // Banner e greeting
-    function updateAccountBanner() {
+
+    // Gestione del Tema
+    function applyTheme(theme) {
+        if (theme === 'dark') {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+        }
+    }
+
+    function loadThemePreference() {
+        const user = getUser();
+        let savedTheme = 'light'; // Default theme
+        if (user && user.username) {
+            const userDb = getUserDb(user.username);
+            if (userDb && userDb.settings && userDb.settings.theme) {
+                savedTheme = userDb.settings.theme;
+            }
+        } else {
+            // Se non loggato, controlla una preferenza globale non utente specifica (opzionale)
+            savedTheme = localStorage.getItem('global_theme_preference') || 'light';
+        }
+        applyTheme(savedTheme);
+    }
+
+    // Banner e widget account
+    function updateAccountBannerAndWidget() {
       const user = getUser();
       const banner = document.getElementById('account-banner');
       const profileWidget = document.getElementById('user-profile-widget');
@@ -896,123 +835,138 @@
       const widgetEmail = document.getElementById('widget-email');
 
       if (user && user.username) {
-        banner.style.display = 'none';
-        profileWidget.style.display = 'flex'; // Mostra il widget
+        if (banner) banner.style.display = 'none';
+        if (profileWidget) profileWidget.style.display = 'flex'; // Mostra il widget
         const userDb = getUserDb(user.username);
-        if (userDb && userDb.profilePic) {
-            profilePicWidget.src = userDb.profilePic;
-        } else {
-            profilePicWidget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.username)}&background=eeeeee&color=0071e3`;
+        if (profilePicWidget) {
+            if (userDb && userDb.profilePic) {
+                profilePicWidget.src = userDb.profilePic;
+            } else {
+                profilePicWidget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.username)}&background=eeeeee&color=0071e3`;
+            }
         }
-        widgetUsername.textContent = user.username;
-        widgetEmail.textContent = userDb && userDb.email ? userDb.email : 'Nessuna email'; // Mostra email se presente
+        if (widgetUsername) widgetUsername.textContent = user.username;
+        if (widgetEmail) widgetEmail.textContent = userDb && userDb.email ? userDb.email : 'Nessuna email';
 
       } else {
-        banner.style.display = 'flex';
-        profileWidget.style.display = 'none'; // Nasconde il widget
+        if (banner) banner.style.display = 'flex';
+        if (profileWidget) profileWidget.style.display = 'none'; // Nasconde il widget
       }
     }
 
-    // Modale
+    // Modale Login/Registrazione
     function openModal(type) {
-      document.getElementById('modal-bg').classList.add('active');
-      document.getElementById('modal-login').style.display = type === 'login' ? 'block' : 'none';
-      document.getElementById('modal-register').style.display = type === 'register' ? 'block' : 'none';
-      document.getElementById('login-error').textContent = '';
-      document.getElementById('register-error').textContent = '';
+      const modalBg = document.getElementById('modal-bg');
+      const modalLogin = document.getElementById('modal-login');
+      const modalRegister = document.getElementById('modal-register');
+      const loginError = document.getElementById('login-error');
+      const registerError = document.getElementById('register-error');
+
+      if (modalBg) modalBg.classList.add('active');
+      if (modalLogin) modalLogin.style.display = type === 'login' ? 'block' : 'none';
+      if (modalRegister) modalRegister.style.display = type === 'register' ? 'block' : 'none';
+      if (loginError) loginError.textContent = '';
+      if (registerError) registerError.textContent = '';
     }
     function closeModal() {
-      document.getElementById('modal-bg').classList.remove('active');
+      const modalBg = document.getElementById('modal-bg');
+      if (modalBg) modalBg.classList.remove('active');
     }
     function showLogin() { openModal('login'); }
     function showRegister() { openModal('register'); }
 
-    // Eventi banner
-    document.addEventListener('DOMContentLoaded', function() {
-      updateAccountBanner();
-      document.getElementById('open-login').onclick = showLogin;
-      document.getElementById('open-register').onclick = showRegister;
-      document.getElementById('modal-bg').onclick = function(e) {
-        if (e.target === this) closeModal();
-      };
-      
-      // Gestore per il click sul widget account
-      const userProfileWidget = document.getElementById('user-profile-widget');
-      if (userProfileWidget) {
-          userProfileWidget.addEventListener('click', function(e) {
-              // Impedisci la navigazione se clicchi sul pulsante di logout all'interno del widget
-              if (e.target.classList.contains('logout-button')) {
-                  return;
-              }
-              window.location.href = "account.html";
-          });
-      }
-    });
-
     // Registrazione
     function registerUser() {
-      const username = document.getElementById('register-username').value.trim();
-      const password = document.getElementById('register-password').value;
-      const error = document.getElementById('register-error');
+      const usernameInput = document.getElementById('register-username');
+      const passwordInput = document.getElementById('register-password');
+      const errorElement = document.getElementById('register-error');
+
+      const username = usernameInput ? usernameInput.value.trim() : '';
+      const password = passwordInput ? passwordInput.value : '';
+      const error = errorElement;
+
       if (!username || !password) {
-        error.textContent = 'Compila tutti i campi.';
+        if (error) error.textContent = 'Compila tutti i campi.';
         return;
       }
       if (localStorage.getItem('cronoshop_user_db_' + username)) {
-        error.textContent = 'Username già registrato.';
+        if (error) error.textContent = 'Username già registrato.';
         return;
       }
       localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify({
         username,
         password: hash(password),
-        email: '' // Inizializza l'email vuota
+        email: '', // Inizializza l'email vuota
+        settings: { theme: 'light', notifications: { email: false } } // Impostazioni predefinite
       }));
       setUser({ username });
       closeModal();
-      updateAccountBanner();
+      updateAccountBannerAndWidget();
+      loadThemePreference(); // Applica il tema predefinito al login
     }
 
     // Login
     function loginUser() {
-      const username = document.getElementById('login-username').value.trim();
-      const password = document.getElementById('login-password').value;
-      const error = document.getElementById('login-error');
+      const usernameInput = document.getElementById('login-username');
+      const passwordInput = document.getElementById('login-password');
+      const errorElement = document.getElementById('login-error');
+
+      const username = usernameInput ? usernameInput.value.trim() : '';
+      const password = passwordInput ? passwordInput.value : '';
+      const error = errorElement;
+
       const userDb = JSON.parse(localStorage.getItem('cronoshop_user_db_' + username) || 'null');
       if (!userDb || userDb.password !== hash(password)) {
-        error.textContent = 'Username o password errati.';
+        if (error) error.textContent = 'Username o password errati.';
         return;
       }
       setUser({ username });
       closeModal();
-      updateAccountBanner();
+      updateAccountBannerAndWidget();
+      loadThemePreference(); // Applica il tema salvato al login
     }
 
-    // Logout (modificata per prevenire propagazione evento dal widget)
+    // Logout
     function logoutUser(event) {
-      if (event) event.stopPropagation(); // Evita che il click si propaghi al widget e navighi ad account.html
+      if (event) event.stopPropagation(); // Evita che il click si propaghi al widget
       removeUser();
-      updateAccountBanner();
+      updateAccountBannerAndWidget();
+      applyTheme('light'); // Torna al tema chiaro al logout
+      localStorage.removeItem('global_theme_preference'); // Rimuovi preferenza globale se non loggato
+      // Reindirizza l'utente alla home o alla pagina corrente se preferisci
+      // window.location.href = "index.html";
     }
-  </script>
-  <script>
-  // Padrone, qui c'è la roba pe' espandere/contrarre recensioni
-  
-  document.querySelectorAll('.review-card').forEach(card => {
-    const readMore = card.querySelector('.read-more');
-    const reviewText = card.querySelector('.review-text');
-    
-    readMore.addEventListener('click', () => {
-      if (reviewText.classList.contains('expanded')) {
-        reviewText.classList.remove('expanded');
-        readMore.textContent = 'Vedi altro';
-      } else {
-        reviewText.classList.add('expanded');
-        readMore.textContent = 'Vedi meno';
-      }
+
+    // Event listeners per l'inizializzazione universale
+    document.addEventListener('DOMContentLoaded', function() {
+        loadThemePreference(); // Carica il tema all'avvio della pagina
+        updateAccountBannerAndWidget(); // Inizializza banner e widget
+
+        const openLoginBtn = document.getElementById('open-login');
+        const openRegisterBtn = document.getElementById('open-register');
+        const modalBg = document.getElementById('modal-bg');
+        const userProfileWidget = document.getElementById('user-profile-widget');
+
+        if (openLoginBtn) openLoginBtn.onclick = showLogin;
+        if (openRegisterBtn) openRegisterBtn.onclick = showRegister;
+        if (modalBg) {
+            modalBg.onclick = function(e) {
+                if (e.target === this) closeModal();
+            };
+        }
+        
+        // Gestore per il click sul widget account
+        if (userProfileWidget) {
+            userProfileWidget.addEventListener('click', function(e) {
+                // Impedisci la navigazione se clicchi sul pulsante di logout all'interno del widget
+                if (e.target.classList.contains('logout-button')) {
+                    return;
+                }
+                window.location.href = "account.html";
+            });
+        }
     });
-  });
-  </script>
-  <script>
+
   // Questo blocco di codice per il prodotto casuale è già presente sopra,
   // ma è qui duplicato nel file originale. Lo lascio per coerenza con il tuo input.
   // Idealmente, dovrebbe esserci un solo blocco per 'prodotti' e 'mostraProdottoCasuale'.
