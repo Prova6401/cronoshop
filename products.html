@@ -337,7 +337,7 @@
   </main>
 
   <script>
-    // --- Account System JS (copia da index.html) ---
+    // --- Funzioni di Account e Tema Universali (copia da index.html) ---
 
     // Helpers
     function hash(str) {
@@ -363,9 +363,37 @@
     function getUserDb(username) {
         return JSON.parse(localStorage.getItem('cronoshop_user_db_' + username) || 'null');
     }
+    function setUserDb(username, data) {
+      localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify(data));
+    }
 
-    // Banner e greeting
-    function updateAccountBanner() {
+
+    // Gestione del Tema
+    function applyTheme(theme) {
+        if (theme === 'dark') {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+        }
+    }
+
+    function loadThemePreference() {
+        const user = getUser();
+        let savedTheme = 'light'; // Default theme
+        if (user && user.username) {
+            const userDb = getUserDb(user.username);
+            if (userDb && userDb.settings && userDb.settings.theme) {
+                savedTheme = userDb.settings.theme;
+            }
+        } else {
+            // Se non loggato, controlla una preferenza globale non utente specifica (opzionale)
+            savedTheme = localStorage.getItem('global_theme_preference') || 'light';
+        }
+        applyTheme(savedTheme);
+    }
+
+    // Banner e widget account
+    function updateAccountBannerAndWidget() {
       const user = getUser();
       const banner = document.getElementById('account-banner');
       const profileWidget = document.getElementById('user-profile-widget');
@@ -385,7 +413,7 @@
             }
         }
         if (widgetUsername) widgetUsername.textContent = user.username;
-        if (widgetEmail) widgetEmail.textContent = userDb && userDb.email ? userDb.email : 'Nessuna email'; // Mostra email se presente
+        if (widgetEmail) widgetEmail.textContent = userDb && userDb.email ? userDb.email : 'Nessuna email';
 
       } else {
         if (banner) banner.style.display = 'flex';
@@ -393,7 +421,7 @@
       }
     }
 
-    // Modale
+    // Modale Login/Registrazione
     function openModal(type) {
       const modalBg = document.getElementById('modal-bg');
       const modalLogin = document.getElementById('modal-login');
@@ -435,11 +463,13 @@
       localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify({
         username,
         password: hash(password),
-        email: '' // Inizializza l'email vuota
+        email: '', // Inizializza l'email vuota
+        settings: { theme: 'light', notifications: { email: false } } // Impostazioni predefinite
       }));
       setUser({ username });
       closeModal();
-      updateAccountBanner();
+      updateAccountBannerAndWidget();
+      loadThemePreference(); // Applica il tema predefinito al login
     }
 
     // Login
@@ -459,15 +489,22 @@
       }
       setUser({ username });
       closeModal();
-      updateAccountBanner();
+      updateAccountBannerAndWidget();
+      loadThemePreference(); // Applica il tema salvato al login
     }
 
-    // Logout (modificata per prevenire propagazione evento dal widget)
+    // Logout
     function logoutUser(event) {
-      if (event) event.stopPropagation(); // Evita che il click si propaghi al widget e navighi ad account.html
+      if (event) event.stopPropagation(); // Evita che il click si propaghi al widget
       removeUser();
-      updateAccountBanner();
+      updateAccountBannerAndWidget();
+      applyTheme('light'); // Torna al tema chiaro al logout
+      localStorage.removeItem('global_theme_preference'); // Rimuovi preferenza globale se non loggato
+      // Reindirizza l'utente alla home o alla pagina corrente se preferisci
+      // window.location.href = "index.html";
     }
+
+    // --- Fine Funzioni di Account e Tema Universali ---
 
     // --- DATI PRODOTTI ---
     const prodotti = [
@@ -1032,7 +1069,7 @@
         const likes = getLikes();
         likes[id] = !likes[id];
         setLikes(likes);
-        renderProducts(document.getElementById('search-input').value); // Rimuovere il listener duplicato qui
+        renderProducts(document.getElementById('search-input').value);
         count();
       }
       // Carrello
@@ -1045,7 +1082,7 @@
           cart = cart.filter(pid => pid !== id);
         }
         setCart(cart);
-        renderProducts(document.getElementById('search-input').value); // Rimuovere il listener duplicato qui
+        renderProducts(document.getElementById('search-input').value);
         count();
       }
       // Tracciamento click Amazon
@@ -1083,34 +1120,36 @@
     }
 
     // --- INIZIALIZZA ---
-    // Eventi banner (spostato qui per essere eseguito dopo la definizione di tutte le funzioni)
+    // Event listeners per l'inizializzazione universale (copia da index.html)
     document.addEventListener('DOMContentLoaded', function() {
-      updateAccountBanner();
-      const openLoginBtn = document.getElementById('open-login');
-      const openRegisterBtn = document.getElementById('open-register');
-      const modalBg = document.getElementById('modal-bg');
-      const userProfileWidget = document.getElementById('user-profile-widget');
+        loadThemePreference(); // Carica il tema all'avvio della pagina
+        updateAccountBannerAndWidget(); // Inizializza banner e widget
 
-      if (openLoginBtn) openLoginBtn.onclick = showLogin;
-      if (openRegisterBtn) openRegisterBtn.onclick = showRegister;
-      if (modalBg) {
-          modalBg.onclick = function(e) {
-              if (e.target === this) closeModal();
-          };
-      }
-      
-      // Gestore per il click sul widget account
-      if (userProfileWidget) {
-          userProfileWidget.addEventListener('click', function(e) {
-              // Impedisci la navigazione se clicchi sul pulsante di logout all'interno del widget
-              if (e.target.classList.contains('logout-button')) {
-                  return;
-              }
-              window.location.href = "account.html";
-          });
-      }
+        const openLoginBtn = document.getElementById('open-login');
+        const openRegisterBtn = document.getElementById('open-register');
+        const modalBg = document.getElementById('modal-bg');
+        const userProfileWidget = document.getElementById('user-profile-widget');
 
-      // Inizializzazione prodotti e ranking
+        if (openLoginBtn) openLoginBtn.onclick = showLogin;
+        if (openRegisterBtn) openRegisterBtn.onclick = showRegister;
+        if (modalBg) {
+            modalBg.onclick = function(e) {
+                if (e.target === this) closeModal();
+            };
+        }
+        
+        // Gestore per il click sul widget account
+        if (userProfileWidget) {
+            userProfileWidget.addEventListener('click', function(e) {
+                // Impedisci la navigazione se clicchi sul pulsante di logout all'interno del widget
+                if (e.target.classList.contains('logout-button')) {
+                    return;
+                }
+                window.location.href = "account.html";
+            });
+        }
+
+      // Inizializzazione prodotti e ranking (originale di products.html)
       renderProducts();
       document.getElementById('search-input').addEventListener('input', function(e) {
         renderProducts(e.target.value);
