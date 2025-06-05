@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gruppi - Cronoshop</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #007aff; /* Apple Blue */
+      --background-color: #f2f2f7;
+      --text-color: #1c1c1e;
+      --card-background: #ffffff;
+      --card-shadow: rgba(0, 0, 0, 0.1);
+      --border-radius: 16px;
+      --transition-duration: 0.3s;
+    }
+
+    body {
+      font-family: 'League Spartan', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--background-color);
+      color: var(--text-color);
+      text-align: center;
+      transition: background-color 0.3s ease, color 0.3s ease; /* Aggiunto per transizione fluida */
+    }
+
+    header {
+      background: var(--card-background);
+      color: var(--text-color);
+      padding: 20px;
+      box-shadow: 0 2px 5px var(--card-shadow);
+      border-bottom: 1px solid #e5e5ea;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 600;
+    }
+
+    nav {
+      margin-top: 0.5rem;
+    }
+
+    nav a {
+      margin: 0 1rem;
+      text-decoration: none;
+      color: var(--primary-color);
+      font-weight: 500;
+      transition: color var(--transition-duration) ease;
+    }
+
+    nav a:hover {
+      color: #005bb5;
+    }
+
+    .group-section {
+      margin: 50px auto;
+      max-width: 800px;
+      background: var(--card-background);
+      border-radius: var(--border-radius);
+      box-shadow: 0 5px 15px var(--card-shadow);
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .group-section h2 {
+      font-size: 1.75rem;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .group-section p {
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      color: #3a3a3c;
+    }
+
+    .whatsapp-btn {
+      background: var(--card-background);
+      color: #25D366;
+      padding: 12px 24px;
+      border: 2px solid #25D366;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color var(--transition-duration) ease, color var(--transition-duration) ease, transform var(--transition-duration) ease;
+    }
+
+    .whatsapp-btn:hover {
+      background: #25D366;
+      color: white;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div id="user-profile-widget" style="display:none;">
+    <img id="profile-pic-widget" src="https://ui-avatars.com/api/?name=User&background=eeeeee&color=0071e3" alt="Foto profilo">
+    <div id="user-info-text">
+      <div class="username-display" id="widget-username"></div>
+      <div class="email-display" id="widget-email"></div>
+      <button class="logout-button" onclick="logoutUser(event)">Logout</button>
+    </div>
+  </div>
+
+  <div id="account-banner" style="background: #eaf6ff; color: #0071e3; padding: 0.7rem 1.5rem; text-align: center; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; gap: 1.2rem; border-bottom: 1px solid #d0e6fa;">
+    <span>Hai un account Cronoshop? <b>Accedi</b> o <b>registrati</b> per offerte personalizzate!</span>
+    <button id="open-login" style="background: var(--primary-color); color: #fff; border: none; border-radius: 8px; padding: 0.4rem 1.2rem; font-weight: 600; cursor: pointer; font-size: 1rem; transition: background 0.2s;">Accedi</button>
+    <button id="open-register" style="background: var(--primary-color); color: #fff; border: none; border-radius: 8px; padding: 0.4rem 1.2rem; font-weight: 600; cursor: pointer; font-size: 1rem; transition: background 0.2s;">Registrati</button>
+  </div>
+
+  <div class="modal-bg" id="modal-bg" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.18); display: none; align-items: center; justify-content: center; z-index: 1000;">
+    <div class="modal" id="modal-login" style="background: #fff; border-radius: 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.13); padding: 2.2rem 2rem 1.5rem 2rem; min-width: 320px; max-width: 95vw; text-align: center; position: relative; animation: fadeIn 0.3s; display:none;">
+      <button class="close-modal" onclick="closeModal()" style="position: absolute; top: 0.7rem; right: 1rem; background: none; border: none; font-size: 1.5rem; color: #aaa; cursor: pointer;">&times;</button>
+      <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Accedi</h2>
+      <input type="text" id="login-username" placeholder="Username" autocomplete="username" style="width: 90%; margin: 0.5rem 0; padding: 0.7rem; border-radius: 8px; border: 1px solid #e0e0e5; font-size: 1rem;">
+      <input type="password" id="login-password" placeholder="Password" autocomplete="current-password" style="width: 90%; margin: 0.5rem 0; padding: 0.7rem; border-radius: 8px; border: 1px solid #e0e0e5; font-size: 1rem;">
+      <div class="error-msg" id="login-error" style="color: #d32f2f; font-size: 0.98rem; margin-top: 0.5rem;"></div>
+      <button onclick="loginUser()" style="margin-top: 1rem; background: var(--primary-color); color: #fff; border: none; border-radius: 8px; padding: 0.6rem 1.5rem; font-weight: 600; cursor: pointer; font-size: 1rem; transition: background 0.2s;">Accedi</button>
+      <div class="switch-link" onclick="showRegister()" style="color: var(--primary-color); cursor: pointer; font-size: 0.98rem; margin-top: 1rem; display: inline-block;">Non hai un account? Registrati</div>
+    </div>
+    <div class="modal" id="modal-register" style="background: #fff; border-radius: 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.13); padding: 2.2rem 2rem 1.5rem 2rem; min-width: 320px; max-width: 95vw; text-align: center; position: relative; animation: fadeIn 0.3s; display:none;">
+      <button class="close-modal" onclick="closeModal()" style="position: absolute; top: 0.7rem; right: 1rem; background: none; border: none; font-size: 1.5rem; color: #aaa; cursor: pointer;">&times;</button>
+      <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Registrati</h2>
+      <input type="text" id="register-username" placeholder="Scegli username" autocomplete="username" style="width: 90%; margin: 0.5rem 0; padding: 0.7rem; border-radius: 8px; border: 1px solid #e0e0e5; font-size: 1rem;">
+      <input type="password" id="register-password" placeholder="Scegli password" autocomplete="new-password" style="width: 90%; margin: 0.5rem 0; padding: 0.7rem; border-radius: 8px; border: 1px solid #e0e0e5; font-size: 1rem;">
+      <div class="error-msg" id="register-error" style="color: #d32f2f; font-size: 0.98rem; margin-top: 0.5rem;"></div>
+      <button onclick="registerUser()" style="margin-top: 1rem; background: var(--primary-color); color: #fff; border: none; border-radius: 8px; padding: 0.6rem 1.5rem; font-weight: 600; cursor: pointer; font-size: 1rem; transition: background 0.2s;">Registrati</button>
+      <div class="switch-link" onclick="showLogin()" style="color: var(--primary-color); cursor: pointer; font-size: 0.98rem; margin-top: 1rem; display: inline-block;">Hai già un account? Accedi</div>
+    </div>
+  </div>
+
+  <header>
+    <h1>Unisciti ai nostri Gruppi</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Prodotti</a>
+      <a href="gropus.html">Gruppi</a>
+      <a href="come-funziona.html">Come Funziona</a>
+      <a href="faq.html">FAQ</a>
+      <a href="favorites.html">Preferiti</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="group-section">
+      <h2>Ricevi le migliori offerte ogni giorno!</h2>
+      <p>Unisciti al nostro gruppo WhatsApp per ricevere offerte Amazon direttamente sul tuo telefono, in tempo reale.</p>
+      <a href="https://whatsapp.com/channel/0029Vb5wE6mDeON8PBORW02R" class="whatsapp-btn" target="_blank">Unisciti al gruppo</a>
+    </section>
+  </main>
+  <script>
+    // --- Funzioni di Account e Tema Universali (copia da index.html) ---
+
+    // Helpers
+    function hash(str) {
+      let h = 0, i, chr;
+      if (str.length === 0) return h;
+      for (i = 0; i < str.length; i++) {
+        chr = str.charCodeAt(i);
+        h = ((h << 5) - h) + chr;
+        h |= 0;
+      }
+      return h;
+    }
+
+    function getUser() {
+      return JSON.parse(localStorage.getItem('cronoshop_user') || 'null');
+    }
+    function setUser(user) {
+      localStorage.setItem('cronoshop_user', JSON.stringify(user));
+    }
+    function removeUser() {
+      localStorage.removeItem('cronoshop_user');
+    }
+    function getUserDb(username) {
+        return JSON.parse(localStorage.getItem('cronoshop_user_db_' + username) || 'null');
+    }
+    function setUserDb(username, data) {
+      localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify(data));
+    }
+
+
+    // Gestione del Tema
+    function applyTheme(theme) {
+        if (theme === 'dark') {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+        }
+    }
+
+    function loadThemePreference() {
+        const user = getUser();
+        let savedTheme = 'light'; // Default theme
+        if (user && user.username) {
+            const userDb = getUserDb(user.username);
+            if (userDb && userDb.settings && userDb.settings.theme) {
+                savedTheme = userDb.settings.theme;
+            }
+        } else {
+            // Se non loggato, controlla una preferenza globale non utente specifica (opzionale)
+            savedTheme = localStorage.getItem('global_theme_preference') || 'light';
+        }
+        applyTheme(savedTheme);
+    }
+
+    // Banner e widget account
+    function updateAccountBannerAndWidget() {
+      const user = getUser();
+      const banner = document.getElementById('account-banner');
+      const profileWidget = document.getElementById('user-profile-widget');
+      const profilePicWidget = document.getElementById('profile-pic-widget');
+      const widgetUsername = document.getElementById('widget-username');
+      const widgetEmail = document.getElementById('widget-email');
+
+      if (user && user.username) {
+        if (banner) banner.style.display = 'none';
+        if (profileWidget) profileWidget.style.display = 'flex'; // Mostra il widget
+        const userDb = getUserDb(user.username);
+        if (profilePicWidget) {
+            if (userDb && userDb.profilePic) {
+                profilePicWidget.src = userDb.profilePic;
+            } else {
+                profilePicWidget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.username)}&background=eeeeee&color=0071e3`;
+            }
+        }
+        if (widgetUsername) widgetUsername.textContent = user.username;
+        if (widgetEmail) widgetEmail.textContent = userDb && userDb.email ? userDb.email : 'Nessuna email';
+
+      } else {
+        if (banner) banner.style.display = 'flex';
+        if (profileWidget) profileWidget.style.display = 'none'; // Nasconde il widget
+      }
+    }
+
+    // Modale Login/Registrazione
+    function openModal(type) {
+      const modalBg = document.getElementById('modal-bg');
+      const modalLogin = document.getElementById('modal-login');
+      const modalRegister = document.getElementById('modal-register');
+      const loginError = document.getElementById('login-error');
+      const registerError = document.getElementById('register-error');
+
+      if (modalBg) modalBg.classList.add('active');
+      if (modalLogin) modalLogin.style.display = type === 'login' ? 'block' : 'none';
+      if (modalRegister) modalRegister.style.display = type === 'register' ? 'block' : 'none';
+      if (loginError) loginError.textContent = '';
+      if (registerError) registerError.textContent = '';
+    }
+    function closeModal() {
+      const modalBg = document.getElementById('modal-bg');
+      if (modalBg) modalBg.classList.remove('active');
+    }
+    function showLogin() { openModal('login'); }
+    function showRegister() { openModal('register'); }
+
+    // Registrazione
+    function registerUser() {
+      const usernameInput = document.getElementById('register-username');
+      const passwordInput = document.getElementById('register-password');
+      const errorElement = document.getElementById('register-error');
+
+      const username = usernameInput ? usernameInput.value.trim() : '';
+      const password = passwordInput ? passwordInput.value : '';
+      const error = errorElement;
+
+      if (!username || !password) {
+        if (error) error.textContent = 'Compila tutti i campi.';
+        return;
+      }
+      if (localStorage.getItem('cronoshop_user_db_' + username)) {
+        if (error) error.textContent = 'Username già registrato.';
+        return;
+      }
+      localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify({
+        username,
+        password: hash(password),
+        email: '', // Inizializza l'email vuota
+        settings: { theme: 'light', notifications: { email: false } } // Impostazioni predefinite
+      }));
+      setUser({ username });
+      closeModal();
+      updateAccountBannerAndWidget();
+      loadThemePreference(); // Applica il tema predefinito al login
+    }
+
+    // Login
+    function loginUser() {
+      const usernameInput = document.getElementById('login-username');
+      const passwordInput = document.getElementById('login-password');
+      const errorElement = document.getElementById('login-error');
+
+      const username = usernameInput ? usernameInput.value.trim() : '';
+      const password = passwordInput ? passwordInput.value : '';
+      const error = errorElement;
+
+      const userDb = JSON.parse(localStorage.getItem('cronoshop_user_db_' + username) || 'null');
+      if (!userDb || userDb.password !== hash(password)) {
+        if (error) error.textContent = 'Username o password errati.';
+        return;
+      }
+      setUser({ username });
+      closeModal();
+      updateAccountBannerAndWidget();
+      loadThemePreference(); // Applica il tema salvato al login
+    }
+
+    // Logout
+    function logoutUser(event) {
+      if (event) event.stopPropagation(); // Evita che il click si propaghi al widget
+      removeUser();
+      updateAccountBannerAndWidget();
+      applyTheme('light'); // Torna al tema chiaro al logout
+      localStorage.removeItem('global_theme_preference'); // Rimuovi preferenza globale se non loggato
+      // Reindirizza l'utente alla home o alla pagina corrente se preferisci
+      // window.location.href = "index.html";
+    }
+
+    // Event listeners per l'inizializzazione universale (copia da index.html)
+    document.addEventListener('DOMContentLoaded', function() {
+        loadThemePreference(); // Carica il tema all'avvio della pagina
+        updateAccountBannerAndWidget(); // Inizializza banner e widget
+
+        const openLoginBtn = document.getElementById('open-login');
+        const openRegisterBtn = document.getElementById('open-register');
+        const modalBg = document.getElementById('modal-bg');
+        const userProfileWidget = document.getElementById('user-profile-widget');
+
+        if (openLoginBtn) openLoginBtn.onclick = showLogin;
+        if (openRegisterBtn) openRegisterBtn.onclick = showRegister;
+        if (modalBg) {
+            modalBg.onclick = function(e) {
+                if (e.target === this) closeModal();
+            };
+        }
+        
+        // Gestore per il click sul widget account
+        if (userProfileWidget) {
+            userProfileWidget.addEventListener('click', function(e) {
+                // Impedisci la navigazione se clicchi sul pulsante di logout all'interno del widget
+                if (e.target.classList.contains('logout-button')) {
+                    return;
+                }
+                window.location.href = "account.html";
+            });
+        }
+    });
+  </script>
+</body>
+</html>
