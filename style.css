@@ -310,3 +310,214 @@ main {
   box-shadow: 0 4px 14px rgba(0,0,0,0.08);
   object-fit: contain;
 }
+/* Stili per il nuovo widget account - SPOSTATI QUI PER APPLICAZIONE GLOBALE */
+#user-profile-widget {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  background: var(--card-background); /* Usa la variabile per il tema */
+  border-radius: 30px; /* Inizialmente rotondo per la foto */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 5px;
+  cursor: pointer;
+  overflow: hidden; /* Nasconde il testo quando compatto */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 50px; /* Larghezza iniziale per la foto */
+  height: 50px; /* Altezza iniziale per la foto */
+}
+
+#user-profile-widget:hover {
+  width: 220px; /* Larghezza estesa per mostrare il testo */
+  border-radius: 10px; /* Bordo meno rotondo quando espanso */
+  padding: 10px; /* Padding maggiore quando espanso */
+}
+
+#user-profile-widget img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid var(--primary-color); /* Bordo colorato */
+}
+
+#user-profile-widget:hover img {
+    box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.3); /* Effetto ombra sul bordo */
+}
+
+#user-info-text {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  white-space: nowrap; /* Evita che il testo vada a capo */
+  opacity: 0; /* Inizialmente nascosto */
+  transform: translateX(10px); /* Piccola traslazione per effetto animazione */
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: 0.1s; /* Leggero ritardo per l'animazione */
+}
+
+#user-profile-widget:hover #user-info-text {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+#user-profile-widget .username-display {
+  font-weight: 600; /* Grassetto */
+  font-size: 1.1em; /* Più grande */
+  color: var(--text-color); /* Usa la variabile per il tema */
+  line-height: 1.2;
+}
+
+#user-profile-widget .email-display {
+  font-size: 0.8em; /* Più piccolo */
+  color: #6e6e73; /* Colore specifico o variabile */
+}
+
+#user-profile-widget .logout-button {
+  background-color: #ff3b30; /* Rosso */
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: 0.85em;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 5px;
+  opacity: 0; /* Inizialmente nascosto */
+  transform: translateX(10px);
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: 0.15s;
+}
+
+#user-profile-widget .logout-button:hover {
+  background-color: #c1271a; /* Rosso più scuro al hover */
+}
+
+/* Stili del banner di login/registrazione */
+#account-banner {
+  background: #eaf6ff;
+  color: #0071e3;
+  padding: 0.7rem 1.5rem;
+  text-align: center;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  border-bottom: 1px solid #d0e6fa;
+}
+#account-banner button {
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.4rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+#account-banner button:hover {
+  background: #0051a8;
+}
+
+/* Stili delle modali (login/registrazione) */
+.modal-bg {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.18);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal-bg.active { display: flex; }
+.modal {
+  background: var(--card-background); /* Usa la variabile per il tema */
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.13);
+  padding: 2.2rem 2rem 1.5rem 2rem;
+  min-width: 320px;
+  max-width: 95vw;
+  text-align: center;
+  position: relative;
+  animation: fadeIn 0.3s;
+}
+.modal h2 { color: var(--primary-color); margin-bottom: 1rem; }
+.modal input {
+  width: 90%;
+  margin: 0.5rem 0;
+  padding: 0.7rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color); /* Usa la variabile per il tema */
+  font-size: 1rem;
+  background: #fafbfc;
+  color: var(--text-color); /* Usa la variabile per il tema */
+}
+.modal button {
+  margin-top: 1rem;
+  background: var(--primary-color);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s;
+}
+.modal button:hover { background: #0051a8; }
+.modal .close-modal {
+  position: absolute;
+  top: 0.7rem; right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #aaa;
+  cursor: pointer;
+}
+.modal .switch-link {
+  color: var(--primary-color);
+  cursor: pointer;
+  font-size: 0.98rem;
+  margin-top: 1rem;
+  display: inline-block;
+}
+.modal .error-msg {
+  color: #d32f2f;
+  font-size: 0.98rem;
+  margin-top: 0.5rem;
+}
+
+
+/* Media Queries Responsive per il widget account */
+@media (max-width: 768px) {
+    #user-profile-widget {
+        top: auto;
+        bottom: 15px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%; /* Mantieni rotondo in mobile compatto */
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    #user-profile-widget img {
+        width: 35px;
+        height: 35px;
+    }
+    #user-profile-widget:hover {
+        width: 200px;
+        border-radius: 10px; /* Si espande con bordi meno rotondi */
+    }
+    #user-profile-widget .logout-button {
+        padding: 4px 8px;
+    }
+
+    /* Nasconde il banner su schermi piccoli per evitare sovrapposizioni, se il widget è presente */
+    #account-banner {
+        display: none !important;
+    }
+}
