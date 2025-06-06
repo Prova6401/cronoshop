@@ -6,120 +6,135 @@
   <title>Prodotti - Cronoshop</title>
   <link rel="stylesheet" href="style.css"/>
   <style>
-    /* ... (stili esistenti e universali come nel tuo products.html attuale) ... */
+    /* ...i tuoi stili badge e bottoni qui... */
+    .badge-animated {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 10px;
+  border-radius: 12px;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #fff;
+  animation: badge-bounce 1s infinite alternate, badge-glow 1s infinite alternate;
+  box-shadow: 0 0 8px 2px rgba(0,0,0,0.12);
+  vertical-align: middle;
+}
+.badge-samsung {
+  background: #0ff;
+  color: #001f3f;
+  text-shadow: 0 0 8px #00eaff, 0 0 16px #00eaff;
+  animation-name: badge-bounce, badge-glow-blue;
+}
+.badge-apple {
+  background: #ff0033;
+  color: #fff;
+  text-shadow: 0 0 8px #ff0033, 0 0 16px #ff0033;
+  animation-name: badge-bounce, badge-glow-red;
+}
+.badge-amazon {
+  background: #00d26a;
+  color: #fff;
+  text-shadow: 0 0 8px #00d26a, 0 0 16px #00d26a;
+  animation-name: badge-bounce, badge-glow-green;
+}
+.badge-google {
+  background: #ffd600;
+  color: #222;
+  text-shadow: 0 0 8px #ffd600, 0 0 16px #ffd600;
+  animation-name: badge-bounce, badge-glow-yellow;
+}
+.badge-generic {
+  background: #888;
+  color: #fff;
+  text-shadow: 0 0 8px #aaa;
+  animation-name: badge-bounce, badge-glow-gray;
+}
 
-    /* Stili specifici per il convertitore di link */
-    .link-converter-section {
-        max-width: 700px;
-        margin: 2rem auto;
-        background: var(--card-background);
-        border-radius: var(--border-radius);
-        box-shadow: var(--card-shadow);
-        padding: 1.5rem 1rem;
-        text-align: center;
-        border: 1px solid var(--border-color);
-    }
-    .link-converter-section h2 {
-        color: var(--primary-color);
-        font-size: 1.3rem;
-        margin-bottom: 1rem;
-    }
-    .link-converter-section p {
-        font-size: 1rem;
-        color: #6e6e73;
-        margin-bottom: 1.5rem;
-    }
-    .link-converter-section input[type="text"] {
-        width: calc(100% - 2rem);
-        padding: 0.8rem 1rem;
-        border-radius: 12px;
-        border: 1px solid #ccc;
-        font-size: 1rem;
-        margin-bottom: 1rem;
-        box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
-        color: var(--text-color); /* Adatta al tema */
-        background-color: var(--card-background); /* Adatta al tema */
-    }
-    .link-converter-section button {
-        background-color: var(--primary-color);
-        color: #fff;
-        border: none;
-        border-radius: 12px;
-        padding: 0.8rem 1.8rem;
-        font-weight: 600;
-        cursor: pointer;
-        font-size: 1.05rem;
-        transition: background-color 0.25s cubic-bezier(.4,0,.2,1);
-        box-shadow: 0 2px 8px rgba(0,113,227,0.10);
-        margin-bottom: 1rem;
-    }
-    .link-converter-section button:hover {
-        background-color: #0051a8;
-    }
-    .generated-link-box {
-        background-color: #eaf6ff;
-        border: 1px solid #cce8ff;
-        padding: 1rem;
-        border-radius: 12px;
-        margin-top: 1.5rem;
-        display: none; /* Inizialmente nascosto */
-        flex-direction: column;
-        align-items: center;
-        gap: 0.8rem;
-    }
-    .generated-link-box.active {
-        display: flex;
-    }
-    .generated-link-box input {
-        width: 100%;
-        padding: 0.6rem;
-        border: 1px dashed #0071e3;
-        border-radius: 8px;
-        font-size: 0.95rem;
-        text-align: center;
-        color: #0071e3;
-        background-color: #f7fbff;
-        cursor: text;
-        user-select: all; /* Permette selezione facile */
-    }
-    .generated-link-box button {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
-        margin-bottom: 0;
-    }
-
-    /* Regole Dark Mode per il convertitore di link */
-    body.dark-mode .link-converter-section {
-        background: var(--dark-card-background);
-        box-shadow: 0 4px 16px var(--dark-card-shadow);
-        border-color: var(--dark-border-color);
-    }
-    body.dark-mode .link-converter-section h2 {
-        color: var(--dark-primary-color);
-    }
-    body.dark-mode .link-converter-section p {
-        color: var(--dark-text-color);
-    }
-    body.dark-mode .link-converter-section input[type="text"] {
-        background-color: var(--dark-border-color);
-        border-color: #555;
-        color: var(--dark-text-color);
-    }
-    body.dark-mode .generated-link-box {
-        background-color: #3a3a3c;
-        border-color: #555;
-    }
-    body.dark-mode .generated-link-box input {
-        background-color: #4a4a4e;
-        border-color: var(--dark-primary-color);
-        color: var(--dark-primary-color);
-    }
-
-
+@keyframes badge-bounce {
+  0%   { transform: translateY(0);}
+  50%  { transform: translateY(-6px) scale(1.08);}
+  100% { transform: translateY(0);}
+}
+@keyframes badge-glow-blue {
+  0%   { box-shadow: 0 0 8px #00eaff, 0 0 16px #00eaff;}
+  100% { box-shadow: 0 0 24px #00eaff, 0 0 48px #00eaff;}
+}
+@keyframes badge-glow-red {
+  0%   { box-shadow: 0 0 8px #ff0033, 0 0 16px #ff0033;}
+  100% { box-shadow: 0 0 24px #ff0033, 0 0 48px #ff0033;}
+}
+@keyframes badge-glow-green {
+  0%   { box-shadow: 0 0 8px #00d26a, 0 0 16px #00d26a;}
+  100% { box-shadow: 0 0 24px #00d26a, 0 0 48px #00d26a;}
+}
+@keyframes badge-glow-yellow {
+  0%   { box-shadow: 0 0 8px #ffd600, 0 0 16px #ffd600;}
+  100% { box-shadow: 0 0 24px #ffd600, 0 0 48px #ffd600;}
+}
+@keyframes badge-glow-gray {
+  0%   { box-shadow: 0 0 8px #aaa, 0 0 16px #aaa;}
+  100% { box-shadow: 0 0 24px #aaa, 0 0 48px #aaa;}
+}
+.amazon-link-btn {
+  background: #0071e3;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0.2rem 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.wishlist-btn {
+  background: #ffd600;
+  color: #222;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0.2rem 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.wishlist-btn.in-wishlist {
+  background: #ffe066;
+  color: #222;
+}
+.like-btn {
+  background: #ff3b30;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0.2rem 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.cart-btn {
+  background: #fff;
+  color: #0071e3;
+  border: 2px solid #0071e3;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0.2rem 0;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.cart-btn.added {
+  background: #0071e3;
+  color: #fff;
+}
   </style>
 </head>
 <body>
-  <div id="user-profile-widget">
+  <div id="user-profile-widget" style="display:none;">
     <img id="profile-pic-widget" src="https://ui-avatars.com/api/?name=User&background=eeeeee&color=0071e3" alt="Foto profilo">
     <div id="user-info-text">
       <div class="username-display" id="widget-username"></div>
@@ -128,7 +143,7 @@
     </div>
   </div>
 
-  <div id="account-banner">
+  <div id="account-banner" style="display:flex;">
     <span>Hai un account Cronoshop? <b>Accedi</b> o <b>registrati</b> per offerte personalizzate!</span>
     <button id="open-login">Accedi</button>
     <button id="open-register">Registrati</button>
@@ -160,7 +175,7 @@
     <nav>
       <a href="index.html">Home</a>
       <a href="products.html">Prodotti <span id="cart-count" style="background:#30d158;color:#fff;border-radius:50%;padding:2px 8px;font-size:0.9em;vertical-align:top;margin-left:2px;">0</span></a>
-      <a href="gropus.html">Gruppi</a>
+      <a href="groups.html">Gruppi</a>
       <a href="come-funziona.html">Come Funziona</a>
       <a href="faq.html">FAQ</a>
       <a href="favorites.html">Preferiti</a>
@@ -180,29 +195,13 @@
         <input type="text" id="search-input" placeholder="Cerca un prodotto..." style="padding: 0.6rem 1.2rem; border-radius: 12px; border: 1px solid #ccc; font-size: 1rem; width: 80%; max-width: 400px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
     </div>
 
-    <section class="link-converter-section">
-        <h2>Trasforma un link Amazon nel tuo link affiliato!</h2>
-        <p>Incolla qui il link di un prodotto Amazon per generare il tuo link affiliato e condividere le offerte con i tuoi amici.</p>
-        <input type="text" id="amazon-url-input" placeholder="Incolla qui il link del prodotto Amazon...">
-        <button onclick="generateAffiliateLink()">Genera Link Affiliato</button>
-        <div id="generated-link-output" class="generated-link-box">
-            <span>Ecco il tuo link personalizzato:</span>
-            <input type="text" id="affiliate-output-url" readonly>
-            <button onclick="copyAffiliateLink()">Copia Link</button>
-            <a id="go-to-amazon-link" href="#" target="_blank" rel="noopener noreferrer">
-              <button>Vai su Amazon</button>
-            </a>
-        </div>
-        <div class="error-msg" id="link-converter-error" style="margin-top: 1rem;"></div>
-    </section>
     <section class="product-grid" id="product-grid">
-      </section>
+    </section>
   </main>
 
   <script>
-    // --- Funzioni di Account e Tema Universali (copia da index.html) ---
+    // --- Funzioni di Account e Tema Universali ---
 
-    // Helpers
     function hash(str) {
       let h = 0, i, chr;
       if (str.length === 0) return h;
@@ -230,8 +229,6 @@
       localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify(data));
     }
 
-
-    // Gestione del Tema
     function applyTheme(theme) {
         if (theme === 'dark') {
             document.body.classList.add('dark-mode');
@@ -242,20 +239,18 @@
 
     function loadThemePreference() {
         const user = getUser();
-        let savedTheme = 'light'; // Default theme
+        let savedTheme = 'light';
         if (user && user.username) {
             const userDb = getUserDb(user.username);
             if (userDb && userDb.settings && userDb.settings.theme) {
                 savedTheme = userDb.settings.theme;
             }
         } else {
-            // Se non loggato, controlla una preferenza globale non utente specifica (opzionale)
             savedTheme = localStorage.getItem('global_theme_preference') || 'light';
         }
         applyTheme(savedTheme);
     }
 
-    // Banner e widget account
     function updateAccountBannerAndWidget() {
       const user = getUser();
       const banner = document.getElementById('account-banner');
@@ -266,7 +261,7 @@
 
       if (user && user.username) {
         if (banner) banner.style.display = 'none';
-        if (profileWidget) profileWidget.style.display = 'flex'; // Mostra il widget
+        if (profileWidget) profileWidget.style.display = 'flex';
         const userDb = getUserDb(user.username);
         if (profilePicWidget) {
             if (userDb && userDb.profilePic) {
@@ -277,14 +272,12 @@
         }
         if (widgetUsername) widgetUsername.textContent = user.username;
         if (widgetEmail) widgetEmail.textContent = userDb && userDb.email ? userDb.email : 'Nessuna email';
-
       } else {
         if (banner) banner.style.display = 'flex';
-        if (profileWidget) profileWidget.style.display = 'none'; // Nasconde il widget
+        if (profileWidget) profileWidget.style.display = 'none';
       }
     }
 
-    // Modale Login/Registrazione
     function openModal(type) {
       const modalBg = document.getElementById('modal-bg');
       const modalLogin = document.getElementById('modal-login');
@@ -305,7 +298,6 @@
     function showLogin() { openModal('login'); }
     function showRegister() { openModal('register'); }
 
-    // Registrazione
     function registerUser() {
       const usernameInput = document.getElementById('register-username');
       const passwordInput = document.getElementById('register-password');
@@ -326,16 +318,15 @@
       localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify({
         username,
         password: hash(password),
-        email: '', // Inizializza l'email vuota
-        settings: { theme: 'light', notifications: { email: false } } // Impostazioni predefinite
+        email: '',
+        settings: { theme: 'light', notifications: { email: false } }
       }));
       setUser({ username });
       closeModal();
       updateAccountBannerAndWidget();
-      loadThemePreference(); // Applica il tema predefinito al login
+      loadThemePreference();
     }
 
-    // Login
     function loginUser() {
       const usernameInput = document.getElementById('login-username');
       const passwordInput = document.getElementById('login-password');
@@ -353,84 +344,18 @@
       setUser({ username });
       closeModal();
       updateAccountBannerAndWidget();
-      loadThemePreference(); // Applica il tema salvato al login
+      loadThemePreference();
     }
 
-    // Logout
     function logoutUser(event) {
-      if (event) event.stopPropagation(); // Evita che il click si propaghi al widget
+      if (event) event.stopPropagation();
       removeUser();
       updateAccountBannerAndWidget();
-      applyTheme('light'); // Torna al tema chiaro al logout
-      localStorage.removeItem('global_theme_preference'); // Rimuovi preferenza globale se non loggato
-      // Reindirizza l'utente alla home o alla pagina corrente se preferisci
-      // window.location.href = "index.html";
+      applyTheme('light');
+      localStorage.removeItem('global_theme_preference');
     }
 
-    // --- Fine Funzioni di Account e Tema Universali ---
-
-    // --- LOGICA DEL CONVERTITORE DI LINK AFFILIATO ---
-    const YOUR_AFFILIATE_TAG = "cronoshop-21"; // <--- INSERISCI QUI IL TUO ID AFFILIATO!
-
-    function generateAffiliateLink() {
-        const inputUrl = document.getElementById('amazon-url-input').value.trim();
-        const outputBox = document.getElementById('generated-link-output');
-        const outputUrlInput = document.getElementById('affiliate-output-url');
-        const errorDisplay = document.getElementById('link-converter-error');
-        const goToAmazonLink = document.getElementById('go-to-amazon-link');
-
-        errorDisplay.textContent = ''; // Pulisce eventuali errori precedenti
-        outputBox.classList.remove('active'); // Nasconde il box di output
-
-        if (!inputUrl) {
-            errorDisplay.textContent = "Per favore, incolla un URL di Amazon.";
-            return;
-        }
-
-        let parsedUrl;
-        try {
-            parsedUrl = new URL(inputUrl);
-        } catch (e) {
-            errorDisplay.textContent = "URL non valido. Assicurati che sia un link completo.";
-            return;
-        }
-
-        // Verifica se l'URL è di Amazon
-        if (!parsedUrl.hostname.includes("amazon.")) {
-            errorDisplay.textContent = "Questo non sembra un link di Amazon. Incolla un URL da amazon.it o simili.";
-            return;
-        }
-
-        // Rimuovi eventuali tag affiliato esistenti
-        parsedUrl.searchParams.delete('tag');
-        
-        // Aggiungi il tuo tag affiliato
-        parsedUrl.searchParams.set('tag', YOUR_AFFILIATE_TAG);
-
-        const newAffiliateUrl = parsedUrl.toString();
-        outputUrlInput.value = newAffiliateUrl;
-        goToAmazonLink.href = newAffiliateUrl; // Imposta il link per il pulsante "Vai su Amazon"
-        outputBox.classList.add('active'); // Mostra il box di output
-
-        // Aggiungi un punto per ogni generazione di link (se l'utente è loggato)
-        const user = getUser();
-        if (user && user.username) {
-            addPoint(user.username); // Assicurati che addPoint() sia definito e funzioni
-            updateUserScore(); // Assicurati che updateUserScore() sia definito
-        }
-    }
-
-    function copyAffiliateLink() {
-        const outputUrlInput = document.getElementById('affiliate-output-url');
-        if (outputUrlInput) {
-            outputUrlInput.select();
-            outputUrlInput.setSelectionRange(0, 99999); // Per mobile
-            document.execCommand("copy");
-            alert("Link copiato!");
-        }
-    }
-    // --- FINE LOGICA DEL CONVERTITORE DI LINK AFFILIATO ---
-
+    // --- FINE Funzioni di Account e Tema Universali ---
 
     // --- DATI PRODOTTI ---
     const prodotti = [
@@ -938,7 +863,7 @@
     function setCart(cart) {
       localStorage.setItem('cronoshop_cart', JSON.stringify(cart));
     }
-    function count() { // Aggiunta la definizione della funzione count()
+    function count() {
       const cart = getCart();
       const cartCountElement = document.getElementById('cart-count');
       if (cartCountElement) {
@@ -946,57 +871,95 @@
       }
     }
 
-
-    // --- PUNTI E CLASSIFICA ---
     function getPoints() {
       return JSON.parse(localStorage.getItem('cronoshop_points') || '{}');
     }
     function setPoints(points) {
       localStorage.setItem('cronoshop_points', JSON.stringify(points));
     }
+    function getFavorites() {
+  return JSON.parse(localStorage.getItem('cronoshop_favorites') || '[]');
+}
+function getWishlist() {
+  return JSON.parse(localStorage.getItem('cronoshop_wishlist') || '[]');
+}
 
-    // --- RENDER PRODOTTI ---
-    
-    function renderProducts(filtro = '') {
-      const likes = getLikes();
-      const cart = getCart();
-      const grid = document.getElementById('product-grid');
-      grid.innerHTML = '';
-      const filtroLower = filtro.toLowerCase();
+// Utility per categoria (puoi lasciarla se ti serve per i badge)
+function getCategory(prod) {
+  const name = prod.nome.toLowerCase();
+  if (name.includes('samsung')) return 'samsung';
+  if (name.includes('apple') || name.includes('iphone') || name.includes('airpods')) return 'apple';
+  if (name.includes('amazon')) return 'amazon';
+  if (name.includes('google') || name.includes('pixel')) return 'google';
+  return 'altro';
+}
 
-      prodotti
-        .filter(prod => prod.nome.toLowerCase().includes(filtroLower) || prod.descrizione.toLowerCase().includes(filtroLower))
-        .forEach(prod => {
-          const liked = likes[prod.id] === true;
-          const inCart = cart.includes(prod.id);
-          const priceHtml = prod.prezzo.toString().includes('<span') ? prod.prezzo : `<span class="price">${prod.prezzo}</span>`;
-          const card = document.createElement('div');
-          card.className = 'product-card';
-          card.innerHTML = `
-            <img src="${prod.img}" alt="${prod.nome}" class="product-img">
-            <h3>${prod.nome}</h3>
-            <p class="price">${priceHtml}</p>
-            <p>${prod.descrizione}</p>
-            <button class="like-btn${liked ? ' liked' : ''}" data-id="${prod.id}">${liked ? '❤️' : '🤍'} Mi piace</button>
-            <button class="cart-btn${inCart ? ' added' : ''}" data-id="${prod.id}">${inCart ? 'Aggiunto!' : 'Aggiungi al carrello'}</button>
-            <a href="${prod.link}" class="amazon-link" data-id="${prod.id}" target="_blank" rel="noopener noreferrer">
-              <button class="amazon-link-btn">Compra su Amazon</button>
-            </a>
-          `;
-          grid.appendChild(card);
-        });
-    }
+// --- RENDER PRODOTTI ---
+function getProductBadge(prod) {
+  const cat = getCategory(prod);
+  if (cat === 'samsung') return `<span class="badge-animated badge-samsung">Samsung</span>`;
+  if (cat === 'apple') return `<span class="badge-animated badge-apple">Apple</span>`;
+  if (cat === 'amazon') return `<span class="badge-animated badge-amazon">Amazon</span>`;
+  if (cat === 'google') return `<span class="badge-animated badge-google">Google</span>`;
+  return `<span class="badge-animated badge-generic">Altro</span>`;
+}
 
-    // --- EVENTI ---
-    document.addEventListener('click', function(e) {
+function renderProducts(filtro = '') {
+  const likes = getLikes();
+  const cart = getCart();
+  const wishlist = getWishlist();
+  const grid = document.getElementById('product-grid');
+  grid.innerHTML = '';
+  const filtroLower = filtro.toLowerCase();
+
+  prodotti
+    .filter(prod => prod.nome.toLowerCase().includes(filtroLower) || prod.descrizione.toLowerCase().includes(filtroLower))
+    .forEach(prod => {
+      const liked = likes[prod.id] === true;
+      const inCart = cart.includes(prod.id);
+      const inWishlist = wishlist.includes(prod.id);
+      const priceHtml = prod.prezzo.toString().includes('<span') ? prod.prezzo : `<span class="price">${prod.prezzo}</span>`;
+      const badge = getProductBadge(prod);
+      const card = document.createElement('div');
+      card.className = 'product-card';
+      card.innerHTML = `
+        <img src="${prod.img}" alt="${prod.nome}" class="product-img">
+        <h3>${prod.nome} ${badge}</h3>
+        <p class="price">${priceHtml}</p>
+        <p>${prod.descrizione}</p>
+        <button class="like-btn${liked ? ' liked' : ''}" data-id="${prod.id}">${liked ? '❤️' : '🤍'} Mi piace</button>
+        <button class="wishlist-btn${inWishlist ? ' in-wishlist' : ''}" data-id="${prod.id}">${inWishlist ? 'Nella lista dei desideri' : 'Aggiungi alla lista dei desideri'}</button>
+        <button class="cart-btn${inCart ? ' added' : ''}" data-id="${prod.id}">${inCart ? 'Aggiunto!' : 'Aggiungi al carrello'}</button>
+        <a href="${prod.link}" class="amazon-link" data-id="${prod.id}" target="_blank" rel="noopener noreferrer">
+          <button class="amazon-link-btn">Compra su Amazon</button>
+        </a>
+      `;
+      grid.appendChild(card);
+    });
+}
+
+// --- EVENTI ---
+document.addEventListener('click', function(e) {
       // Mi piace
       if (e.target.classList.contains('like-btn')) {
         const id = e.target.getAttribute('data-id');
         const likes = getLikes();
         likes[id] = !likes[id];
         setLikes(likes);
+
+        // AGGIUNGI/RIMUOVI DAI PREFERITI
+        let favs = JSON.parse(localStorage.getItem('cronoshop_favorites') || '[]');
+        if (likes[id]) {
+          if (!favs.includes(id)) favs.push(id);
+        } else {
+          favs = favs.filter(pid => pid !== id);
+        }
+        localStorage.setItem('cronoshop_favorites', JSON.stringify(favs));
+
         renderProducts(document.getElementById('search-input').value);
         count();
+        // Aggiorna anche la pagina dei preferiti se aperta
+        if (window.location.pathname.endsWith('favorites.html') && typeof renderFavorites === 'function') renderFavorites();
       }
       // Carrello
       if (e.target.classList.contains('cart-btn')) {
@@ -1011,79 +974,88 @@
         renderProducts(document.getElementById('search-input').value);
         count();
       }
-      // Tracciamento click Amazon
+      // Lista dei desideri
+      if (e.target.classList.contains('wishlist-btn')) {
+        const id = e.target.getAttribute('data-id');
+        let wishlist = getWishlist();
+        if (!wishlist.includes(id)) {
+          wishlist.push(id);
+        } else {
+          wishlist = wishlist.filter(pid => pid !== id);
+        }
+        setWishlist(wishlist);
+        renderProducts(document.getElementById('search-input').value);
+        // Aggiorna anche la pagina dei preferiti se aperta
+        if (window.location.pathname.endsWith('favorites.html') && typeof renderFavorites === 'function') renderFavorites();
+      }
+      // Tracciamento click Amazon SOLO SE LOGGATO
       if (e.target.closest('.amazon-link')) {
-        const id = e.target.closest('.amazon-link').getAttribute('data-id');
-        addPoint(getUsername());
-        updateRanking();
+        const user = getUser();
+        if (user && user.username) {
+          addPoint(user.username);
+          updateRanking();
+          updateUserScore();
+        }
       }
     });
 
     // --- PUNTI E CLASSIFICA ---
     function addPoint(username) {
+      if (!username) return;
       const points = getPoints();
       if (!points[username]) points[username] = 0;
       points[username]++;
       setPoints(points);
-      updateUserScore();
     }
-    function updateUserScore() {
-      const points = getPoints();
-      const username = getUsername();
-      const score = points[username] || 0;
-      document.getElementById('user-score').textContent = `Il tuo punteggio: ${score} punto${score === 1 ? '' : 'i'}`;
-    }
+
     function updateRanking() {
+      // Logica per aggiornare la classifica
       const points = getPoints();
-      const ranking = Object.entries(points)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 10);
+      const validUsers = Object.keys(points).filter(username => localStorage.getItem('cronoshop_user_db_' + username));
+      const ranking = validUsers.map(username => [username, points[username]]).sort((a, b) => b[1] - a[1]);
       const list = document.getElementById('ranking-list');
-      list.innerHTML = '';
-      ranking.forEach(([user, score], i) => {
-        list.innerHTML += `<li>${i === 0 ? '🏆 ' : ''}${user} <span style="color:#0071e3;font-weight:600;">${score}</span></li>`;
-      });
+      if (list) {
+        list.innerHTML = '';
+        ranking.slice(0, 10).forEach(([user, score], i) => {
+          list.innerHTML += `<li>${i === 0 ? '🏆 ' : ''}${user} <span style="color:#0071e3;font-weight:600;">${score}</span></li>`;
+        });
+      }
     }
 
     // --- INIZIALIZZA ---
-    // Event listeners per l'inizializzazione universale (copia da index.html)
     document.addEventListener('DOMContentLoaded', function() {
-        loadThemePreference(); // Carica il tema all'avvio della pagina
-        updateAccountBannerAndWidget(); // Inizializza banner e widget
+  loadThemePreference();
+  updateAccountBannerAndWidget();
 
-        const openLoginBtn = document.getElementById('open-login');
-        const openRegisterBtn = document.getElementById('open-register');
-        const modalBg = document.getElementById('modal-bg');
-        const userProfileWidget = document.getElementById('user-profile-widget');
+  const openLoginBtn = document.getElementById('open-login');
+  const openRegisterBtn = document.getElementById('open-register');
+  const modalBg = document.getElementById('modal-bg');
+  const userProfileWidget = document.getElementById('user-profile-widget');
 
-        if (openLoginBtn) openLoginBtn.onclick = showLogin;
-        if (openRegisterBtn) openRegisterBtn.onclick = showRegister;
-        if (modalBg) {
-            modalBg.onclick = function(e) {
-                if (e.target === this) closeModal();
-            };
-        }
-        
-        // Gestore per il click sul widget account
-        if (userProfileWidget) {
-            userProfileWidget.addEventListener('click', function(e) {
-                // Impedisci la navigazione se clicchi sul pulsante di logout all'interno del widget
-                if (e.target.classList.contains('logout-button')) {
-                    return;
-                }
-                window.location.href = "account.html";
-            });
-        }
-
-      // Inizializzazione prodotti e ranking (originale di products.html)
-      renderProducts();
-      document.getElementById('search-input').addEventListener('input', function(e) {
-        renderProducts(e.target.value);
-      });
-      count();
-      updateUserScore();
-      updateRanking();
+  if (openLoginBtn) openLoginBtn.onclick = showLogin;
+  if (openRegisterBtn) openRegisterBtn.onclick = showRegister;
+  if (modalBg) {
+    modalBg.onclick = function(e) {
+      if (e.target === this) closeModal();
+    };
+  }
+  if (userProfileWidget) {
+    userProfileWidget.addEventListener('click', function(e) {
+      if (e.target.classList.contains('logout-button')) {
+        return;
+      }
+      window.location.href = "account.html";
     });
-  </script>
+  }
+
+  renderProducts();
+  document.getElementById('search-input').addEventListener('input', function(e) {
+    renderProducts(e.target.value);
+   });
+  count();
+  updateUserScore();
+  updateRanking();
+});
+</script>
 </body>
 </html>
