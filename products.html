@@ -202,9 +202,36 @@
       align-items: center;
       color: var(--text-color);
     }
+
+    @media (max-width: 700px) {
+  nav:not(.mobile-menu) {
+    display: none !important;
+  }
+}
   </style>
 </head>
 <body>
+  <!-- Mobile Hamburger Menu -->
+<div id="mobile-navbar" class="mobile-navbar">
+  <button id="hamburger-btn" aria-label="Apri menu" class="hamburger-btn">
+    <span class="hamburger-icon"></span>
+  </button>
+  <div class="mobile-logo">Cronoshop</div>
+  <div id="mobile-account-btn" class="mobile-account-btn">
+    <img src="https://ui-avatars.com/api/?name=User&background=eeeeee&color=0071e3" alt="Account" id="mobile-account-img">
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="products.html">Prodotti</a>
+  <a href="groups.html">Gruppi</a>
+  <a href="come-funziona.html">Come Funziona</a>
+  <a href="faq.html">FAQ</a>
+  <a href="favorites.html">Preferiti</a>
+  <a href="account.html">Area Personale</a>
+  <a href="cart.html">Carrello</a>
+</nav>
+
   <div id="user-profile-widget" style="display:none;">
     <img id="profile-pic-widget" src="https://ui-avatars.com/api/?name=User&background=eeeeee&color=0071e3" alt="Foto profilo">
     <div id="user-info-text">
@@ -513,8 +540,7 @@
   },
   {
     id: "prod11",
-    link: "https://amzn.to/4mBncTC",
-    img: "https://m.media-amazon.com/images/I/51v1hYXGsdL._AC_SL1500_.jpg",
+    link: "https://m.media-amazon.com/images/I/51v1hYXGsdL._AC_SL1500_.jpg",
     nome: "Google Pixel 9 Pro XL",
     prezzo: "879,00€",
     descrizione: "Smartphone Android sbloccato con Gemini, sistema a tripla fotocamera posteriore, batteria con autonomia fino a 24 ore e display Super Actua da 6,8\". Colore: Grigio Verde. Memoria: 128GB."
@@ -1136,6 +1162,40 @@ document.addEventListener('click', function(e) {
       }
       window.location.href = "account.html";
     });
+  }
+
+  // Hamburger menu mobile
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (hamburgerBtn && mobileMenu) {
+    hamburgerBtn.addEventListener('click', function() {
+      mobileMenu.classList.toggle('open');
+    });
+    // Chiudi menu al click fuori
+    document.addEventListener('click', function(e) {
+      if (!mobileMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+        mobileMenu.classList.remove('open');
+      }
+    });
+  }
+
+  // Account foto mobile
+  const mobileAccountBtn = document.getElementById('mobile-account-btn');
+  if (mobileAccountBtn) {
+    mobileAccountBtn.onclick = function() {
+      window.location.href = "account.html";
+    };
+    // Aggiorna foto se loggato
+    const user = getUser();
+    const userDb = user && user.username ? getUserDb(user.username) : null;
+    const img = document.getElementById('mobile-account-img');
+    if (img) {
+      if (userDb && userDb.profilePic) {
+        img.src = userDb.profilePic;
+      } else if (user && user.username) {
+        img.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.username)}&background=eeeeee&color=0071e3`;
+      }
+    }
   }
 
   renderProducts();
