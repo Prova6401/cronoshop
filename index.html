@@ -209,5 +209,14 @@
     </footer>
 
     <script src="main.js"></script>
+    <script>
+        function updateUserWidget(user) {
+  document.querySelector('.user-name').textContent = user.name;
+  document.querySelector('.user-points').textContent = `${user.points} punti`;
+}
+
+// Esempio di utilizzo dopo login o recupero dati
+// updateUserWidget({ name: "Mario Rossi", points: 120 });
+    </script>
 </body>
 </html>
