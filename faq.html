@@ -5,83 +5,51 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FAQ - Cronoshop</title>
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --primary-color: #007aff;
-      --background-color: #f2f2f7;
-      --text-color: #1c1c1e;
-      --card-background: #ffffff;
-      --card-shadow: rgba(0, 0, 0, 0.1);
-      --border-radius: 16px;
-      --transition-duration: 0.3s;
-    }
-
-    body {
-      font-family: 'League Spartan', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: var(--background-color);
-      color: var(--text-color);
-      text-align: center;
-      transition: background-color 0.3s ease, color 0.3s ease; /* Aggiunto per transizione fluida */
-    }
-
-    header {
-      background: var(--card-background);
-      color: var(--text-color);
-      padding: 20px;
-      box-shadow: 0 2px 5px var(--card-shadow);
-      border-bottom: 1px solid #e5e5ea;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 2rem;
-      font-weight: 600;
-    }
-
-    nav {
-      margin-top: 0.5rem;
-    }
-
-    nav a {
-      margin: 0 1rem;
-      text-decoration: none;
-      color: var(--primary-color);
-      font-weight: 500;
-      transition: color var(--transition-duration) ease;
-    }
-
-    nav a:hover {
-      color: #005bb5;
-    }
-
-    main {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-
     .faq-section {
-      background: var(--card-background);
-      border-radius: var(--border-radius);
-      box-shadow: 0 5px 15px var(--card-shadow);
-      padding: 30px;
+      background: var(--glass-bg);
+      backdrop-filter: var(--backdrop-blur);
+      -webkit-backdrop-filter: var(--backdrop-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: 25px;
+      box-shadow: var(--glass-shadow);
+      padding: 3rem;
       text-align: left;
+      max-width: 800px;
+      margin: 2rem auto;
+      position: relative;
+    }
+
+    .faq-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+      border-radius: inherit;
+      pointer-events: none;
     }
 
     .faq-section h2 {
       font-size: 1.75rem;
-      margin-bottom: 20px;
-      font-weight: 600;
+      margin-bottom: 2rem;
+      font-weight: 700;
       text-align: center;
+      color: var(--text-color);
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
     .faq-item {
-      margin-bottom: 20px;
-      border-bottom: 1px solid #e5e5ea;
-      padding-bottom: 15px;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--glass-border);
+      padding-bottom: 1rem;
+      position: relative;
+      z-index: 1;
     }
 
     .faq-item:last-child {
@@ -90,37 +58,59 @@
 
     .faq-question {
       font-weight: 600;
-      color: var(--primary-color);
+      color: var(--text-color);
       cursor: pointer;
-      margin-bottom: 8px;
+      margin-bottom: 0.5rem;
       font-size: 1.1rem;
+      transition: all var(--transition-duration);
+      padding: 0.5rem;
+      border-radius: 10px;
+    }
+
+    .faq-question:hover {
+      background: rgba(255, 255, 255, 0.1);
     }
 
     .faq-answer {
       font-size: 1rem;
-      color: #3a3a3c;
-      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.8);
+      line-height: 1.6;
       display: none;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
     }
 
     .faq-item.open .faq-answer {
       display: block;
+      animation: fadeInDown 0.3s ease;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .faq-question::after {
       content: " ▼";
       font-size: 0.9rem;
       transition: transform var(--transition-duration) ease;
+      float: right;
+      color: rgba(0, 122, 255, 0.8);
     }
 
     .faq-item.open .faq-question::after {
       transform: rotate(180deg);
     }
-
   </style>
 </head>
 <body>
-  <div id="user-profile-widget">
+  <div id="user-profile-widget" style="display:none;">
     <img id="profile-pic-widget" src="https://ui-avatars.com/api/?name=User&background=eeeeee&color=0071e3" alt="Foto profilo">
     <div id="user-info-text">
       <div class="username-display" id="widget-username"></div>
@@ -136,7 +126,7 @@
   </div>
 
   <div class="modal-bg" id="modal-bg">
-    <div class="modal" id="modal-login">
+    <div class="modal" id="modal-login" style="display:none;">
       <button class="close-modal" onclick="closeModal()">&times;</button>
       <h2>Accedi</h2>
       <input type="text" id="login-username" placeholder="Username" autocomplete="username">
@@ -145,7 +135,7 @@
       <button onclick="loginUser()">Accedi</button>
       <div class="switch-link" onclick="showRegister()">Non hai un account? Registrati</div>
     </div>
-    <div class="modal" id="modal-register">
+    <div class="modal" id="modal-register" style="display:none;">
       <button class="close-modal" onclick="closeModal()">&times;</button>
       <h2>Registrati</h2>
       <input type="text" id="register-username" placeholder="Scegli username" autocomplete="username">
@@ -158,15 +148,16 @@
 
   <header>
     <h1>FAQ - Domande Frequenti</h1>
-<nav>
+  </header>
+
+  <nav>
     <a href="index.html">Home</a>
     <a href="products.html">Prodotti</a>
-    <a href="gropus.html">Gruppi</a>
+    <a href="groups.html">Gruppi</a>
     <a href="come-funziona.html">Come Funziona</a>
     <a href="faq.html">FAQ</a>
     <a href="account.html">Area Personale</a>
   </nav>
-  </header>
 
   <main>
     <section class="faq-section">
@@ -181,72 +172,72 @@
       <div class="faq-item">
         <div class="faq-question">Devo registrarmi per usare Cronoshop?</div>
         <div class="faq-answer">
-          No, non è richiesta nessuna registrazione. Puoi navigare tra i prodotti e cliccare direttamente sull’offerta per acquistare su Amazon.
+          No, non è richiesta nessuna registrazione. Puoi navigare tra i prodotti e cliccare direttamente sull'offerta per acquistare su Amazon.
         </div>
       </div>
 
       <div class="faq-item">
         <div class="faq-question">Come ricevo lo sconto?</div>
         <div class="faq-answer">
-          Cliccando sul prodotto, vieni indirizzato su Amazon dove potrai usufruire dell’offerta speciale direttamente, senza codici o passaggi complicati.
+          Cliccando sul prodotto, vieni indirizzato su Amazon dove potrai usufruire dell'offerta speciale direttamente, senza codici o passaggi complicati.
         </div>
       </div>
+      
       <div class="faq-item">
-  <div class="faq-question">Ci sono costi aggiuntivi usando Cronoshop?</div>
-  <div class="faq-answer">
-    Assolutamente no. Cronoshop è gratuito e non applica alcun costo aggiuntivo. Gli eventuali sconti li ricevete direttamente da Amazon.
-  </div>
-</div>
+        <div class="faq-question">Ci sono costi aggiuntivi usando Cronoshop?</div>
+        <div class="faq-answer">
+          Assolutamente no. Cronoshop è gratuito e non applica alcun costo aggiuntivo. Gli eventuali sconti li ricevete direttamente da Amazon.
+        </div>
+      </div>
 
-<div class="faq-item">
-  <div class="faq-question">Posso fidarmi delle offerte proposte?</div>
-  <div class="faq-answer">
-    Certamente! Selezioniamo solo offerte verificate da Amazon, in modo che tu possa acquistare in sicurezza. In più, ricevi la garanzia Amazon.
-  </div>
-</div>
+      <div class="faq-item">
+        <div class="faq-question">Posso fidarmi delle offerte proposte?</div>
+        <div class="faq-answer">
+          Certamente! Selezioniamo solo offerte verificate da Amazon, in modo che tu possa acquistare in sicurezza. In più, ricevi la garanzia Amazon.
+        </div>
+      </div>
 
-<div class="faq-item">
-  <div class="faq-question">Riceverò assistenza post-vendita?</div>
-  <div class="faq-answer">
-    Per qualsiasi problema relativo agli acquisti, dovrai rivolgerti direttamente ad Amazon tramite il loro servizio clienti.
-  </div>
-</div>
+      <div class="faq-item">
+        <div class="faq-question">Riceverò assistenza post-vendita?</div>
+        <div class="faq-answer">
+          Per qualsiasi problema relativo agli acquisti, dovrai rivolgerti direttamente ad Amazon tramite il loro servizio clienti.
+        </div>
+      </div>
 
-<div class="faq-item">
-  <div class="faq-question">Posso restituire un prodotto acquistato tramite Cronoshop?</div>
-  <div class="faq-answer">
-    Sì! Tutti gli acquisti seguono le politiche di reso di Amazon. Basta accedere al tuo account Amazon e seguire la procedura di reso.
-  </div>
-</div>
+      <div class="faq-item">
+        <div class="faq-question">Posso restituire un prodotto acquistato tramite Cronoshop?</div>
+        <div class="faq-answer">
+          Sì! Tutti gli acquisti seguono le politiche di reso di Amazon. Basta accedere al tuo account Amazon e seguire la procedura di reso.
+        </div>
+      </div>
 
-<div class="faq-item">
-  <div class="faq-question">Posso usare Cronoshop da smartphone o tablet?</div>
-  <div class="faq-answer">
-    Certo! Il sito è ottimizzato per tutti i dispositivi, inclusi smartphone e tablet.
-  </div>
-</div>
+      <div class="faq-item">
+        <div class="faq-question">Posso usare Cronoshop da smartphone o tablet?</div>
+        <div class="faq-answer">
+          Certo! Il sito è ottimizzato per tutti i dispositivi, inclusi smartphone e tablet.
+        </div>
+      </div>
 
-<div class="faq-item">
-  <div class="faq-question">Come faccio a sapere se un'offerta è ancora valida?</div>
-  <div class="faq-answer">
-    Le offerte vengono aggiornate quotidianamente, ma possono scadere in base alle disponibilità. Ti consigliamo di controllare sempre la pagina prodotto su Amazon.
-  </div>
-</div>
+      <div class="faq-item">
+        <div class="faq-question">Come faccio a sapere se un'offerta è ancora valida?</div>
+        <div class="faq-answer">
+          Le offerte vengono aggiornate quotidianamente, ma possono scadere in base alle disponibilità. Ti consigliamo di controllare sempre la pagina prodotto su Amazon.
+        </div>
+      </div>
 
-<div class="faq-item">
-  <div class="faq-question">Cronoshop raccoglie i miei dati personali?</div>
-  <div class="faq-answer">
-    No, Cronoshop non raccoglie dati personali né traccia i tuoi acquisti. Tutto avviene direttamente su Amazon.
-  </div>
-</div>
+      <div class="faq-item">
+        <div class="faq-question">Cronoshop raccoglie i miei dati personali?</div>
+        <div class="faq-answer">
+          No, Cronoshop non raccoglie dati personali né traccia i tuoi acquisti. Tutto avviene direttamente su Amazon.
+        </div>
+      </div>
 
-<div class="faq-item">
-  <div class="faq-question">Posso consigliare un prodotto da aggiungere a Cronoshop?</div>
-  <div class="faq-answer">
-    Al momento no, ma ci piacerebbe implementare questa funzionalità in futuro. Continua a seguirci!
-  </div>
-</div>
-
+      <div class="faq-item">
+        <div class="faq-question">Posso consigliare un prodotto da aggiungere a Cronoshop?</div>
+        <div class="faq-answer">
+          Al momento no, ma ci piacerebbe implementare questa funzionalità in futuro. Continua a seguirci!
+        </div>
+      </div>
 
       <div class="faq-item">
         <div class="faq-question">Cronoshop vende direttamente i prodotti?</div>
@@ -258,9 +249,8 @@
   </main>
 
   <script>
-    // --- Funzioni di Account e Tema Universali (copia da index.html) ---
+    // --- Funzioni di Account e Tema Universali ---
 
-    // Helpers
     function hash(str) {
       let h = 0, i, chr;
       if (str.length === 0) return h;
@@ -288,8 +278,6 @@
       localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify(data));
     }
 
-
-    // Gestione del Tema
     function applyTheme(theme) {
         if (theme === 'dark') {
             document.body.classList.add('dark-mode');
@@ -300,20 +288,18 @@
 
     function loadThemePreference() {
         const user = getUser();
-        let savedTheme = 'light'; // Default theme
+        let savedTheme = 'light';
         if (user && user.username) {
             const userDb = getUserDb(user.username);
             if (userDb && userDb.settings && userDb.settings.theme) {
                 savedTheme = userDb.settings.theme;
             }
         } else {
-            // Se non loggato, controlla una preferenza globale non utente specifica (opzionale)
             savedTheme = localStorage.getItem('global_theme_preference') || 'light';
         }
         applyTheme(savedTheme);
     }
 
-    // Banner e widget account
     function updateAccountBannerAndWidget() {
       const user = getUser();
       const banner = document.getElementById('account-banner');
@@ -324,7 +310,7 @@
 
       if (user && user.username) {
         if (banner) banner.style.display = 'none';
-        if (profileWidget) profileWidget.style.display = 'flex'; // Mostra il widget
+        if (profileWidget) profileWidget.style.display = 'flex';
         const userDb = getUserDb(user.username);
         if (profilePicWidget) {
             if (userDb && userDb.profilePic) {
@@ -338,11 +324,10 @@
 
       } else {
         if (banner) banner.style.display = 'flex';
-        if (profileWidget) profileWidget.style.display = 'none'; // Nasconde il widget
+        if (profileWidget) profileWidget.style.display = 'none';
       }
     }
 
-    // Modale Login/Registrazione
     function openModal(type) {
       const modalBg = document.getElementById('modal-bg');
       const modalLogin = document.getElementById('modal-login');
@@ -363,7 +348,6 @@
     function showLogin() { openModal('login'); }
     function showRegister() { openModal('register'); }
 
-    // Registrazione
     function registerUser() {
       const usernameInput = document.getElementById('register-username');
       const passwordInput = document.getElementById('register-password');
@@ -384,16 +368,15 @@
       localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify({
         username,
         password: hash(password),
-        email: '', // Inizializza l'email vuota
-        settings: { theme: 'light', notifications: { email: false } } // Impostazioni predefinite
+        email: '',
+        settings: { theme: 'light', notifications: { email: false } }
       }));
       setUser({ username });
       closeModal();
       updateAccountBannerAndWidget();
-      loadThemePreference(); // Applica il tema predefinito al login
+      loadThemePreference();
     }
 
-    // Login
     function loginUser() {
       const usernameInput = document.getElementById('login-username');
       const passwordInput = document.getElementById('login-password');
@@ -411,24 +394,21 @@
       setUser({ username });
       closeModal();
       updateAccountBannerAndWidget();
-      loadThemePreference(); // Applica il tema salvato al login
+      loadThemePreference();
     }
 
-    // Logout
     function logoutUser(event) {
-      if (event) event.stopPropagation(); // Evita che il click si propaghi al widget
+      if (event) event.stopPropagation();
       removeUser();
       updateAccountBannerAndWidget();
-      applyTheme('light'); // Torna al tema chiaro al logout
-      localStorage.removeItem('global_theme_preference'); // Rimuovi preferenza globale se non loggato
-      // Reindirizza l'utente alla home o alla pagina corrente se preferisci
-      // window.location.href = "index.html";
+      applyTheme('light');
+      localStorage.removeItem('global_theme_preference');
     }
 
-    // Event listeners per l'inizializzazione universale (copia da index.html)
+    // Event listeners per l'inizializzazione universale
     document.addEventListener('DOMContentLoaded', function() {
-        loadThemePreference(); // Carica il tema all'avvio della pagina
-        updateAccountBannerAndWidget(); // Inizializza banner e widget
+        loadThemePreference();
+        updateAccountBannerAndWidget();
 
         const openLoginBtn = document.getElementById('open-login');
         const openRegisterBtn = document.getElementById('open-register');
@@ -443,10 +423,8 @@
             };
         }
         
-        // Gestore per il click sul widget account
         if (userProfileWidget) {
             userProfileWidget.addEventListener('click', function(e) {
-                // Impedisci la navigazione se clicchi sul pulsante di logout all'interno del widget
                 if (e.target.classList.contains('logout-button')) {
                     return;
                 }
@@ -454,7 +432,7 @@
             });
         }
 
-        // FAQ toggle (originale di faq.html, spostato qui dentro DOMContentLoaded)
+        // FAQ toggle functionality
         const faqItems = document.querySelectorAll('.faq-item');
         faqItems.forEach(item => {
           const question = item.querySelector('.faq-question');

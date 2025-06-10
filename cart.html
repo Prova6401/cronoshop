@@ -14,161 +14,89 @@
       margin: 2rem 0;
     }
     .cart-product-card {
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 2px 8px #0001;
-      padding: 1.2rem 1rem;
+      background: var(--glass-bg);
+      backdrop-filter: var(--backdrop-blur);
+      -webkit-backdrop-filter: var(--backdrop-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      box-shadow: var(--glass-shadow);
+      padding: 1.5rem 1rem;
       text-align: center;
       max-width: 220px;
       min-width: 180px;
       display: flex;
       flex-direction: column;
       align-items: center;
+      position: relative;
+      transition: all var(--transition-duration);
     }
+
+    .cart-product-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity var(--transition-duration);
+    }
+
+    .cart-product-card:hover::before {
+      opacity: 1;
+    }
+
+    .cart-product-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    }
+
     .cart-product-card img {
       width: 90px;
       height: 90px;
       object-fit: contain;
-      border-radius: 10px;
-      background: #f5f5f7;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.1);
       margin-bottom: 0.7rem;
     }
     .cart-product-card h3 {
       font-size: 1.05rem;
       margin-bottom: 0.4rem;
-      color: #0071e3;
+      color: var(--text-color);
+      position: relative;
+      z-index: 1;
     }
     .cart-product-card .price {
       font-size: 1.05rem;
       font-weight: 600;
-      color: #222;
+      color: #30D158;
       margin-bottom: 0.5rem;
+      text-shadow: 0 0 10px rgba(48, 209, 88, 0.5);
+      position: relative;
+      z-index: 1;
     }
     .cart-product-card .remove-btn {
-      background: #ff3b30;
+      background: linear-gradient(135deg, rgba(255, 59, 48, 0.8) 0%, rgba(255, 45, 85, 0.8) 100%);
       color: #fff;
       border: none;
-      border-radius: 8px;
-      padding: 0.4rem 1rem;
+      border-radius: 12px;
+      padding: 0.6rem 1.2rem;
       font-weight: 600;
       font-size: 0.95rem;
       margin-top: 0.5rem;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: all var(--transition-duration);
+      box-shadow: 0 4px 15px rgba(255, 59, 48, 0.3);
+      position: relative;
+      z-index: 1;
     }
     .cart-product-card .remove-btn:hover {
-      background: #d32f2f;
-    }
-
-    /* Stili per il nuovo widget account (copia da index.html) */
-    #user-profile-widget {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      background: #fff;
-      border-radius: 30px; /* Inizialmente rotondo per la foto */
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      padding: 5px;
-      cursor: pointer;
-      overflow: hidden; /* Nasconde il testo quando compatto */
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      width: 50px; /* Larghezza iniziale per la foto */
-      height: 50px; /* Altezza iniziale per la foto */
-    }
-
-    #user-profile-widget:hover {
-      width: 220px; /* Larghezza estesa per mostrare il testo */
-      border-radius: 10px; /* Bordo meno rotondo quando espanso */
-      padding: 10px; /* Padding maggiore quando espanso */
-    }
-
-    #user-profile-widget img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border: 2px solid var(--primary-color); /* Bordo colorato */
-    }
-
-    #user-profile-widget:hover img {
-        box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.3); /* Effetto ombra sul bordo */
-    }
-
-    #user-info-text {
-      display: flex;
-      flex-direction: column;
-      margin-left: 10px;
-      white-space: nowrap; /* Evita che il testo vada a capo */
-      opacity: 0; /* Inizialmente nascosto */
-      transform: translateX(10px); /* Piccola traslazione per effetto animazione */
-      transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      transition-delay: 0.1s; /* Leggero ritardo per l'animazione */
-    }
-
-    #user-profile-widget:hover #user-info-text {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    #user-profile-widget .username-display {
-      font-weight: 600; /* Grassetto */
-      font-size: 1.1em; /* Più grande */
-      color: var(--text-color);
-      line-height: 1.2;
-    }
-
-    #user-profile-widget .email-display {
-      font-size: 0.8em; /* Più piccolo */
-      color: #6e6e73;
-    }
-
-    #user-profile-widget .logout-button {
-      background-color: #ff3b30; /* Rosso */
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      padding: 5px 10px;
-      font-size: 0.85em;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 5px;
-      opacity: 0; /* Inizialmente nascosto */
-      transform: translateX(10px);
-      transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      transition-delay: 0.15s;
-    }
-
-    #user-profile-widget:hover .logout-button {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    #user-profile-widget .logout-button:hover {
-      background-color: #c1271a; /* Rosso più scuro al hover */
-    }
-
-    @media (max-width: 768px) {
-        #user-profile-widget {
-            top: auto;
-            bottom: 15px;
-            right: 15px;
-            width: 45px;
-            height: 45px;
-        }
-        #user-profile-widget img {
-            width: 35px;
-            height: 35px;
-        }
-        #user-profile-widget:hover {
-            width: 200px;
-        }
-        #user-profile-widget .logout-button {
-            padding: 4px 8px;
-        }
+      background: linear-gradient(135deg, rgba(255, 59, 48, 1) 0%, rgba(255, 45, 85, 1) 100%);
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(255, 59, 48, 0.4);
     }
   </style>
 </head>
@@ -182,56 +110,56 @@
     </div>
   </div>
 
-  <div id="account-banner" style="background: #eaf6ff; color: #0071e3; padding: 0.7rem 1.5rem; text-align: center; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; gap: 1.2rem; border-bottom: 1px solid #d0e6fa;">
+  <div id="account-banner">
     <span>Hai un account Cronoshop? <b>Accedi</b> o <b>registrati</b> per offerte personalizzate!</span>
-    <button id="open-login" style="background: var(--primary-color); color: #fff; border: none; border-radius: 8px; padding: 0.4rem 1.2rem; font-weight: 600; cursor: pointer; font-size: 1rem; transition: background 0.2s;">Accedi</button>
-    <button id="open-register" style="background: var(--primary-color); color: #fff; border: none; border-radius: 8px; padding: 0.4rem 1.2rem; font-weight: 600; cursor: pointer; font-size: 1rem; transition: background 0.2s;">Registrati</button>
+    <button id="open-login">Accedi</button>
+    <button id="open-register">Registrati</button>
   </div>
 
-  <div class="modal-bg" id="modal-bg" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.18); display: none; align-items: center; justify-content: center; z-index: 1000;">
-    <div class="modal" id="modal-login" style="background: #fff; border-radius: 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.13); padding: 2.2rem 2rem 1.5rem 2rem; min-width: 320px; max-width: 95vw; text-align: center; position: relative; animation: fadeIn 0.3s; display:none;">
-      <button class="close-modal" onclick="closeModal()" style="position: absolute; top: 0.7rem; right: 1rem; background: none; border: none; font-size: 1.5rem; color: #aaa; cursor: pointer;">&times;</button>
-      <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Accedi</h2>
-      <input type="text" id="login-username" placeholder="Username" autocomplete="username" style="width: 90%; margin: 0.5rem 0; padding: 0.7rem; border-radius: 8px; border: 1px solid #e0e0e5; font-size: 1rem;">
-      <input type="password" id="login-password" placeholder="Password" autocomplete="current-password" style="width: 90%; margin: 0.5rem 0; padding: 0.7rem; border-radius: 8px; border: 1px solid #e0e0e5; font-size: 1rem;">
-      <div class="error-msg" id="login-error" style="color: #d32f2f; font-size: 0.98rem; margin-top: 0.5rem;"></div>
-      <button onclick="loginUser()" style="margin-top: 1rem; background: var(--primary-color); color: #fff; border: none; border-radius: 8px; padding: 0.6rem 1.5rem; font-weight: 600; cursor: pointer; font-size: 1rem; transition: background 0.2s;">Accedi</button>
-      <div class="switch-link" onclick="showRegister()" style="color: var(--primary-color); cursor: pointer; font-size: 0.98rem; margin-top: 1rem; display: inline-block;">Non hai un account? Registrati</div>
+  <div class="modal-bg" id="modal-bg">
+    <div class="modal" id="modal-login" style="display:none;">
+      <button class="close-modal" onclick="closeModal()">&times;</button>
+      <h2>Accedi</h2>
+      <input type="text" id="login-username" placeholder="Username" autocomplete="username">
+      <input type="password" id="login-password" placeholder="Password" autocomplete="current-password">
+      <div class="error-msg" id="login-error"></div>
+      <button onclick="loginUser()">Accedi</button>
+      <div class="switch-link" onclick="showRegister()">Non hai un account? Registrati</div>
     </div>
-    <div class="modal" id="modal-register" style="background: #fff; border-radius: 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.13); padding: 2.2rem 2rem 1.5rem 2rem; min-width: 320px; max-width: 95vw; text-align: center; position: relative; animation: fadeIn 0.3s; display:none;">
-      <button class="close-modal" onclick="closeModal()" style="position: absolute; top: 0.7rem; right: 1rem; background: none; border: none; font-size: 1.5rem; color: #aaa; cursor: pointer;">&times;</button>
-      <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Registrati</h2>
-      <input type="text" id="register-username" placeholder="Scegli username" autocomplete="username" style="width: 90%; margin: 0.5rem 0; padding: 0.7rem; border-radius: 8px; border: 1px solid #e0e0e5; font-size: 1rem;">
-      <input type="password" id="register-password" placeholder="Scegli password" autocomplete="new-password" style="width: 90%; margin: 0.5rem 0; padding: 0.7rem; border-radius: 8px; border: 1px solid #e0e0e5; font-size: 1rem;">
-      <div class="error-msg" id="register-error" style="color: #d32f2f; font-size: 0.98rem; margin-top: 0.5rem;"></div>
-      <button onclick="registerUser()" style="margin-top: 1rem; background: var(--primary-color); color: #fff; border: none; border-radius: 8px; padding: 0.6rem 1.5rem; font-weight: 600; cursor: pointer; font-size: 1rem; transition: background 0.2s;">Registrati</button>
-      <div class="switch-link" onclick="showLogin()" style="color: var(--primary-color); cursor: pointer; font-size: 0.98rem; margin-top: 1rem; display: inline-block;">Hai già un account? Accedi</div>
+    <div class="modal" id="modal-register" style="display:none;">
+      <button class="close-modal" onclick="closeModal()">&times;</button>
+      <h2>Registrati</h2>
+      <input type="text" id="register-username" placeholder="Scegli username" autocomplete="username">
+      <input type="password" id="register-password" placeholder="Scegli password" autocomplete="new-password">
+      <div class="error-msg" id="register-error"></div>
+      <button onclick="registerUser()">Registrati</button>
+      <div class="switch-link" onclick="showLogin()">Hai già un account? Accedi</div>
     </div>
   </div>
 
   <header>
     <h1>Il tuo carrello</h1>
-    <nav>
+  </header>
+  
+  <nav>
     <a href="index.html">Home</a>
     <a href="products.html">Prodotti</a>
     <a href="groups.html">Gruppi</a>
     <a href="come-funziona.html">Come Funziona</a>
     <a href="faq.html">FAQ</a>
     <a href="account.html">Area Personale</a>
-    <a href="cart.html">Carrello</a>
+    <a href="cart.html">Carrello <span id="cart-count" style="background:#30d158;color:#fff;border-radius:50%;padding:2px 8px;font-size:0.9em;vertical-align:top;margin-left:2px;">0</span></a>
     <a href="favorites.html">Preferiti</a>
   </nav>
-    <div id="cart-count" style="color:#0071e3;font-weight:600;font-size:1.2rem;">0</div>
-  </header>
+
   <main>
     <div id="cart-products" class="cart-product-list"></div>
-    <p id="empty-cart-msg" style="text-align:center;color:#888;margin-top:2rem;display:none;">Il carrello è vuoto.</p>
-    <p style="text-align:center;color:#888;margin-top:2rem;">Questa è solo una demo, non puoi davvero comprare nulla bruh.</p>
+    <p id="empty-cart-msg" style="text-align:center;color:rgba(255,255,255,0.6);margin-top:2rem;display:none;">Il carrello è vuoto.</p>
+    <p style="text-align:center;color:rgba(255,255,255,0.6);margin-top:2rem;">Questa è solo una demo, non puoi davvero comprare nulla bruh.</p>
   </main>
   <script>
-    // --- Funzioni di Account e Tema Universali (copia da index.html) ---
+    // --- Funzioni di Account e Tema Universali ---
 
-    // Helpers
     function hash(str) {
       let h = 0, i, chr;
       if (str.length === 0) return h;
@@ -259,8 +187,6 @@
       localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify(data));
     }
 
-
-    // Gestione del Tema
     function applyTheme(theme) {
         if (theme === 'dark') {
             document.body.classList.add('dark-mode');
@@ -271,20 +197,18 @@
 
     function loadThemePreference() {
         const user = getUser();
-        let savedTheme = 'light'; // Default theme
+        let savedTheme = 'light';
         if (user && user.username) {
             const userDb = getUserDb(user.username);
             if (userDb && userDb.settings && userDb.settings.theme) {
                 savedTheme = userDb.settings.theme;
             }
         } else {
-            // Se non loggato, controlla una preferenza globale non utente specifica (opzionale)
             savedTheme = localStorage.getItem('global_theme_preference') || 'light';
         }
         applyTheme(savedTheme);
     }
 
-    // Banner e widget account
     function updateAccountBannerAndWidget() {
       const user = getUser();
       const banner = document.getElementById('account-banner');
@@ -295,7 +219,7 @@
 
       if (user && user.username) {
         if (banner) banner.style.display = 'none';
-        if (profileWidget) profileWidget.style.display = 'flex'; // Mostra il widget
+        if (profileWidget) profileWidget.style.display = 'flex';
         const userDb = getUserDb(user.username);
         if (profilePicWidget) {
             if (userDb && userDb.profilePic) {
@@ -309,11 +233,10 @@
 
       } else {
         if (banner) banner.style.display = 'flex';
-        if (profileWidget) profileWidget.style.display = 'none'; // Nasconde il widget
+        if (profileWidget) profileWidget.style.display = 'none';
       }
     }
 
-    // Modale Login/Registrazione
     function openModal(type) {
       const modalBg = document.getElementById('modal-bg');
       const modalLogin = document.getElementById('modal-login');
@@ -334,7 +257,6 @@
     function showLogin() { openModal('login'); }
     function showRegister() { openModal('register'); }
 
-    // Registrazione
     function registerUser() {
       const usernameInput = document.getElementById('register-username');
       const passwordInput = document.getElementById('register-password');
@@ -355,16 +277,15 @@
       localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify({
         username,
         password: hash(password),
-        email: '', // Inizializza l'email vuota
-        settings: { theme: 'light', notifications: { email: false } } // Impostazioni predefinite
+        email: '',
+        settings: { theme: 'light', notifications: { email: false } }
       }));
       setUser({ username });
       closeModal();
       updateAccountBannerAndWidget();
-      loadThemePreference(); // Applica il tema predefinito al login
+      loadThemePreference();
     }
 
-    // Login
     function loginUser() {
       const usernameInput = document.getElementById('login-username');
       const passwordInput = document.getElementById('login-password');
@@ -382,493 +303,44 @@
       setUser({ username });
       closeModal();
       updateAccountBannerAndWidget();
-      loadThemePreference(); // Applica il tema salvato al login
+      loadThemePreference();
     }
 
-    // Logout
     function logoutUser(event) {
-      if (event) event.stopPropagation(); // Evita che il click si propaghi al widget
+      if (event) event.stopPropagation();
       removeUser();
       updateAccountBannerAndWidget();
-      applyTheme('light'); // Torna al tema chiaro al logout
-      localStorage.removeItem('global_theme_preference'); // Rimuovi preferenza globale se non loggato
-      // Reindirizza l'utente alla home o alla pagina corrente se preferisci
-      // window.location.href = "index.html";
+      applyTheme('light');
+      localStorage.removeItem('global_theme_preference');
     }
 
-    // Event listeners per l'inizializzazione universale (copia da index.html)
-    document.addEventListener('DOMContentLoaded', function() {
-        loadThemePreference(); // Carica il tema all'avvio della pagina
-        updateAccountBannerAndWidget(); // Inizializza banner e widget
-
-        const openLoginBtn = document.getElementById('open-login');
-        const openRegisterBtn = document.getElementById('open-register');
-        const modalBg = document.getElementById('modal-bg');
-        const userProfileWidget = document.getElementById('user-profile-widget');
-
-        if (openLoginBtn) openLoginBtn.onclick = showLogin;
-        if (openRegisterBtn) openRegisterBtn.onclick = showRegister;
-        if (modalBg) {
-            modalBg.onclick = function(e) {
-                if (e.target === this) closeModal();
-            };
-        }
-        
-        // Gestore per il click sul widget account
-        if (userProfileWidget) {
-            userProfileWidget.addEventListener('click', function(e) {
-                // Impedisci la navigazione se clicchi sul pulsante di logout all'interno del widget
-                if (e.target.classList.contains('logout-button')) {
-                    return;
-                }
-                window.location.href = "account.html";
-            });
-        }
-    });
-
-    // --- Array prodotti (solo id, nome, img, prezzo, link) ---
+    // --- Array prodotti ---
     const prodotti = [
       {
-    id: "prod1",
-    link: "https://amzn.to/3Z551fa",
-    img: "https://m.media-amazon.com/images/I/61hiFJPpY9L._AC_SL1500_.jpg",
-    nome: "Samsung Galaxy S25 Ultra",
-    prezzo: "1.199€",
-    descrizione: "Smartphone AI con display 6.9\" QHD+ Dynamic AMOLED 2X, fotocamera da 200MP, RAM 12GB, memoria interna da 256GB, batteria da 5000 mAh. Colore Titanium Silverblue. Garanzia 3 anni."
-  },
-  {
-    id: "prod2",
-    link: "https://amzn.to/4mB7UhK",
-    img: "https://m.media-amazon.com/images/I/71b8mpCMTOL._AC_SL1500_.jpg",
-    nome: "by Amazon Quinoa biologica, 500g",
-    prezzo: "5,49€",
-    descrizione: "Quinoa biologica di alta qualità, ricca di proteine e fibre. Perfetta per insalate e piatti salutari."
-  },
-  {
-    id: "prod3",
-    link: "https://www.amazon.it/dp/B0CHWV5HTM",
-    img: "https://m.media-amazon.com/images/I/71d7rfSl0wL._AC_SL1500_.jpg",
-    nome: "Apple iPhone 15",
-    prezzo: `<span style="text-decoration: line-through; color: #888;">879,00€</span> <span style="color: #007aff; font-weight: bold;">645,00€</span> <span style="color: red; font-weight: bold;">-27%</span>`,
-    descrizione: "Prestazioni top per l'uso quotidiano."
-  },
-  {
-    id: "prod4",
-    link: "https://amzn.to/4kCH9aV",
-    img: "https://m.media-amazon.com/images/I/618ha2Ia5tL._AC_SL1500_.jpg",
-    nome: "Samsung Galaxy S25 Smartphone AI",
-    prezzo: "929,00€",
-    descrizione: "Smartphone con display 6.2'' FHD+ Dynamic AMOLED 2X, fotocamera da 50MP, RAM 12GB, memoria interna 256GB, batteria da 4.000 mAh. Include 3 anni di garanzia del produttore. Colore: Mint."
-  },
-  {
-    id: "prod5",
-    link: "https://amzn.to/3ZAt8T4",
-    img: "https://m.media-amazon.com/images/I/61Wj-1t3TwL._AC_SL1500_.jpg",
-    nome: "SAMSUNG Galaxy S25 Edge",
-    prezzo: "1.299,00€",
-    descrizione: "Smartphone AI con display 6.7'' QHD+ Dynamic AMOLED 2X, fotocamera da 200MP, RAM 12GB, memoria interna da 512GB, batteria da 3.900 mAh. Include 3 anni di garanzia del produttore. Colore: Titanium Jetblack."
-  },
-  {
-    id: "prod6",
-    link: "https://amzn.to/45gPEUX",
-    img: "https://m.media-amazon.com/images/I/61y0hmQWlsL._AC_SL1500_.jpg",
-    nome: "Samsung Galaxy S25+ Smartphone AI",
-    prezzo: "1.189,00€",
-    descrizione: "Smartphone AI con display 6.7'' QHD+ Dynamic AMOLED 2X, fotocamera da 50MP, RAM 12GB, memoria interna da 512GB, batteria da 4.900 mAh. Include 3 anni di garanzia del produttore. Colore: Silver Shadow. Versione italiana."
-  },
-  {
-    id: "prod7",
-    link: "https://amzn.to/3Z6Kc2W",
-    img: "https://m.media-amazon.com/images/I/610vqacJO2L.__AC_SY445_SX342_QL70_ML2_.jpg",
-    nome: "Apple iPhone 16e – 128 GB",
-    prezzo: "699,00€",
-    descrizione: "Progettato per Apple Intelligence, dotato di chip A18, autonomia grandiosa, fotocamera Fusion da 48MP e display Super Retina XDR da 6,1\". Colore: Bianco."
-  },
-  {
-    id: "prod8",
-    link: "https://amzn.to/3ZEqKut",
-    img: "https://m.media-amazon.com/images/I/61cUeqowwZL._AC_SL1500_.jpg",
-    nome: "Apple iPhone 16 Pro Max – 256 GB",
-    prezzo: "1.195,00€",
-    descrizione: "Telefono 5G con controllo fotocamera avanzato, registrazione video Dolby Vision 4K a 120 fps e autonomia senza precedenti. Compatibile con AirPods. Colore: Titanio Nero."
-  },
-  {
-    id: "prod9",
-    link: "https://amzn.to/43t1D0l",
-    img: "https://m.media-amazon.com/images/I/61BGE6iu4AL.__AC_SY445_SX342_QL70_ML2_.jpg",
-    nome: "Apple iPhone 14 Plus – 128 GB",
-    prezzo: "871,00€",
-    descrizione: "Smartphone Apple con 128 GB di memoria, display Super Retina XDR da 6,7\", ottime prestazioni e autonomia, colore Azzurro. Un mix di potenza e stile."
-  },
-  {
-    id: "prod10",
-    link: "https://amzn.to/4mBncTC",
-    img: "https://m.media-amazon.com/images/I/51v1hYXGsdL._AC_SL1500_.jpg",
-    nome: "Google Pixel 9 Pro XL",
-    prezzo: "879,00€",
-    descrizione: "Smartphone Android sbloccato con Gemini, sistema a tripla fotocamera posteriore, batteria con autonomia fino a 24 ore e display Super Actua da 6,8\". Colore: Grigio Verde. Memoria: 128GB."
-  },
-  {
-    id: "prod11",
-    link: "https://amzn.to/4mBncTC",
-    img: "https://m.media-amazon.com/images/I/51v1hYXGsdL._AC_SL1500_.jpg",
-    nome: "Google Pixel 9 Pro XL",
-    prezzo: "879,00€",
-    descrizione: "Smartphone Android sbloccato con Gemini, sistema a tripla fotocamera posteriore, batteria con autonomia fino a 24 ore e display Super Actua da 6,8\". Colore: Grigio Verde. Memoria: 128GB."
-  },
-  {
-    id: "prod12",
-    link: "https://amzn.to/4jlRfvO",
-    img: "https://m.media-amazon.com/images/I/71yzJoE7WlL._AC_SL1500_.jpg",
-    nome: "Apple iPhone 14 Pro Max – 128 GB (Ricondizionato)",
-    prezzo: "689,00€",
-    descrizione: "iPhone 14 Pro Max ricondizionato in ottime condizioni, con 128 GB di memoria e finitura Deep Purple. La qualità Apple con un ottimo risparmio."
-  },
-  {
-    id: "prod13",
-    link: "https://amzn.eu/d/j40eOtX",
-    img: "https://m.media-amazon.com/images/I/619HAuZ95QL._AC_SL1500_.jpg",
-    nome: "iPhone 16 (128GB) - Nero",
-    prezzo: "759€",
-    descrizione: "Altissima qualità Apple"
-  },
-  {
-    id: "prod14",
-    link: "https://amzn.to/3SnXwfz",
-    img: "https://m.media-amazon.com/images/I/41sNR0PJCaL._AC_SX569_.jpg",
-    nome: "SSC NAPOLI Maglietta Campioni",
-    prezzo: "30€",
-    descrizione: "Maglia ufficiale celebrativa"
-  },
-  {
-    id: "prod15",
-    link: "https://amzn.to/4kbOb6E",
-    img: "https://m.media-amazon.com/images/I/71BHou6YJKL._AC_SY879_.jpg",
-    nome: "Calvin Klein T-Shirt Uomo",
-    prezzo: "18€",
-    descrizione: "Stile minimal, 100% cotone"
-  },
-  {
-    id: "prod16",
-    link: "https://amzn.to/43xa5u6",
-    img: "https://m.media-amazon.com/images/I/51V1TTs1U2L._AC_SX569_.jpg",
-    nome: "adidas Squadra25 Jersey Short Sleeve T-Shirt Uomo",
-    prezzo: "14,99€ (prima 23,00€, -35%)",
-    descrizione: ""
-  },
-  {
-    id: "prod17",
-    link: "https://www.amazon.it/dp/B0F1P4F8SR/ref=cm_sw_r_as_gl_apa_gl_i_HYDVV9DGWX2M1DGRM3X2?linkCode=ml1&tag=tony6401-21",
-    img: "https://m.media-amazon.com/images/I/71GSwlTsPDL.__AC_SX300_SY300_QL70_ML2_.jpg",
-    nome: "Sunsilk Crema Onde Meravigliose Crema Styling Capelli Mossi, Effetto Anticrespo",
-    prezzo: "5,99€ (prima 32,34€, -81%)",
-    descrizione: "Styling perfetto per capelli mossi, effetto anticrespo a lunga durata."
-  },
-  {
-    id: "prod18",
-    link: "https://amzn.to/4kGcGJg",
-    img: "https://m.media-amazon.com/images/I/6171T++Z2mL._AC_SL1095_.jpg",
-    nome: "Caffè Borbone Cialda Compostabile, Miscela Oro - 100 Cialde",
-    prezzo: "15,19€ (prima 16,00€, -5%)",
-    descrizione: "Prezzo consigliato: 22,34€ -32% di sconto"
-  },
-  {
-    id: "prod19",
-    link: "https://amzn.to/3Fbh43W",
-    img: "https://m.media-amazon.com/images/I/8120xtA5GaL._AC_SL1500_.jpg",
-    nome: "King C. Gillette Kit REGOLABARBA Uomo",
-    prezzo: "27,37€",
-    descrizione: "Kit professionale: Testina, 3 Pettini Regolatori, Spazzolina, Caricatore. Rasoio elettrico, idea regalo."
-  },
-  {
-    id: "prod20",
-    link: "https://amzn.to/3Ssmcnb",
-    img: "https://m.media-amazon.com/images/I/31SLM5sJK4L.__AC_SY300_SX300_QL70_ML2_.jpg",
-    nome: "Samsung Galaxy S24 Ultra – 12GB / 256GB",
-    prezzo: "864,90€",
-    descrizione: "Smartphone top di gamma Samsung, 12GB RAM, 256GB memoria, colore Black. Prestazioni e design premium."
-  },
-  {
-    id: "prod21",
-    link: "https://amzn.to/3SUojjE",
-    img: "https://m.media-amazon.com/images/I/812azAWbm2L.__AC_SX300_SY300_QL70_ML2_.jpg",
-    nome: "Oral-B Testine Di Ricambio Original",
-    prezzo: "24,99€",
-    descrizione: "10 testine Pro Cross Action per spazzolino elettrico Oral-B, ricambio originale."
-  },
-  {
-    id: "prod22",
-    link: "https://amzn.to/4jhgwHr",
-    img: "https://m.media-amazon.com/images/I/51B45gaTgjL._AC_SL1000_.jpg",
-    nome: "Amazon Fire TV Stick HD",
-    prezzo: "28,99€",
-    descrizione: "Amazon Fire TV Stick HD (Ultimo modello), TV gratuita e in diretta, telecomando vocale Alexa, controlli per Casa Intelligente, streaming HD."
-  },
-  {
-    id: "prod23",
-    link: "https://amzn.to/4dCu1QL",
-    img: "https://m.media-amazon.com/images/I/618HDC8rPXL.__AC_SX300_SY300_QL70_ML2_.jpg",
-    nome: "Bronzi® Portafoglio Uomo Slim Piccolo",
-    prezzo: "22,99€",
-    descrizione: "Portacarte uomo e donna, portatessere con protezione RFID, porta carte di credito e portamonete. Mini, slim, con box regalo. Brand italiano di qualità."
-  },
-  {
-    id: "prod24",
-    link: "https://amzn.to/4kEfeHI",
-    img: "https://m.media-amazon.com/images/I/61oxHY8kFbL._AC_SX569_.jpg",
-    nome: "Vittorio Y Camicia Donna in Cotone e Lino",
-    prezzo: "19,99€",
-    descrizione: "Camicia casual tinta unita, comoda e traspirante, perfetta per la stagione calda. Resi gratuiti su Amazon."
-  },
-  {
-    id: "prod25",
-    link: "https://amzn.to/4dF2SwD",
-    img: "https://m.media-amazon.com/images/I/618FhFPg8+L._AC_SX575_.jpg",
-    nome: "Nike Air Force 1 '07 Lv8 4",
-    prezzo: "116,00€",
-    descrizione: "Scarpe da basket uomo, modello iconico Nike Air Force 1 con design classico e comfort duraturo."
-  },
-  {
-    id: "prod26",
-    link: "https://amzn.to/3Z7S8Rr",
-    img: "https://m.media-amazon.com/images/I/41vC0GMKWJL._AC_SY695_.jpg",
-    nome: "adidas Breaknet Lifestyle Court Lace Shoes",
-    prezzo: "28,80€",
-    descrizione: "Scarpe da tennis unisex per bambini e ragazzi. Prezzo più basso ultimi 30 giorni: 32,73€. Offerta a tempo con risparmio del 12% rispetto al prezzo recente."
-  },
-  {
-    id: "prod27",
-    link: "https://amzn.to/4dCt9LX",
-    img: "https://m.media-amazon.com/images/I/71XHPuLiHVL._AC_SY606_.jpg",
-    nome: "Nike Everyday Cush Crew Calze Uomo",
-    prezzo: "14,99€",
-    descrizione: "Calze da uomo Nike, modello Everyday Cush Crew, ideali per comfort quotidiano e performance sportive."
-  },
-  {
-    id: "prod28",
-    link: "https://amzn.to/4kFlpLJ",
-    img: "https://m.media-amazon.com/images/I/71ZfLtLMYyL._AC_SX679_.jpg",
-    nome: "Smart Sir Calzini Sportivi Uomo e Donna (4 paia)",
-    prezzo: "9,49€",
-    descrizione: "Calzini lunghi in cotone di alta qualità, comodi e traspiranti. Prezzo più basso ultimi 30 giorni: 9,99€. Offerta a tempo."
-  },
-  {
-    id: "prod29",
-    link: "https://amzn.to/3Z7eYZz",
-    img: "https://m.media-amazon.com/images/I/51kcic+JN-L._AC_SL1095_.jpg.jpg",
-    nome: "Caffè Borbone Respresso, Miscela Blu - 100 Capsule",
-    prezzo: "19,49€",
-    descrizione: "Caffè Borbone Respresso, Miscela Blu - 100 Capsule - Compatibili con le Macchine ad uso domestico Nespresso"
-  },
-  {
-    id: "prod30",
-    link: "https://amzn.to/43PvEHy",
-    img: "https://m.media-amazon.com/images/I/81irfL63EQL.__AC_SX300_SY300_QL70_ML2_.jpg",
-    nome: "Samsung Galaxy S22+ 5G – 128GB (Ricondizionato)",
-    prezzo: "284,99€",
-    descrizione: "Smartphone ricondizionato con SIM singola + e-SIM, colore Phantom Black, memoria 128GB. Risparmia 155,00€ rispetto al prezzo nuovo."
-  },
-  {
-    id: "prod31",
-    link: "https://amzn.to/3HsKGdy",
-    img: "https://m.media-amazon.com/images/I/61CY-+ZEN6L._AC_SY300_SX300_.jpg",
-    nome: "Samsung Galaxy S21 Ultra 5G – 128GB (Ricondizionato)",
-    prezzo: "294,99€",
-    descrizione: "Smartphone ricondizionato, RAM 12GB, Dual SIM (e-SIM), colore Nero. Ottima occasione con risparmio di 155,00€ rispetto al prezzo nuovo."
-  },
-  {
-    id: "prod32",
-    link: "https://amzn.to/3FcZUD1",
-    img: "https://m.media-amazon.com/images/I/61pc4vR8BoL._AC_SL1500_.jpg",
-    nome: "Samsung Galaxy A16",
-    prezzo: "120,98€",
-    descrizione: "Samsung Galaxy A16 Smartphone Android 14, Display Super AMOLED 6.7\" FHD+, 4GB RAM, 128GB, Batteria 5.000 mAh, Resistenza IP54, memoria espandibile fino a 1.5TB, Black"
-  },
-  {
-    id: "prod33",
-    link: "https://amzn.to/43ECrTf",
-    img: "https://m.media-amazon.com/images/I/616+oTRo6-L._AC_SL1500_.jpg",
-    nome: "Samsung Galaxy A56 5G",
-    prezzo: "342,68€",
-    descrizione: "Samsung Galaxy A56 5G, smartphone Android, 256 GB di memoria, 8 GB di RAM, antracite, aggiornamento del sistema operativo 6X, grande schermo, lunga durata della batteria"
-  },
-  {
-    id: "prod34",
-    link: "https://amzn.to/43gLxGT",
-    img: "https://m.media-amazon.com/images/I/61waTtq8hCL._AC_SL1500_.jpg",
-    nome: "GALAXY A26 5G – 8GB + 256GB",
-    prezzo: "234,69€",
-    descrizione: "Smartphone GALAXY A26 5G con 8GB di RAM e 256GB di memoria interna. Colore: Black."
-  },
-  {
-    id: "prod35",
-    link: "https://amzn.to/43RhVzW",
-    img: "https://m.media-amazon.com/images/I/713AzRHXYeL._AC_SL1500_.jpg",
-    nome: "UpCircle Cotton fioc di bambù – 200 pezzi –",
-    prezzo: "5,49€",
-    descrizione: "UpCircle Cotton fioc di bambù – 200 pezzi – biodegradabili, sostenibili, senza plastica, completamente riciclabili – un punto fermo per qualsiasi bagno"
-  },
-  {
-    id: "prod36",
-    link: "https://amzn.to/3FoIjIi",
-    img: "https://m.media-amazon.com/images/I/61MKKroaphL.__AC_SX300_SY300_QL70_ML2_.jpg",
-    nome: "Supradyn Energy Multivitaminico – 70 Caramelle",
-    prezzo: "11,19€",
-    descrizione: "Integratore multivitaminico con vitamine A, B, C, D, E e Coenzima Q10. 70 caramelle gommose al gusto ciliegia, lampone e arancia."
-  },
-  {
-    id: "prod37",
-    link: "https://amzn.to/4jnbTvu",
-    img: "https://m.media-amazon.com/images/I/51HcFzY9EmL._AC_SL1080_.jpg",
-    nome: "ZPAPER - 6 Rotoli Asciugamani",
-    prezzo: "29,95€",
-    descrizione: "Pura cellulosa, 2 veli, confezionati. Rotoloni asciugatutto multiuso per pulire i disastri."
-  },
-  {
-    id: "prod38",
-    link: "https://amzn.to/4jrHVq9",
-    img: "https://m.media-amazon.com/images/I/91krk-VZlwL._AC_SL1500_.jpg",
-    nome: "Amazon Basics Cerniera Sacchetti di stoccaggio sottovuoto",
-    prezzo: "27,19€",
-    descrizione: "20 unità con pompa a mano, per risparmiare spazio con efficienza e semplicità."
-  },
-  {
-    id: "prod39",
-    link: "https://amzn.to/43PsHqs",
-    img: "https://m.media-amazon.com/images/I/7107Ze-04CL._AC_SL1500_.jpg",
-    nome: "Amazon Basics - 8 Batterie Ricaricabili AA NiMH",
-    prezzo: "13,52€",
-    descrizione: "2000 mAh, ricaricabili fino a 1000 volte, pre-caricate e pronte all'uso."
-  },
-  {
-    id: "prod40",
-    link: "https://amzn.to/44Xo3rC",
-    img: "https://m.media-amazon.com/images/I/812hFM3JmTL._AC_SL1500_.jpg",
-    nome: "Fabuloso Ammorbidente Concentrato - 4x1,25L",
-    prezzo: "18,72€",
-    descrizione: "Profumo Fresco Mattino, 224 lavaggi. Fragranza attivata dal movimento, facilita la stiratura e lascia i capi morbidi e profumati."
-  },
-  {
-    id: "prod41",
-    link: "https://amzn.to/4mChp0i",
-    img: "https://m.media-amazon.com/images/I/61QKPdoU5TL.__AC_SX300_SY300_QL70_ML2_.jpg",
-    nome: "ZPAPER - 60 Rotoli di Carta Igienica",
-    prezzo: "32,36€",
-    descrizione: "60 rotoli, 250 fogli per rotolo, 2 veli, morbida e resistente. Ideale per casa o ufficio."
-  },
-  {
-    id: "prod42",
-    link: "https://amzn.to/3Hfvl04",
-    img: "https://m.media-amazon.com/images/I/617i66nvMxL._AC_SY741_.jpg",
-    nome: "Vitamina B12 Vegan 365 Compresse PiùLife",
-    prezzo: "14,30€",
-    descrizione: "Vitamina B12 Cianocobalamina, per sistema immunitario e riduzione stanchezza fisica e mentale. 1000 mcg."
-  },
-  {
-    id: "prod43",
-    link: "https://amzn.to/4dM4hSk",
-    img: "https://m.media-amazon.com/images/I/71uuRXQz1JL._AC_SL1500_.jpg",
-    nome: "Magnesio Citrato Vegano Tamponato (240 Capsule)",
-    prezzo: "17,09€",
-    descrizione: "Con 444mg polvere elementare, riduce stanchezza e affaticamento, senza additivi né glutine."
-  },
-  {
-    id: "prod44",
-    link: "https://amzn.to/4jq1SOj",
-    img: "https://m.media-amazon.com/images/I/71GXfnVPsPL.__AC_SX300_SY300_QL70_ML2_.jpg",
-    nome: "Zzzquil Natura Integratore Per Il Sonno",
-    prezzo: "36,99€",
-    descrizione: "Melatonina con estratti di lavanda, valeriana e camomilla. Maxi formato 2x72 pastiglie gommose per favorire il sonno."
-  },
-  {
-    id: "prod45",
-    link: "https://amzn.to/3Z3U39Q",
-    img: "https://m.media-amazon.com/images/I/71NY7I+OLQL._AC_SY300_SX300_.jpg",
-    nome: "Novanight Tripla Azione Melatonina per Dormire",
-    prezzo: "23,21€",
-    descrizione: "Integratore per disturbi del sonno, senza glutine. Contiene melatonina, escolzia, passiflora e melissa. Non induce dipendenza."
-  },
-  {
-    id: "prod46",
-    link: "https://amzn.to/43PEXay",
-    img: "https://m.media-amazon.com/images/I/61NUQEFRTFL._AC_SX522_.jpg",
-    nome: "SWISSE Ultivit - Multivitaminico Ragazza (60 Compresse)",
-    prezzo: "13,46€",
-    descrizione: "Multivitaminico con zinco e vitamine per riduzione stanchezza e supporto sistema immunitario. Integratore con ferro, made in Italy."
-  },
-  {
-    id: "prod47",
-    link: "https://amzn.to/4mAMTnv",
-    img: "https://m.media-amazon.com/images/I/51AyIO7mVXL._AC_SX569_.jpg",
-    nome: "N-K PULABO Anello Intelligente Temperatura In Acciaio Inox",
-    prezzo: "1,82€",
-    descrizione: "Anello per coppie e amanti, cambia colore in base alla temperatura e all’umore. Unisex, in acciaio inox di alta qualità e design alla moda."
-  },
-  {
-    id: "prod48",
-    link: "https://amzn.to/4jlkrDe",
-    img: "https://m.media-amazon.com/images/I/81Ev1JwtPhL._AC_SX569_.jpg",
-    nome: "Amazon Essentials T-Shirt Basic Uomo - Pacco da 6",
-    prezzo: "25,99€",
-    descrizione: "Magliette girocollo in cotone, versatili e morbide, ideali per ogni occasione. Qualità Amazon Essentials in un conveniente pacco da 6."
-  },
-  {
-    id: "prod49",
-    link: "https://amzn.to/3SUAqNE",
-    img: "https://m.media-amazon.com/images/I/61KSB-CGSyL._AC_SX569_.jpg",
-    nome: "ALPIDEX T-Shirt Uomo - Confezione da 5",
-    prezzo: "39,99€",
-    descrizione: "Magliette da uomo con girocollo disponibili in varie taglie dalla S alla 5XL. Perfette per tutti i giorni, comode e resistenti."
-  },
-  {
-    id: "prod50",
-    link: "https://amzn.to/3Z60eKn",
-    img: "https://m.media-amazon.com/images/I/81Auh7uuz1L._AC_SX466_.jpg",
-    nome: "Amazon Essentials Felpa con Cappuccio Donna",
-    prezzo: "19,60€",
-    descrizione: "Felpa da donna in pile, con cappuccio e cerniera. Calda, comoda e ideale per l’uso quotidiano. Disponibile in vari colori e taglie."
-  },
-  {
-    id: "prod51",
-    link: "https://amzn.to/43qkEio",
-    img: "https://m.media-amazon.com/images/I/61V8VUE1dFL.__AC_SX300_SY300_QL70_ML2_.jpg",
-    nome: "Amazfit Bip 5 Smartwatch 46 mm",
-    prezzo: "57,99€",
-    descrizione: "Smartwatch con schermo grande, chiamate Bluetooth, Alexa integrata, GPS, durata batteria 10 giorni, fitness tracker con battito cardiaco e monitoraggio ossigeno nel sangue."
-  },
-  {
-    id: "prod52",
-    link: "https://amzn.to/4jlczlj",
-    img: "https://m.media-amazon.com/images/I/51Kmnt241oL.__AC_SX300_SY300_QL70_ML2_.jpg",
-    nome: "Imou 3MP Telecamera Wi-Fi Interno",
-    prezzo: "22,99€",
-    descrizione: "Videocamera di sorveglianza 2K con tracciamento del movimento, rilevamento umano, audio bidirezionale e connessione 2,4GHz. Perfetta per la sicurezza domestica."
-  },
-  {
-    id: "prod53",
-    link: "https://amzn.to/43GhYgW",
-    img: "https://m.media-amazon.com/images/I/81UE75N+r1L._AC_SL1500_.jpg",
-    nome: "SEHMUA 4G LTE Telecamera Esterno senza Fili, Telecamera con Sim, 2K 360 PTZ, con Pannello Solare e Batterie",
-    prezzo: "51,43€",
-    descrizione: "Marca: SEHMUA. 4,3 su 5 stelle (134 recensioni). Amazon Choice. 200+ acquistati nel mese scorso. Offerta a tempo! Prezzo più basso ultimi 30 giorni: 54,14€"
-  },
-  {
-    id: "prod54",
-    link: "https://amzn.to/4kg3QC7",
-    img: "https://m.media-amazon.com/images/I/71dy+yYz4iL._AC_SX522_.jpg",
-    nome: "Amazon Essentials Maglietta Intima con Scollo A V",
-    prezzo: "25,99€",
-    descrizione: "Pacco da 6 magliette intime da uomo, traspiranti e in cotone, perfette per il comfort quotidiano."
-  },
-  {
-    id: "prod55",
-    link: "https://amzn.to/4mB7UhK",
-    img: "https://m.media-amazon.com/images/I/71b8mpCMTOL.__AC_SX300_SY300_QL70_ML2_.jpg",
-    nome: "by Amazon Quinoa biologica, 500g",
-    prezzo: "5,49€",
-    descrizione: ""
-  }
-];
+        id: "prod1",
+        link: "https://amzn.to/3Z551fa",
+        img: "https://m.media-amazon.com/images/I/61hiFJPpY9L._AC_SL1500_.jpg",
+        nome: "Samsung Galaxy S25 Ultra",
+        prezzo: "1.199€",
+        descrizione: "Smartphone AI con display 6.9\" QHD+ Dynamic AMOLED 2X, fotocamera da 200MP, RAM 12GB, memoria interna da 256GB, batteria da 5000 mAh. Colore Titanium Silverblue. Garanzia 3 anni."
+      },
+      {
+        id: "prod2",
+        link: "https://amzn.to/4mB7UhK",
+        img: "https://m.media-amazon.com/images/I/71b8mpCMTOL._AC_SL1500_.jpg",
+        nome: "by Amazon Quinoa biologica, 500g",
+        prezzo: "5,49€",
+        descrizione: "Quinoa biologica di alta qualità, ricca di proteine e fibre. Perfetta per insalate e piatti salutari."
+      },
+      {
+        id: "prod3",
+        link: "https://www.amazon.it/dp/B0CHWV5HTM",
+        img: "https://m.media-amazon.com/images/I/71d7rfSl0wL._AC_SL1500_.jpg",
+        nome: "Apple iPhone 15",
+        prezzo: `<span style="text-decoration: line-through; color: #888;">879,00€</span> <span style="color: #007aff; font-weight: bold;">645,00€</span> <span style="color: red; font-weight: bold;">-27%</span>`,
+        descrizione: "Prestazioni top per l'uso quotidiano."
+      }
+    ];
 
     function getCart() {
       return JSON.parse(localStorage.getItem('cronoshop_cart') || '[]');
@@ -898,7 +370,7 @@
           <h3>${prod.nome}</h3>
           <div class="price">${prod.prezzo}</div>
           <a href="${prod.link}" target="_blank" style="text-decoration:none;">
-            <button style="background:#ff9900;color:#fff;border:none;border-radius:8px;padding:0.5rem 1rem;font-weight:600;font-size:1rem;margin-bottom:0.5rem;cursor:pointer;">Compra su Amazon</button>
+            <button style="background:linear-gradient(135deg, rgba(255, 149, 0, 0.8) 0%, rgba(255, 204, 0, 0.8) 100%);color:#fff;border:none;border-radius:12px;padding:0.6rem 1.2rem;font-weight:600;font-size:1rem;margin-bottom:0.5rem;cursor:pointer;transition:all 0.4s;box-shadow:0 4px 15px rgba(255, 149, 0, 0.3);">Compra su Amazon</button>
           </a>
           <button class="remove-btn" data-id="${prod.id}">Rimuovi</button>
         </div>
@@ -916,9 +388,36 @@
       }
     });
 
-    // Inizializza
-    renderCart();
-    count();
+    // Event listeners per l'inizializzazione universale
+    document.addEventListener('DOMContentLoaded', function() {
+        loadThemePreference();
+        updateAccountBannerAndWidget();
+
+        const openLoginBtn = document.getElementById('open-login');
+        const openRegisterBtn = document.getElementById('open-register');
+        const modalBg = document.getElementById('modal-bg');
+        const userProfileWidget = document.getElementById('user-profile-widget');
+
+        if (openLoginBtn) openLoginBtn.onclick = showLogin;
+        if (openRegisterBtn) openRegisterBtn.onclick = showRegister;
+        if (modalBg) {
+            modalBg.onclick = function(e) {
+                if (e.target === this) closeModal();
+            };
+        }
+        
+        if (userProfileWidget) {
+            userProfileWidget.addEventListener('click', function(e) {
+                if (e.target.classList.contains('logout-button')) {
+                    return;
+                }
+                window.location.href = "account.html";
+            });
+        }
+
+        renderCart();
+        count();
+    });
   </script>
 </body>
 </html>

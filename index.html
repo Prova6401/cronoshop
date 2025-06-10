@@ -6,7 +6,7 @@
   <title>Cronoshop - Le migliori offerte Amazon</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="stylesheet" href="style.css">
   <meta name="description" content="Scopri Cronoshop: le migliori offerte Amazon aggiornate ogni giorno. Sconti esclusivi, zero rischi.">
@@ -16,203 +16,144 @@
   <meta property="og:url" content="https://tuodominio.it">
   <meta name="twitter:card" content="summary_large_image">
   <style>
-    /* Banner account */
-    #account-banner {
-      background: #eaf6ff;
-      color: #0071e3;
-      padding: 0.7rem 1.5rem;
+    /* Stili specifici per la home page */
+    .hero-section {
       text-align: center;
-      font-size: 1.05rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1.2rem;
-      border-bottom: 1px solid #d0e6fa;
-    }
-    #account-banner button {
-      background: var(--primary-color);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 0.4rem 1.2rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background 0.2s;
-    }
-    #account-banner button:hover {
-      background: #0051a8;
-    }
-    /* Modale */
-    .modal-bg {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.18);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-    .modal-bg.active { display: flex; }
-    .modal {
-      background: #fff;
-      border-radius: 18px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.13);
-      padding: 2.2rem 2rem 1.5rem 2rem;
-      min-width: 320px;
-      max-width: 95vw;
-      text-align: center;
+      padding: 4rem 2rem;
       position: relative;
-      animation: fadeIn 0.3s;
-    }
-    .modal h2 { color: var(--primary-color); margin-bottom: 1rem; }
-    .modal input {
-      width: 90%;
-      margin: 0.5rem 0;
-      padding: 0.7rem;
-      border-radius: 8px;
-      border: 1px solid #e0e0e5;
-      font-size: 1rem;
-    }
-    .modal button {
-      margin-top: 1rem;
-      background: var(--primary-color);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 0.6rem 1.5rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background 0.2s;
-    }
-    .modal button:hover { background: #0051a8; }
-    .modal .close-modal {
-      position: absolute;
-      top: 0.7rem; right: 1rem;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: #aaa;
-      cursor: pointer;
-    }
-    .modal .switch-link {
-      color: var(--primary-color);
-      cursor: pointer;
-      font-size: 0.98rem;
-      margin-top: 1rem;
-      display: inline-block;
-    }
-    .modal .error-msg {
-      color: #d32f2f;
-      font-size: 0.98rem;
-      margin-top: 0.5rem;
-    }
-    /* Rimosso .user-info dal banner per il nuovo widget */
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      /* Modificato font-family per coerenza con style.css */
-      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      letter-spacing: 0.01em;
     }
 
-    /* Rimosso body background e header h1/p per lasciare spazio a style.css per il tema */
-    body {
-      color: #333;
-      overflow-x: hidden;
-    }
-
-    header {
-      padding: 2rem;
-      text-align: center;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-      animation: fadeDown 1s ease-out;
-    }
-
-    header h1 {
-      font-size: 3rem;
-      color: #007bff; /* Mantenuto per non sovrascrivere style.css h1 */
-    }
-
-    header p {
-      margin-top: 0.5rem;
-      font-size: 1.2rem;
-      color: #666;
-    }
-
-  nav {
-    background: #fff;
-    display: flex;
-    justify-content: center; /* Centra la navbar */
-    align-items: center;     /* Centra verticalmente */
-    gap: 2rem;
-    padding: 1rem;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-  }
-    nav a {
-      text-decoration: none;
-      color: #007bff;
-      font-weight: 600;
-      transition: color 0.3s ease;
-    }
-
-    nav a:hover {
-      color: #0056b3;
-    }
-
-    main {
-      padding: 3rem 2rem;
-      text-align: center;
-      animation: fadeUp 1s ease-out;
-    }
-
-    main h2 {
+    .hero-section h2 {
       font-size: 2.5rem;
       margin-bottom: 1rem;
+      color: var(--text-color);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
-    main p {
+    .hero-section p {
       font-size: 1.1rem;
       max-width: 700px;
       margin: 0 auto 2rem auto;
-      color: #444;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.6;
     }
 
-    .cta-button {
-      display: inline-block;
-      padding: 1rem 2.5rem;
-      font-size: 1.3rem;
-      background-color: #007bff;
+    .product-of-day {
+      background: var(--glass-bg);
+      backdrop-filter: var(--backdrop-blur);
+      -webkit-backdrop-filter: var(--backdrop-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: 25px;
+      box-shadow: var(--glass-shadow);
+      padding: 2.5rem 2rem;
+      max-width: 400px;
+      margin: 2rem auto;
+      text-align: center;
+      position: relative;
+      transition: all var(--transition-duration);
+    }
+
+    .product-of-day::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    .product-of-day:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .product-of-day img.product-img {
+      max-width: 150px;
+      width: 85%;
+      height: auto;
+      margin: 0 auto;
+      display: block;
+      border-radius: 15px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+      object-fit: contain;
+      background: rgba(255, 255, 255, 0.1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .product-of-day h3 {
+      color: var(--text-color);
+      margin: 1rem 0 0.5rem 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .product-of-day .price {
+      color: #30D158;
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 10px rgba(48, 209, 88, 0.5);
+      position: relative;
+      z-index: 1;
+    }
+
+    .product-of-day p {
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .product-of-day button {
+      background: linear-gradient(135deg, rgba(255, 149, 0, 0.8) 0%, rgba(255, 204, 0, 0.8) 100%);
       color: #fff;
-      border-radius: 12px;
+      border: none;
+      border-radius: 15px;
+      padding: 1rem 2rem;
+      font-weight: 600;
+      font-size: 1.1rem;
       cursor: pointer;
-      transition: transform 0.3s ease, filter 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-      margin-top: 2rem;
-      text-decoration: none;
+      transition: all var(--transition-duration);
+      box-shadow: 0 8px 25px rgba(255, 149, 0, 0.3);
+      position: relative;
+      z-index: 1;
     }
 
-    .cta-button:hover {
-      transform: scale(1.1);
-      filter: blur(0.3px) brightness(1.15);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    .product-of-day button:hover {
+      background: linear-gradient(135deg, rgba(255, 149, 0, 1) 0%, rgba(255, 204, 0, 1) 100%);
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 12px 35px rgba(255, 149, 0, 0.4);
     }
-
-    /* Sezione recensioni orizzontali */
 
     .reviews-section {
       max-width: 90vw;
       margin: 3rem auto 2rem auto;
-      background: #fff;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      background: var(--glass-bg);
+      backdrop-filter: var(--backdrop-blur);
+      -webkit-backdrop-filter: var(--backdrop-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: 25px;
+      box-shadow: var(--glass-shadow);
       padding: 2rem 1.5rem 3rem 1.5rem;
-      animation: fadeUp 1s ease-out;
       user-select: none;
       overflow: hidden;
+      position: relative;
+    }
+
+    .reviews-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+      border-radius: inherit;
+      pointer-events: none;
     }
 
     .reviews-header {
@@ -221,6 +162,8 @@
       gap: 1rem;
       margin-bottom: 2rem;
       justify-content: center;
+      position: relative;
+      z-index: 1;
     }
 
     .reviews-header img {
@@ -231,9 +174,10 @@
 
     .reviews-header h3 {
       font-size: 1.8rem;
-      color: #1C1C1E;
+      color: var(--text-color);
       font-weight: 700;
       letter-spacing: 0.5px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
     .reviews-wrapper {
@@ -243,7 +187,9 @@
       scroll-behavior: smooth;
       padding-bottom: 1rem;
       scrollbar-width: thin;
-      scrollbar-color: #007bff #f1f1f1;
+      scrollbar-color: rgba(0, 122, 255, 0.5) rgba(255, 255, 255, 0.1);
+      position: relative;
+      z-index: 1;
     }
 
     .reviews-wrapper::-webkit-scrollbar {
@@ -251,14 +197,14 @@
     }
 
     .reviews-wrapper::-webkit-scrollbar-track {
-      background: #f1f1f1;
+      background: rgba(255, 255, 255, 0.1);
       border-radius: 10px;
     }
 
     .reviews-wrapper::-webkit-scrollbar-thumb {
-      background-color: #007bff;
+      background: rgba(0, 122, 255, 0.5);
       border-radius: 10px;
-      border: 2px solid #f1f1f1;
+      border: 2px solid rgba(255, 255, 255, 0.1);
     }
 
     .review-card {
@@ -266,16 +212,20 @@
       display: flex;
       flex-direction: column;
       gap: 1rem;
-      border-radius: 16px;
-      background: #f7f7fa;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       padding: 1rem 1.2rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
       position: relative;
-      transition: box-shadow 0.3s ease;
+      transition: all var(--transition-duration);
     }
 
     .review-card:hover {
-      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     }
 
     .review-photo {
@@ -283,25 +233,27 @@
       height: 60px;
       border-radius: 50%;
       object-fit: cover;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
       align-self: center;
+      border: 2px solid rgba(255, 255, 255, 0.3);
     }
 
     .reviewer-name {
       font-weight: 700;
-      color: #007AFF;
+      color: var(--text-color);
       font-size: 1.1rem;
       text-align: center;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     }
 
     .review-text {
       font-size: 0.95rem;
-      color: #3a3a3c;
+      color: rgba(255, 255, 255, 0.8);
       line-height: 1.4;
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
-      -webkit-line-clamp: 4; /* show 4 lines only */
+      -webkit-line-clamp: 4;
       -webkit-box-orient: vertical;
       transition: max-height 0.3s ease;
       cursor: pointer;
@@ -314,23 +266,28 @@
     }
 
     .read-more {
-      color: #007bff;
+      color: rgba(0, 122, 255, 0.9);
       font-weight: 600;
       font-size: 0.9rem;
       text-align: center;
       cursor: pointer;
       user-select: none;
       margin-top: -0.2rem;
+      transition: color var(--transition-duration);
     }
 
     .read-more:hover {
-      text-decoration: underline;
+      color: #fff;
+      text-shadow: 0 0 10px rgba(0, 122, 255, 0.8);
     }
 
     .whatsapp-banner {
-      background-color: #25D366;
+      background: linear-gradient(135deg, rgba(37, 211, 102, 0.9) 0%, rgba(52, 199, 89, 0.9) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       color: white;
-      padding: 1rem;
+      padding: 1.5rem;
       text-align: center;
       font-weight: bold;
       font-size: 1.2rem;
@@ -340,68 +297,42 @@
       align-items: center;
       flex-wrap: wrap;
       gap: 1rem;
+      box-shadow: 0 8px 32px rgba(37, 211, 102, 0.3);
     }
 
     .whatsapp-banner a {
-      background: white;
+      background: rgba(255, 255, 255, 0.9);
       color: #25D366;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
+      padding: 0.8rem 1.5rem;
+      border-radius: 12px;
       font-weight: bold;
       text-decoration: none;
-      transition: all 0.3s ease;
+      transition: all var(--transition-duration);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
     .whatsapp-banner a:hover {
-      background: #e0f7eb;
+      background: #fff;
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
     }
 
     footer {
       text-align: center;
-      padding: 1rem;
-      background: #f9f9f9;
-      color: #888;
+      padding: 2rem;
+      background: var(--glass-bg);
+      backdrop-filter: var(--backdrop-blur);
+      -webkit-backdrop-filter: var(--backdrop-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
+      color: rgba(255, 255, 255, 0.7);
       font-size: 0.9rem;
-      animation: fadeIn 1.5s ease-out;
-    }
-
-    /* Animazioni */
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      margin-top: 3rem;
     }
 
     @media (max-width: 600px) {
-      header h1 {
-        font-size: 2.2rem;
-      }
-
-      main h2 {
+      .hero-section h2 {
         font-size: 2rem;
-      }
-
-      .cta-button {
-        font-size: 1.1rem;
-        padding: 0.8rem 2rem;
-      }
-
-      nav {
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      .whatsapp-banner {
-        font-size: 1rem;
       }
 
       .reviews-wrapper {
@@ -411,165 +342,11 @@
       .review-card {
         flex: 0 0 90vw;
       }
-    }
 
-    .product-card {
-      background: #fff;
-      border-radius: 18px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
-      padding: 2rem 1.5rem 1.5rem 1.5rem;
-      margin: 2rem auto;
-      max-width: 350px;
-      text-align: center;
-      transition: box-shadow 0.2s;
-    }
-    .product-card:hover {
-      box-shadow: 0 8px 32px rgba(0,0,0,0.13);
-    }
-    .product-img {
-      max-width: 220px;
-      width: 100%;
-      height: auto;
-      border-radius: 14px;
-      margin-bottom: 1rem;
-      box-shadow: 0 2px 8px #0001;
-    }
-    .product-card h3 {
-      font-size: 1.2rem;
-      margin: 0.7rem 0 0.3rem 0;
-    }
-    .product-card .price {
-      color: #007bff;
-      font-weight: bold;
-      font-size: 1.1rem;
-      margin-bottom: 0.5rem;
-    }
-    .product-card button {
-      margin-top: 1.2rem;
-      background: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      padding: 0.7rem 1.7rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.2s;
-      box-shadow: 0 2px 8px #007bff22;
-    }
-    .product-card button:hover {
-      background: #0056b3;
-    }
-
-    /* Stili per il nuovo widget account (copia da index.html) */
-    #user-profile-widget {
-      position: fixed;
-      top: 15px;
-      right: 15px;
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      background: #fff;
-      border-radius: 30px; /* Inizialmente rotondo per la foto */
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      padding: 5px;
-      cursor: pointer;
-      overflow: hidden; /* Nasconde il testo quando compatto */
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      width: 50px; /* Larghezza iniziale per la foto */
-      height: 50px; /* Altezza iniziale per la foto */
-    }
-
-    #user-profile-widget:hover {
-      width: 220px; /* Larghezza estesa per mostrare il testo */
-      border-radius: 10px; /* Bordo meno rotondo quando espanso */
-      padding: 10px; /* Padding maggiore quando espanso */
-    }
-
-    #user-profile-widget img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      border: 2px solid var(--primary-color); /* Bordo colorato */
-    }
-
-    #user-profile-widget:hover img {
-        box-shadow: 0 0 0 2px rgba(0, 113, 227, 0.3); /* Effetto ombra sul bordo */
-    }
-
-    #user-info-text {
-      display: flex;
-      flex-direction: column;
-      margin-left: 10px;
-      white-space: nowrap; /* Evita che il testo vada a capo */
-      opacity: 0; /* Inizialmente nascosto */
-      transform: translateX(10px); /* Piccola traslazione per effetto animazione */
-      transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      transition-delay: 0.1s; /* Leggero ritardo per l'animazione */
-    }
-
-    #user-profile-widget:hover #user-info-text {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    #user-profile-widget .username-display {
-      font-weight: 600; /* Grassetto */
-      font-size: 1.1em; /* Più grande */
-      color: var(--text-color);
-      line-height: 1.2;
-    }
-
-    #user-profile-widget .email-display {
-      font-size: 0.8em; /* Più piccolo */
-      color: #6e6e73;
-    }
-
-    #user-profile-widget .logout-button {
-      background-color: #ff3b30; /* Rosso */
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      padding: 5px 10px;
-      font-size: 0.85em;
-      font-weight: 600;
-      cursor: pointer;
-      margin-top: 5px;
-      opacity: 0; /* Inizialmente nascosto */
-      transform: translateX(10px);
-      transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      transition-delay: 0.15s;
-    }
-
-    #user-profile-widget:hover .logout-button {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    #user-profile-widget .logout-button:hover {
-      background-color: #c1271a; /* Rosso più scuro al hover */
-    }
-
-    @media (max-width: 768px) {
-        #user-profile-widget {
-            top: auto;
-            bottom: 15px;
-            right: 15px;
-            width: 45px;
-            height: 45px;
-        }
-        #user-profile-widget img {
-            width: 35px;
-            height: 35px;
-        }
-        #user-profile-widget:hover {
-            width: 200px;
-        }
-        #user-profile-widget .logout-button {
-            padding: 4px 8px;
-        }
+      .whatsapp-banner {
+        font-size: 1rem;
+        flex-direction: column;
+      }
     }
   </style>
 </head>
@@ -594,7 +371,7 @@
     <p>Le migliori offerte selezionate da Amazon, tutte in un unico posto</p>
   </header>
 
- <nav>
+  <nav>
     <a href="index.html">Home</a>
     <a href="products.html">Prodotti</a>
     <a href="groups.html">Gruppi</a>
@@ -627,21 +404,24 @@
   </div>
 
   <main>
-    <h2>Offerte incredibili, prezzi imbattibili</h2>
-    <p>
-      Su <strong>Cronoshop</strong> trovi una selezione esclusiva dei migliori prodotti Amazon, con sconti aggiornati ogni giorno.
-      Acquistando sarai reindirizzato direttamente su Amazon, dove potrai pagare in completa sicurezza. Noi non vendiamo direttamente:
-      riceverai lo stesso prodotto, semplicemente con un <strong>sconto extra</strong>!
-    </p>
-    <a href="products.html" class="cta-button">Vai ai nostri prodotti</a>
-  </main>
-  <main>
-    <h2>PRODOTTO DEL GIORNO:</h2>
-    <p>
-      Su <strong>Cronoshop</strong> qui trovi il prodotto <strong>consigliato</strong> con <strong>sconto extra</strong>!
-    </p>
-    <div id="prodotto-casuale" class="product-card" style="max-width: 400px; margin: 2rem auto;">
+    <section class="hero-section">
+      <h2>Offerte incredibili, prezzi imbattibili</h2>
+      <p>
+        Su <strong>Cronoshop</strong> trovi una selezione esclusiva dei migliori prodotti Amazon, con sconti aggiornati ogni giorno.
+        Acquistando sarai reindirizzato direttamente su Amazon, dove potrai pagare in completa sicurezza. Noi non vendiamo direttamente:
+        riceverai lo stesso prodotto, semplicemente con un <strong>sconto extra</strong>!
+      </p>
+      <a href="products.html" class="cta-button">Vai ai nostri prodotti</a>
+    </section>
+
+    <section class="hero-section">
+      <h2>PRODOTTO DEL GIORNO:</h2>
+      <p>
+        Su <strong>Cronoshop</strong> qui trovi il prodotto <strong>consigliato</strong> con <strong>sconto extra</strong>!
+      </p>
+      <div id="prodotto-casuale" class="product-of-day">
       </div>
+    </section>
   </main>
 
   <section class="reviews-section" aria-label="Recensioni degli utenti">
@@ -753,7 +533,7 @@
   </footer>
 
   <script>
-  // Padrone, qui c'è la roba pe' espandere/contrarre recensioni
+  // Espansione recensioni
   document.querySelectorAll('.review-card').forEach(card => {
     const readMore = card.querySelector('.read-more');
     const reviewText = card.querySelector('.review-text');
@@ -770,9 +550,8 @@
   });
   </script>
   <script>
-    // --- Funzioni di Account e Tema Universali (copia da index.html) ---
+    // --- Funzioni di Account e Tema Universali ---
 
-    // Helpers
     function hash(str) {
       let h = 0, i, chr;
       if (str.length === 0) return h;
@@ -800,8 +579,6 @@
       localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify(data));
     }
 
-
-    // Gestione del Tema
     function applyTheme(theme) {
         if (theme === 'dark') {
             document.body.classList.add('dark-mode');
@@ -812,20 +589,18 @@
 
     function loadThemePreference() {
         const user = getUser();
-        let savedTheme = 'light'; // Default theme
+        let savedTheme = 'light';
         if (user && user.username) {
             const userDb = getUserDb(user.username);
             if (userDb && userDb.settings && userDb.settings.theme) {
                 savedTheme = userDb.settings.theme;
             }
         } else {
-            // Se non loggato, controlla una preferenza globale non utente specifica (opzionale)
             savedTheme = localStorage.getItem('global_theme_preference') || 'light';
         }
         applyTheme(savedTheme);
     }
 
-    // Banner e widget account
     function updateAccountBannerAndWidget() {
       const user = getUser();
       const banner = document.getElementById('account-banner');
@@ -836,7 +611,7 @@
 
       if (user && user.username) {
         if (banner) banner.style.display = 'none';
-        if (profileWidget) profileWidget.style.display = 'flex'; // Mostra il widget
+        if (profileWidget) profileWidget.style.display = 'flex';
         const userDb = getUserDb(user.username);
         if (profilePicWidget) {
             if (userDb && userDb.profilePic) {
@@ -850,11 +625,10 @@
 
       } else {
         if (banner) banner.style.display = 'flex';
-        if (profileWidget) profileWidget.style.display = 'none'; // Nasconde il widget
+        if (profileWidget) profileWidget.style.display = 'none';
       }
     }
 
-    // Modale Login/Registrazione
     function openModal(type) {
       const modalBg = document.getElementById('modal-bg');
       const modalLogin = document.getElementById('modal-login');
@@ -875,7 +649,6 @@
     function showLogin() { openModal('login'); }
     function showRegister() { openModal('register'); }
 
-    // Registrazione
     function registerUser() {
       const usernameInput = document.getElementById('register-username');
       const passwordInput = document.getElementById('register-password');
@@ -896,16 +669,15 @@
       localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify({
         username,
         password: hash(password),
-        email: '', // Inizializza l'email vuota
-        settings: { theme: 'light', notifications: { email: false } } // Impostazioni predefinite
+        email: '',
+        settings: { theme: 'light', notifications: { email: false } }
       }));
       setUser({ username });
       closeModal();
       updateAccountBannerAndWidget();
-      loadThemePreference(); // Applica il tema predefinito al login
+      loadThemePreference();
     }
 
-    // Login
     function loginUser() {
       const usernameInput = document.getElementById('login-username');
       const passwordInput = document.getElementById('login-password');
@@ -923,24 +695,21 @@
       setUser({ username });
       closeModal();
       updateAccountBannerAndWidget();
-      loadThemePreference(); // Applica il tema salvato al login
+      loadThemePreference();
     }
 
-    // Logout
     function logoutUser(event) {
-      if (event) event.stopPropagation(); // Evita che il click si propaghi al widget
+      if (event) event.stopPropagation();
       removeUser();
       updateAccountBannerAndWidget();
-      applyTheme('light'); // Torna al tema chiaro al logout
-      localStorage.removeItem('global_theme_preference'); // Rimuovi preferenza globale se non loggato
-      // Reindirizza l'utente alla home o alla pagina corrente se preferisci
-      // window.location.href = "index.html";
+      applyTheme('light');
+      localStorage.removeItem('global_theme_preference');
     }
 
     // Event listeners per l'inizializzazione universale
     document.addEventListener('DOMContentLoaded', function() {
-        loadThemePreference(); // Carica il tema all'avvio della pagina
-        updateAccountBannerAndWidget(); // Inizializza banner e widget
+        loadThemePreference();
+        updateAccountBannerAndWidget();
 
         const openLoginBtn = document.getElementById('open-login');
         const openRegisterBtn = document.getElementById('open-register');
@@ -955,10 +724,8 @@
             };
         }
         
-        // Gestore per il click sul widget account
         if (userProfileWidget) {
             userProfileWidget.addEventListener('click', function(e) {
-                // Impedisci la navigazione se clicchi sul pulsante di logout all'interno del widget
                 if (e.target.classList.contains('logout-button')) {
                     return;
                 }
@@ -967,11 +734,8 @@
         }
     });
 
-  // Questo blocco di codice per il prodotto casuale è già presente sopra,
-  // ma è qui duplicato nel file originale. Lo lascio per coerenza con il tuo input.
-  // Idealmente, dovrebbe esserci un solo blocco per 'prodotti' e 'mostraProdottoCasuale'.
-
-  const prodottiCasual = [ // Rinominato per evitare conflitto con l'altro 'prodotti' se ci fosse
+  // Prodotto casuale
+  const prodottiCasual = [
     {
       link: "https://amzn.to/3Z551fa",
       img: "https://m.media-amazon.com/images/I/61hiFJPpY9L._AC_SL1500_.jpg",

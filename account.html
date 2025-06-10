@@ -7,220 +7,311 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* Stili esistenti */
     .account-container {
       max-width: 420px;
       margin: 3rem auto 2rem auto;
-      background: var(--card-background, #fff);
-      border-radius: 20px;
-      box-shadow: var(--card-shadow, 0 4px 16px rgba(0,0,0,0.08));
+      background: var(--glass-bg);
+      backdrop-filter: var(--backdrop-blur);
+      -webkit-backdrop-filter: var(--backdrop-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: 25px;
+      box-shadow: var(--glass-shadow);
       padding: 2.5rem 2rem 2rem 2rem;
       text-align: center;
+      position: relative;
     }
+
+    .account-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
     .profile-pic {
       width: 90px;
       height: 90px;
       border-radius: 50%;
       object-fit: cover;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
       margin-bottom: 1.2rem;
-      border: 2px solid var(--primary-color, #0071e3);
-      background: #f5f5f7;
+      border: 3px solid rgba(0, 122, 255, 0.5);
+      background: rgba(255, 255, 255, 0.1);
+      position: relative;
+      z-index: 1;
     }
+
     .account-form input[type="text"],
     .account-form input[type="email"],
-    .account-form input[type="password"], /* Aggiunto per password */
+    .account-form input[type="password"],
     .account-form input[type="file"] {
       width: 90%;
       margin: 0.5rem 0 1rem 0;
-      padding: 0.7rem;
-      border-radius: 8px;
-      border: 1px solid #e0e0e5;
+      padding: 1rem;
+      border-radius: 15px;
+      border: 1px solid var(--glass-border);
       font-size: 1rem;
-      background: #fafbfc;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: var(--text-color);
+      transition: all var(--transition-duration);
+      position: relative;
+      z-index: 1;
     }
+
+    .account-form input:focus {
+      outline: none;
+      border-color: rgba(0, 122, 255, 0.5);
+      box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .account-form input::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
     .account-form label {
       display: block;
       text-align: left;
       margin: 0.5rem 0 0.2rem 0.5rem;
       font-size: 1rem;
-      color: #555;
+      color: var(--text-color);
       font-weight: 500;
+      position: relative;
+      z-index: 1;
     }
+
     .account-form button {
-      background: var(--primary-color, #0071e3);
+      background: linear-gradient(135deg, rgba(0, 122, 255, 0.8) 0%, rgba(88, 86, 214, 0.8) 100%);
       color: #fff;
       border: none;
-      border-radius: 10px;
-      padding: 0.7rem 2rem;
+      border-radius: 15px;
+      padding: 1rem 2rem;
       font-weight: 600;
       font-size: 1.05rem;
       margin: 0.5rem 0.3rem;
       cursor: pointer;
-      transition: background 0.2s;
-      box-shadow: 0 2px 8px rgba(0,113,227,0.10);
+      transition: all var(--transition-duration);
+      box-shadow: 0 8px 25px rgba(0, 122, 255, 0.3);
+      position: relative;
+      z-index: 1;
     }
+
     .account-form button:hover {
-      background: #0051a8;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 15px 35px rgba(0, 122, 255, 0.4);
     }
+
     .danger-btn {
-      background: #ff3b30 !important;
+      background: linear-gradient(135deg, rgba(255, 59, 48, 0.8) 0%, rgba(255, 45, 85, 0.8) 100%) !important;
       color: #fff !important;
       margin-top: 1.2rem;
-      transition: background 0.2s;
+      box-shadow: 0 8px 25px rgba(255, 59, 48, 0.3) !important;
     }
+
     .danger-btn:hover {
-      background: #c1271a !important;
+      background: linear-gradient(135deg, rgba(255, 59, 48, 1) 0%, rgba(255, 45, 85, 1) 100%) !important;
+      box-shadow: 0 15px 35px rgba(255, 59, 48, 0.4) !important;
     }
+
     .success-msg {
-      color: #30d158;
+      color: #30D158;
       font-size: 1rem;
       margin-bottom: 0.7rem;
+      text-shadow: 0 0 10px rgba(48, 209, 88, 0.5);
+      position: relative;
+      z-index: 1;
     }
+
     .error-msg {
-      color: #d32f2f;
+      color: #FF453A;
       font-size: 1rem;
       margin-bottom: 0.7rem;
+      text-shadow: 0 0 10px rgba(255, 69, 58, 0.5);
+      position: relative;
+      z-index: 1;
     }
 
-    /* Nuovi stili per le sezioni aggiunte */
     .section-separator {
-        border-top: 1px solid #e0e0e5;
-        margin: 2.5rem 0;
-        padding-top: 2.5rem;
+      border-top: 1px solid var(--glass-border);
+      margin: 2.5rem 0;
+      padding-top: 2.5rem;
+      position: relative;
+      z-index: 1;
     }
+
     .section-separator h2 {
-        font-size: 1.5rem;
-        color: var(--primary-color);
-        margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      color: var(--text-color);
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
     }
 
-    /* Stili per il tema scuro */
-    body.dark-mode {
-        background-color: #1c1c1e;
-        color: #f2f2f7;
-    }
-    body.dark-mode header {
-        background-color: #2c2c2e;
-        box-shadow: 0 5px 10px rgba(255,255,255,0.05);
-    }
-    body.dark-mode header h1 {
-        color: #6daee3;
-    }
-    body.dark-mode nav a {
-        color: #6daee3;
-    }
-    body.dark-mode .account-container,
-    body.dark-mode .product-card-liked { /* Per i prodotti preferiti */
-        background: #2c2c2e;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-    }
-    body.dark-mode .account-form input {
-        background: #3a3a3c;
-        border-color: #555;
-        color: #f2f2f7;
-    }
-    body.dark-mode .account-form label {
-        color: #bbb;
-    }
-    body.dark-mode .section-separator {
-        border-color: #3a3a3c;
-    }
-    body.dark-mode #liked-products-section h2 {
-        color: #6daee3;
-    }
-
-    /* Stile per il toggle del tema */
     .theme-switch-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 1.5rem;
-        gap: 10px;
-    }
-    .theme-switch {
-        display: inline-block;
-        height: 34px;
-        position: relative;
-        width: 60px;
-    }
-    .theme-switch input {
-        display:none;
-    }
-    .slider {
-        background-color: #ccc;
-        bottom: 0;
-        cursor: pointer;
-        left: 0;
-        position: absolute;
-        right: 0;
-        top: 0;
-        transition: .4s;
-        border-radius: 34px;
-    }
-    .slider:before {
-        background-color: #fff;
-        bottom: 4px;
-        content: "";
-        height: 26px;
-        left: 4px;
-        position: absolute;
-        transition: .4s;
-        width: 26px;
-        border-radius: 50%;
-    }
-    input:checked + .slider {
-        background-color: var(--primary-color);
-    }
-    input:checked + .slider:before {
-        transform: translateX(26px);
-    }
-    .theme-switch-label {
-        font-weight: 500;
-        color: #555;
-    }
-    body.dark-mode .theme-switch-label {
-        color: #bbb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      gap: 10px;
+      position: relative;
+      z-index: 1;
     }
 
-    /* Stile per i prodotti preferiti */
+    .theme-switch {
+      display: inline-block;
+      height: 34px;
+      position: relative;
+      width: 60px;
+    }
+
+    .theme-switch input {
+      display: none;
+    }
+
+    .slider {
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      bottom: 0;
+      cursor: pointer;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transition: .4s;
+      border-radius: 34px;
+      border: 1px solid var(--glass-border);
+    }
+
+    .slider:before {
+      background: #fff;
+      bottom: 3px;
+      content: "";
+      height: 26px;
+      left: 3px;
+      position: absolute;
+      transition: .4s;
+      width: 26px;
+      border-radius: 50%;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    input:checked + .slider {
+      background: rgba(0, 122, 255, 0.8);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    .theme-switch-label {
+      font-weight: 500;
+      color: var(--text-color);
+    }
+
     .product-card-liked {
-      background: var(--card-background, #fff);
-      border-radius: 14px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      background: var(--glass-bg);
+      backdrop-filter: var(--backdrop-blur);
+      -webkit-backdrop-filter: var(--backdrop-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      box-shadow: var(--glass-shadow);
       padding: 1rem;
       max-width: 160px;
       text-align: center;
-      transition: transform 0.2s ease;
+      transition: all var(--transition-duration);
+      position: relative;
     }
+
+    .product-card-liked::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+      border-radius: inherit;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity var(--transition-duration);
+    }
+
+    .product-card-liked:hover::before {
+      opacity: 1;
+    }
+
     .product-card-liked:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
     }
+
     .product-card-liked img {
       width: 90px;
       height: 90px;
       object-fit: contain;
-      border-radius: 10px;
-      background: #f5f5f7;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.1);
       margin-bottom: 0.5rem;
     }
-    body.dark-mode .product-card-liked img {
-        background: #3a3a3c;
-    }
+
     .product-card-liked .product-name {
       font-size: 0.98rem;
-      color: var(--primary-color);
+      color: var(--text-color);
       font-weight: 600;
     }
   </style>
 </head>
 <body>
+  <div id="user-profile-widget" style="display:none;">
+    <img id="profile-pic-widget" src="https://ui-avatars.com/api/?name=User&background=eeeeee&color=0071e3" alt="Foto profilo">
+    <div id="user-info-text">
+      <div class="username-display" id="widget-username"></div>
+      <div class="email-display" id="widget-email"></div>
+      <button class="logout-button" onclick="logoutUser(event)">Logout</button>
+    </div>
+  </div>
+
+  <div id="account-banner">
+    <span>Hai un account Cronoshop? <b>Accedi</b> o <b>registrati</b> per offerte personalizzate!</span>
+    <button id="open-login">Accedi</button>
+    <button id="open-register">Registrati</button>
+  </div>
+
+  <div class="modal-bg" id="modal-bg">
+    <div class="modal" id="modal-login" style="display:none;">
+      <button class="close-modal" onclick="closeModal()">&times;</button>
+      <h2>Accedi</h2>
+      <input type="text" id="login-username" placeholder="Username" autocomplete="username">
+      <input type="password" id="login-password" placeholder="Password" autocomplete="current-password">
+      <div class="error-msg" id="login-error"></div>
+      <button onclick="loginUser()">Accedi</button>
+      <div class="switch-link" onclick="showRegister()">Non hai un account? Registrati</div>
+    </div>
+    <div class="modal" id="modal-register" style="display:none;">
+      <button class="close-modal" onclick="closeModal()">&times;</button>
+      <h2>Registrati</h2>
+      <input type="text" id="register-username" placeholder="Scegli username" autocomplete="username">
+      <input type="password" id="register-password" placeholder="Scegli password" autocomplete="new-password">
+      <div class="error-msg" id="register-error"></div>
+      <button onclick="registerUser()">Registrati</button>
+      <div class="switch-link" onclick="showLogin()">Hai già un account? Accedi</div>
+    </div>
+  </div>
+
   <header>
     <h1>Il tuo Account</h1>
   </header>
+  
   <nav>
     <a href="index.html">Home</a>
     <a href="products.html">Prodotti</a>
@@ -230,6 +321,7 @@
     <a href="favorites.html">Preferiti</a>
     <a href="cart.html">Carrello</a>
   </nav>
+
   <main>
     <div class="account-container">
       <img id="profile-pic" class="profile-pic" src="https://ui-avatars.com/api/?name=User&background=eeeeee&color=0071e3" alt="Foto profilo" />
@@ -267,9 +359,9 @@
                 <span class="theme-switch-label">Tema Scuro</span>
             </div>
 
-            <div style="text-align: left; margin: 1rem 0 1rem 0.5rem;">
+            <div style="text-align: left; margin: 1rem 0 1rem 0.5rem; position: relative; z-index: 1;">
                 <input type="checkbox" id="notification-email" style="width: auto; margin-right: 10px;">
-                <label for="notification-email" style="display: inline; font-weight: normal; color: #333;">Ricevi offerte e aggiornamenti via email</label>
+                <label for="notification-email" style="display: inline; font-weight: normal; color: var(--text-color);">Ricevi offerte e aggiornamenti via email</label>
             </div>
             <button onclick="saveSettings()">Salva Impostazioni</button>
         </div>
@@ -286,7 +378,7 @@
       </form>
     </div>
     <div id="liked-products-section" style="margin-top:2.5rem;">
-      <h2 style="font-size:1.15rem;color:#0071e3;margin-bottom:1rem;">I tuoi prodotti preferiti</h2>
+      <h2 style="font-size:1.15rem;color:var(--text-color);margin-bottom:1rem;text-align:center;">I tuoi prodotti preferiti</h2>
       <div id="liked-products" style="display:flex;flex-wrap:wrap;gap:1.2rem;justify-content:center;"></div>
     </div>
   </main>
@@ -331,6 +423,139 @@
         }
     }
 
+    // Gestione del Tema
+    function applyTheme(theme) {
+        if (theme === 'dark') {
+            document.body.classList.add('dark-mode');
+        } else {
+            document.body.classList.remove('dark-mode');
+        }
+    }
+
+    function loadThemePreference() {
+        const user = getUser();
+        let savedTheme = 'light';
+        if (user && user.username) {
+            const userDb = getUserDb(user.username);
+            if (userDb && userDb.settings && userDb.settings.theme) {
+                savedTheme = userDb.settings.theme;
+            }
+        } else {
+            savedTheme = localStorage.getItem('global_theme_preference') || 'light';
+        }
+        applyTheme(savedTheme);
+    }
+
+    // Banner e widget account
+    function updateAccountBannerAndWidget() {
+      const user = getUser();
+      const banner = document.getElementById('account-banner');
+      const profileWidget = document.getElementById('user-profile-widget');
+      const profilePicWidget = document.getElementById('profile-pic-widget');
+      const widgetUsername = document.getElementById('widget-username');
+      const widgetEmail = document.getElementById('widget-email');
+
+      if (user && user.username) {
+        if (banner) banner.style.display = 'none';
+        if (profileWidget) profileWidget.style.display = 'flex';
+        const userDb = getUserDb(user.username);
+        if (profilePicWidget) {
+            if (userDb && userDb.profilePic) {
+                profilePicWidget.src = userDb.profilePic;
+            } else {
+                profilePicWidget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.username)}&background=eeeeee&color=0071e3`;
+            }
+        }
+        if (widgetUsername) widgetUsername.textContent = user.username;
+        if (widgetEmail) widgetEmail.textContent = userDb && userDb.email ? userDb.email : 'Nessuna email';
+
+      } else {
+        if (banner) banner.style.display = 'flex';
+        if (profileWidget) profileWidget.style.display = 'none';
+      }
+    }
+
+    // Modale Login/Registrazione
+    function openModal(type) {
+      const modalBg = document.getElementById('modal-bg');
+      const modalLogin = document.getElementById('modal-login');
+      const modalRegister = document.getElementById('modal-register');
+      const loginError = document.getElementById('login-error');
+      const registerError = document.getElementById('register-error');
+
+      if (modalBg) modalBg.classList.add('active');
+      if (modalLogin) modalLogin.style.display = type === 'login' ? 'block' : 'none';
+      if (modalRegister) modalRegister.style.display = type === 'register' ? 'block' : 'none';
+      if (loginError) loginError.textContent = '';
+      if (registerError) registerError.textContent = '';
+    }
+    function closeModal() {
+      const modalBg = document.getElementById('modal-bg');
+      if (modalBg) modalBg.classList.remove('active');
+    }
+    function showLogin() { openModal('login'); }
+    function showRegister() { openModal('register'); }
+
+    // Registrazione
+    function registerUser() {
+      const usernameInput = document.getElementById('register-username');
+      const passwordInput = document.getElementById('register-password');
+      const errorElement = document.getElementById('register-error');
+
+      const username = usernameInput ? usernameInput.value.trim() : '';
+      const password = passwordInput ? passwordInput.value : '';
+      const error = errorElement;
+
+      if (!username || !password) {
+        if (error) error.textContent = 'Compila tutti i campi.';
+        return;
+      }
+      if (localStorage.getItem('cronoshop_user_db_' + username)) {
+        if (error) error.textContent = 'Username già registrato.';
+        return;
+      }
+      localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify({
+        username,
+        password: hash(password),
+        email: '',
+        settings: { theme: 'light', notifications: { email: false } }
+      }));
+      setUser({ username });
+      closeModal();
+      updateAccountBannerAndWidget();
+      loadThemePreference();
+    }
+
+    // Login
+    function loginUser() {
+      const usernameInput = document.getElementById('login-username');
+      const passwordInput = document.getElementById('login-password');
+      const errorElement = document.getElementById('login-error');
+
+      const username = usernameInput ? usernameInput.value.trim() : '';
+      const password = passwordInput ? passwordInput.value : '';
+      const error = errorElement;
+
+      const userDb = JSON.parse(localStorage.getItem('cronoshop_user_db_' + username) || 'null');
+      if (!userDb || userDb.password !== hash(password)) {
+        if (error) error.textContent = 'Username o password errati.';
+        return;
+      }
+      setUser({ username });
+      closeModal();
+      updateAccountBannerAndWidget();
+      loadThemePreference();
+    }
+
+    // Logout
+    function logoutUser(event) {
+      if (event) event.stopPropagation();
+      removeUser();
+      updateAccountBannerAndWidget();
+      applyTheme('light');
+      localStorage.removeItem('global_theme_preference');
+    }
+
     // Carica dati utente e impostazioni
     function loadAccount() {
       const user = getUser();
@@ -347,7 +572,6 @@
         document.getElementById('profile-pic').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(db?.username || user.username)}&background=eeeeee&color=0071e3`;
       }
 
-      // Carica impostazioni tema
       const themePreference = db?.settings?.theme || 'light';
       if (themePreference === 'dark') {
           document.body.classList.add('dark-mode');
@@ -357,7 +581,6 @@
           document.getElementById('theme-toggle').checked = false;
       }
 
-      // Carica preferenze notifiche
       document.getElementById('notification-email').checked = db?.settings?.notifications?.email || false;
 
       renderLikedProducts();
@@ -390,13 +613,11 @@
         showMessage('account-msg', "Username obbligatorio.", false);
         return;
       }
-      // Se l'username è cambiato e il nuovo username esiste già
       if (newUsername !== user.username && localStorage.getItem('cronoshop_user_db_' + newUsername)) {
         showMessage('account-msg', "Username già esistente.", false);
         return;
       }
       
-      // Aggiorna DB utente
       const newDb = {
         ...db,
         username: newUsername,
@@ -404,16 +625,14 @@
         profilePic: picSrc
       };
 
-      // Se cambia username, aggiorna chiave nel localStorage
       if (newUsername !== user.username) {
         setUserDb(newUsername, newDb);
-        removeUserDb(user.username); // Rimuovi la vecchia chiave
-        setUser({ username: newUsername }); // Aggiorna la sessione utente
+        removeUserDb(user.username);
+        setUser({ username: newUsername });
       } else {
         setUserDb(newUsername, newDb);
       }
       showMessage('account-msg', "Modifiche profilo salvate!", true);
-      // Ricarica per assicurare coerenza se l'username è cambiato
       loadAccount();
     }
 
@@ -451,7 +670,6 @@
         setUserDb(user.username, db);
         showMessage('password-success', "Password cambiata con successo!", true);
         
-        // Pulisci i campi password
         document.getElementById('old-password').value = '';
         document.getElementById('new-password').value = '';
         document.getElementById('confirm-new-password').value = '';
@@ -466,12 +684,10 @@
         }
         const db = getUserDb(user.username) || {};
 
-        // Tema
         const themeToggle = document.getElementById('theme-toggle');
         const selectedTheme = themeToggle.checked ? 'dark' : 'light';
         document.body.classList.toggle('dark-mode', themeToggle.checked);
         
-        // Notifiche
         const emailNotifications = document.getElementById('notification-email').checked;
 
         db.settings = {
@@ -525,7 +741,6 @@
             },
             likedProducts: Object.keys(likes).filter(id => likes[id]),
             points: points[user.username] || 0
-            // Potresti aggiungere altri dati se ne hai
         };
 
         const filename = `cronoshop_data_${user.username}.json`;
@@ -540,14 +755,11 @@
         showMessage('account-msg', "Dati esportati con successo!", true);
     }
 
-
     // --- Mostra prodotti preferiti ---
     function getLikes() {
       return JSON.parse(localStorage.getItem('cronoshop_likes') || '{}');
     }
     function getProdotti() {
-      // Questo array dovrebbe idealmente essere caricato da una fonte centrale
-      // o essere lo stesso array "prodotti" usato in products.html
       return [
         {
           id: "prod1",
@@ -566,318 +778,6 @@
           nome: "Apple iPhone 15",
           img: "https://m.media-amazon.com/images/I/71d7rfSl0wL._AC_SL1500_.jpg",
           link: "https://www.amazon.it/dp/B0CHWV5HTM"
-        },
-        {
-          id: "prod4",
-          nome: "Samsung Galaxy S25 Smartphone AI",
-          img: "https://m.media-amazon.com/images/I/618ha2Ia5tL._AC_SL1500_.jpg",
-          link: "https://amzn.to/4kCH9aV"
-        },
-        {
-          id: "prod5",
-          nome: "SAMSUNG Galaxy S25 Edge",
-          img: "https://m.media-amazon.com/images/I/61Wj-1t3TwL._AC_SL1500_.jpg",
-          link: "https://amzn.to/3ZAt8T4"
-        },
-        {
-          id: "prod6",
-          nome: "Samsung Galaxy S25+ Smartphone AI",
-          img: "https://m.media-amazon.com/images/I/61y0hmQWlsL._AC_SL1500_.jpg",
-          link: "https://amzn.to/45gPEUX"
-        },
-        {
-          id: "prod7",
-          nome: "Apple iPhone 16e – 128 GB",
-          img: "https://m.media-amazon.com/images/I/610vqacJO2L.__AC_SY445_SX342_QL70_ML2_.jpg",
-          link: "https://amzn.to/3Z6Kc2W"
-        },
-        {
-          id: "prod8",
-          nome: "Apple iPhone 16 Pro Max – 256 GB",
-          img: "https://m.media-amazon.com/images/I/61cUeqowwZL._AC_SL1500_.jpg",
-          link: "https://amzn.to/3ZEqKut"
-        },
-        {
-          id: "prod9",
-          nome: "Apple iPhone 14 Plus – 128 GB",
-          img: "https://m.media-amazon.com/images/I/61BGE6iu4AL.__AC_SY445_SX342_QL70_ML2_.jpg",
-          link: "https://amzn.to/43t1D0l"
-        },
-        {
-          id: "prod10",
-          nome: "Google Pixel 9 Pro XL",
-          img: "https://m.media-amazon.com/images/I/51v1hYXGsdL._AC_SL1500_.jpg",
-          link: "https://amzn.to/4mBncTC"
-        },
-        {
-          id: "prod11",
-          nome: "Google Pixel 9 Pro XL",
-          img: "https://m.media-amazon.com/images/I/51v1hYXGsdL._AC_SL1500_.jpg",
-          link: "https://amzn.to/4mBncTC"
-        },
-        {
-          id: "prod12",
-          nome: "Apple iPhone 14 Pro Max – 128 GB (Ricondizionato)",
-          img: "https://m.media-amazon.com/images/I/71yzJoE7WlL._AC_SL1500_.jpg",
-          link: "https://amzn.to/4jlRfvO"
-        },
-        {
-          id: "prod13",
-          nome: "iPhone 16 (128GB) - Nero",
-          img: "https://m.media-amazon.com/images/I/619HAuZ95QL._AC_SL1500_.jpg",
-          link: "https://amzn.eu/d/j40eOtX"
-        },
-        {
-          id: "prod14",
-          nome: "SSC NAPOLI Maglietta Campioni",
-          img: "https://m.media-amazon.com/images/I/41sNR0PJCaL._AC_SX569_.jpg",
-          link: "https://amzn.to/3SnXwfz"
-        },
-        {
-          id: "prod15",
-          nome: "Calvin Klein T-Shirt Uomo",
-          img: "https://m.media-amazon.com/images/I/71BHou6YJKL._AC_SY879_.jpg",
-          link: "https://amzn.to/4kbOb6E"
-        },
-        {
-          id: "prod16",
-          nome: "adidas Squadra25 Jersey Short Sleeve T-Shirt Uomo",
-          img: "https://m.media-amazon.com/images/I/51V1TTs1U2L._AC_SX569_.jpg",
-          link: "https://amzn.to/43xa5u6"
-        },
-        {
-          id: "prod17",
-          nome: "Sunsilk Crema Onde Meravigliose Crema Styling Capelli Mossi, Effetto Anticrespo",
-          img: "https://m.media-amazon.com/images/I/71GSwlTsPDL.__AC_SX300_SY300_QL70_ML2_.jpg",
-          link: "https://www.amazon.it/dp/B0F1P4F8SR/ref=cm_sw_r_as_gl_apa_gl_i_HYDVV9DGWX2M1DGRM3X2?linkCode=ml1&tag=tony6401-21"
-        },
-        {
-          id: "prod18",
-          nome: "Caffè Borbone Cialda Compostabile, Miscela Oro - 100 Cialde",
-          img: "https://m.media-amazon.com/images/I/6171T++Z2mL._AC_SL1095_.jpg",
-          link: "https://amzn.to/4kGcGJg"
-        },
-        {
-          id: "prod19",
-          nome: "King C. Gillette Kit REGOLABARBA Uomo",
-          img: "https://m.media-amazon.com/images/I/8120xtA5GaL._AC_SL1500_.jpg",
-          link: "https://amzn.to/3Fbh43W"
-        },
-        {
-          id: "prod20",
-          nome: "Samsung Galaxy S24 Ultra – 12GB / 256GB",
-          img: "https://m.media-amazon.com/images/I/31SLM5sJK4L.__AC_SY300_SX300_QL70_ML2_.jpg",
-          link: "https://amzn.to/3Ssmcnb"
-        },
-        {
-          id: "prod21",
-          nome: "Oral-B Testine Di Ricambio Original",
-          img: "https://m.media-amazon.com/images/I/812azAWbm2L.__AC_SX300_SY300_QL70_ML2_.jpg",
-          link: "https://amzn.to/3SUojjE"
-        },
-        {
-          id: "prod22",
-          nome: "Amazon Fire TV Stick HD",
-          img: "https://m.media-amazon.com/images/I/51B45gaTgjL._AC_SL1000_.jpg",
-          link: "https://amzn.to/4jhgwHr"
-        },
-        {
-          id: "prod23",
-          nome: "Bronzi® Portafoglio Uomo Slim Piccolo",
-          img: "https://m.media-amazon.com/images/I/618HDC8rPXL.__AC_SX300_SY300_QL70_ML2_.jpg",
-          link: "https://amzn.to/4dCu1QL"
-        },
-        {
-          id: "prod24",
-          nome: "Vittorio Y Camicia Donna in Cotone e Lino",
-          img: "https://m.media-amazon.com/images/I/61oxHY8kFbL._AC_SX569_.jpg",
-          link: "https://amzn.to/4kEfeHI"
-        },
-        {
-          id: "prod25",
-          nome: "Nike Air Force 1 '07 Lv8 4",
-          img: "https://m.media-amazon.com/images/I/618FhFPg8+L._AC_SX575_.jpg",
-          link: "https://amzn.to/4dF2SwD"
-        },
-        {
-          id: "prod26",
-          nome: "adidas Breaknet Lifestyle Court Lace Shoes",
-          img: "https://m.media-amazon.com/images/I/41vC0GMKWJL._AC_SY695_.jpg",
-          link: "https://amzn.to/3Z7S8Rr"
-        },
-        {
-          id: "prod27",
-          nome: "Nike Everyday Cush Crew Calze Uomo",
-          img: "https://m.media-amazon.com/images/I/71XHPuLiHVL._AC_SY606_.jpg",
-          link: "https://amzn.to/4dCt9LX"
-        },
-        {
-          id: "prod28",
-          nome: "Smart Sir Calzini Sportivi Uomo e Donna (4 paia)",
-          img: "https://m.media-amazon.com/images/I/71ZfLtLMYyL._AC_SX679_.jpg",
-          link: "https://amzn.to/4kFlpLJ"
-        },
-        {
-          id: "prod29",
-          nome: "Caffè Borbone Respresso, Miscela Blu - 100 Capsule",
-          img: "https://m.media-amazon.com/images/I/51kcic+JN-L._AC_SL1095_.jpg.jpg",
-          link: "https://amzn.to/3Z7eYZz"
-        },
-        {
-          id: "prod30",
-          nome: "Samsung Galaxy S22+ 5G – 128GB (Ricondizionato)",
-          img: "https://m.media-amazon.com/images/I/81irfL63EQL.__AC_SX300_SY300_QL70_ML2_.jpg",
-          link: "https://amzn.to/43PvEHy"
-        },
-        {
-          id: "prod31",
-          nome: "Samsung Galaxy S21 Ultra 5G – 128GB (Ricondizionato)",
-          img: "https://m.media-amazon.com/images/I/61CY-+ZEN6L._AC_SY300_SX300_.jpg",
-          link: "https://amzn.to/3HsKGdy"
-        },
-        {
-          id: "prod32",
-          nome: "Samsung Galaxy A16",
-          img: "https://m.media-amazon.com/images/I/61pc4vR8BoL._AC_SL1500_.jpg",
-          link: "https://amzn.to/3FcZUD1"
-        },
-        {
-          id: "prod33",
-          nome: "Samsung Galaxy A56 5G",
-          img: "https://m.media-amazon.com/images/I/616+oTRo6-L._AC_SL1500_.jpg",
-          link: "https://amzn.to/43ECrTf"
-        },
-        {
-          id: "prod34",
-          nome: "GALAXY A26 5G – 8GB + 256GB",
-          img: "https://m.media-amazon.com/images/I/61waTtq8hCL._AC_SL1500_.jpg",
-          link: "https://amzn.to/43gLxGT"
-        },
-        {
-          id: "prod35",
-          nome: "UpCircle Cotton fioc di bambù – 200 pezzi –",
-          img: "https://m.media-amazon.com/images/I/713AzRHXYeL._AC_SL1500_.jpg",
-          link: "https://amzn.to/43RhVzW"
-        },
-        {
-          id: "prod36",
-          nome: "Supradyn Energy Multivitaminico – 70 Caramelle",
-          img: "https://m.media-amazon.com/images/I/61MKKroaphL.__AC_SX300_SY300_QL70_ML2_.jpg",
-          link: "https://amzn.to/3FoIjIi"
-        },
-        {
-          id: "prod37",
-          nome: "ZPAPER - 6 Rotoli Asciugamani",
-          img: "https://m.media-amazon.com/images/I/51HcFzY9EmL._AC_SL1080_.jpg",
-          link: "https://amzn.to/4jnbTvu"
-        },
-        {
-          id: "prod38",
-          nome: "Amazon Basics Cerniera Sacchetti di stoccaggio sottovuoto",
-          img: "https://m.media-amazon.com/images/I/91krk-VZlwL._AC_SL1500_.jpg",
-          link: "https://amzn.to/4jrHVq9"
-        },
-        {
-          id: "prod39",
-          nome: "Amazon Basics - 8 Batterie Ricaricabili AA NiMH",
-          img: "https://m.media-amazon.com/images/I/7107Ze-04CL._AC_SL1500_.jpg",
-          link: "https://amzn.to/43PsHqs"
-        },
-        {
-          id: "prod40",
-          nome: "Fabuloso Ammorbidente Concentrato - 4x1,25L",
-          img: "https://m.media-amazon.com/images/I/812hFM3JmTL._AC_SL1500_.jpg",
-          link: "https://amzn.to/44Xo3rC"
-        },
-        {
-          id: "prod41",
-          nome: "ZPAPER - 60 Rotoli di Carta Igienica",
-          img: "https://m.media-amazon.com/images/I/61QKPdoU5TL.__AC_SX300_SY300_QL70_ML2_.jpg",
-          link: "https://amzn.to/4mChp0i"
-        },
-        {
-          id: "prod42",
-          nome: "Vitamina B12 Vegan 365 Compresse PiùLife",
-          img: "https://m.media-amazon.com/images/I/617i66nvMxL._AC_SY741_.jpg",
-          link: "https://amzn.to/3Hfvl04"
-        },
-        {
-          id: "prod43",
-          nome: "Magnesio Citrato Vegano Tamponato (240 Capsule)",
-          img: "https://m.media-amazon.com/images/I/71uuRXQz1JL._AC_SL1500_.jpg",
-          link: "https://amzn.to/4dM4hSk"
-        },
-        {
-          id: "prod44",
-          nome: "Zzzquil Natura Integratore Per Il Sonno",
-          img: "https://m.media-amazon.com/images/I/71GXfnVPsPL.__AC_SX300_SY300_QL70_ML2_.jpg",
-          link: "https://amzn.to/4jq1SOj"
-        },
-        {
-          id: "prod45",
-          nome: "Novanight Tripla Azione Melatonina per Dormire",
-          img: "https://m.media-amazon.com/images/I/71NY7I+OLQL._AC_SY300_SX300_.jpg",
-          link: "https://amzn.to/3Z3U39Q"
-        },
-        {
-          id: "prod46",
-          nome: "SWISSE Ultivit - Multivitaminico Ragazza (60 Compresse)",
-          img: "https://m.media-amazon.com/images/I/61NUQEFRTFL._AC_SX522_.jpg",
-          link: "https://amzn.to/43PEXay"
-        },
-        {
-          id: "prod47",
-          nome: "N-K PULABO Anello Intelligente Temperatura In Acciaio Inox",
-          img: "https://m.media-amazon.com/images/I/51AyIO7mVXL._AC_SX569_.jpg",
-          link: "https://amzn.to/4mAMTnv"
-        },
-        {
-          id: "prod48",
-          nome: "Amazon Essentials T-Shirt Basic Uomo - Pacco da 6",
-          img: "https://m.media-amazon.com/images/I/81Ev1JwtPhL._AC_SX569_.jpg",
-          link: "https://amzn.to/4jlkrDe"
-        },
-        {
-          id: "prod49",
-          nome: "ALPIDEX T-Shirt Uomo - Confezione da 5",
-          img: "https://m.media-amazon.com/images/I/61KSB-CGSyL._AC_SX569_.jpg",
-          link: "https://amzn.to/3SUAqNE"
-        },
-        {
-          id: "prod50",
-          nome: "Amazon Essentials Felpa con Cappuccio Donna",
-          img: "https://m.media-amazon.com/images/I/81Auh7uuz1L._AC_SX466_.jpg",
-          link: "https://amzn.to/3Z60eKn"
-        },
-        {
-          id: "prod51",
-          nome: "Amazfit Bip 5 Smartwatch 46 mm",
-          img: "https://m.media-amazon.com/images/I/61V8VUE1dFL.__AC_SX300_SY300_QL70_ML2_.jpg",
-          link: "https://amzn.to/43qkEio"
-        },
-        {
-          id: "prod52",
-          nome: "Imou 3MP Telecamera Wi-Fi Interno",
-          img: "https://m.media-amazon.com/images/I/51Kmnt241oL.__AC_SX300_SY300_QL70_ML2_.jpg",
-          link: "https://amzn.to/4jlczlj"
-        },
-        {
-          id: "prod53",
-          nome: "SEHMUA 4G LTE Telecamera Esterno senza Fili, Telecamera con Sim, 2K 360 PTZ, con Pannello Solare e Batterie",
-          img: "https://m.media-amazon.com/images/I/81UE75N+r1L._AC_SL1500_.jpg",
-          link: "https://amzn.to/43GhYgW"
-        },
-        {
-          id: "prod54",
-          nome: "Amazon Essentials Maglietta Intima con Scollo A V",
-          img: "https://m.media-amazon.com/images/I/71dy+yYz4iL._AC_SX522_.jpg",
-          link: "https://amzn.to/4kg3QC7"
-        },
-        {
-          id: "prod55",
-          nome: "by Amazon Quinoa biologica, 500g",
-          img: "https://m.media-amazon.com/images/I/71b8mpCMTOL.__AC_SX300_SY300_QL70_ML2_.jpg",
-          link: "https://amzn.to/4mB7UhK"
         }
       ];
     }
@@ -888,7 +788,7 @@
       const container = document.getElementById('liked-products');
       if (!container) return;
       container.innerHTML = liked.length === 0
-        ? '<div style="color:#888;">Nessun prodotto tra i preferiti.</div>'
+        ? '<div style="color:rgba(255,255,255,0.6);">Nessun prodotto tra i preferiti.</div>'
         : liked.map(prod => `
           <a href="${prod.link}" target="_blank" style="text-decoration:none;">
             <div class="product-card-liked">
@@ -899,16 +799,40 @@
         `).join('');
     }
 
-    // Carica dati all'avvio
-    window.onload = () => {
-      loadAccount();
+    // Event listeners per l'inizializzazione universale
+    document.addEventListener('DOMContentLoaded', function() {
+        loadThemePreference();
+        updateAccountBannerAndWidget();
 
-      // Listener per il toggle del tema
-      const themeToggle = document.getElementById('theme-toggle');
-      if (themeToggle) {
-          themeToggle.addEventListener('change', saveSettings); // Salva le impostazioni al cambio
-      }
-    };
+        const openLoginBtn = document.getElementById('open-login');
+        const openRegisterBtn = document.getElementById('open-register');
+        const modalBg = document.getElementById('modal-bg');
+        const userProfileWidget = document.getElementById('user-profile-widget');
+
+        if (openLoginBtn) openLoginBtn.onclick = showLogin;
+        if (openRegisterBtn) openRegisterBtn.onclick = showRegister;
+        if (modalBg) {
+            modalBg.onclick = function(e) {
+                if (e.target === this) closeModal();
+            };
+        }
+        
+        if (userProfileWidget) {
+            userProfileWidget.addEventListener('click', function(e) {
+                if (e.target.classList.contains('logout-button')) {
+                    return;
+                }
+                window.location.href = "account.html";
+            });
+        }
+
+        loadAccount();
+
+        const themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+            themeToggle.addEventListener('change', saveSettings);
+        }
+    });
   </script>
 </body>
 </html>

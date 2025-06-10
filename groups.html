@@ -5,98 +5,76 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gruppi - Cronoshop</title>
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --primary-color: #007aff; /* Apple Blue */
-      --background-color: #f2f2f7;
-      --text-color: #1c1c1e;
-      --card-background: #ffffff;
-      --card-shadow: rgba(0, 0, 0, 0.1);
-      --border-radius: 16px;
-      --transition-duration: 0.3s;
-    }
-
-    body {
-      font-family: 'League Spartan', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: var(--background-color);
-      color: var(--text-color);
-      text-align: center;
-      transition: background-color 0.3s ease, color 0.3s ease; /* Aggiunto per transizione fluida */
-    }
-
-    header {
-      background: var(--card-background);
-      color: var(--text-color);
-      padding: 20px;
-      box-shadow: 0 2px 5px var(--card-shadow);
-      border-bottom: 1px solid #e5e5ea;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 2rem;
-      font-weight: 600;
-    }
-
-    nav {
-      margin-top: 0.5rem;
-    }
-
-    nav a {
-      margin: 0 1rem;
-      text-decoration: none;
-      color: var(--primary-color);
-      font-weight: 500;
-      transition: color var(--transition-duration) ease;
-    }
-
-    nav a:hover {
-      color: #005bb5;
-    }
-
     .group-section {
-      margin: 50px auto;
+      margin: 3rem auto;
       max-width: 800px;
-      background: var(--card-background);
-      border-radius: var(--border-radius);
-      box-shadow: 0 5px 15px var(--card-shadow);
-      padding: 40px 20px;
+      background: var(--glass-bg);
+      backdrop-filter: var(--backdrop-blur);
+      -webkit-backdrop-filter: var(--backdrop-blur);
+      border: 1px solid var(--glass-border);
+      border-radius: 25px;
+      box-shadow: var(--glass-shadow);
+      padding: 3rem 2rem;
       text-align: center;
+      position: relative;
+    }
+
+    .group-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+      border-radius: inherit;
+      pointer-events: none;
     }
 
     .group-section h2 {
       font-size: 1.75rem;
-      margin-bottom: 20px;
-      font-weight: 600;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      color: var(--text-color);
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
 
     .group-section p {
       font-size: 1.1rem;
-      margin-bottom: 30px;
-      color: #3a3a3c;
+      margin-bottom: 2rem;
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.6;
+      position: relative;
+      z-index: 1;
     }
 
     .whatsapp-btn {
-      background: var(--card-background);
-      color: #25D366;
-      padding: 12px 24px;
-      border: 2px solid #25D366;
-      border-radius: 30px;
+      background: linear-gradient(135deg, rgba(37, 211, 102, 0.8) 0%, rgba(52, 199, 89, 0.8) 100%);
+      color: white;
+      padding: 1.2rem 2.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 18px;
       font-size: 1.1rem;
       font-weight: 600;
       cursor: pointer;
       text-decoration: none;
       display: inline-block;
-      transition: background-color var(--transition-duration) ease, color var(--transition-duration) ease, transform var(--transition-duration) ease;
+      transition: all var(--transition-duration);
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      position: relative;
+      z-index: 1;
     }
 
     .whatsapp-btn:hover {
-      background: #25D366;
-      color: white;
-      transform: scale(1.05);
+      background: linear-gradient(135deg, rgba(37, 211, 102, 1) 0%, rgba(52, 199, 89, 1) 100%);
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4);
     }
   </style>
 </head>
@@ -110,44 +88,45 @@
     </div>
   </div>
 
-  <div id="account-banner" style="background: #eaf6ff; color: #0071e3; padding: 0.7rem 1.5rem; text-align: center; font-size: 1.05rem; display: flex; align-items: center; justify-content: center; gap: 1.2rem; border-bottom: 1px solid #d0e6fa;">
+  <div id="account-banner">
     <span>Hai un account Cronoshop? <b>Accedi</b> o <b>registrati</b> per offerte personalizzate!</span>
-    <button id="open-login" style="background: var(--primary-color); color: #fff; border: none; border-radius: 8px; padding: 0.4rem 1.2rem; font-weight: 600; cursor: pointer; font-size: 1rem; transition: background 0.2s;">Accedi</button>
-    <button id="open-register" style="background: var(--primary-color); color: #fff; border: none; border-radius: 8px; padding: 0.4rem 1.2rem; font-weight: 600; cursor: pointer; font-size: 1rem; transition: background 0.2s;">Registrati</button>
+    <button id="open-login">Accedi</button>
+    <button id="open-register">Registrati</button>
   </div>
 
-  <div class="modal-bg" id="modal-bg" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.18); display: none; align-items: center; justify-content: center; z-index: 1000;">
-    <div class="modal" id="modal-login" style="background: #fff; border-radius: 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.13); padding: 2.2rem 2rem 1.5rem 2rem; min-width: 320px; max-width: 95vw; text-align: center; position: relative; animation: fadeIn 0.3s; display:none;">
-      <button class="close-modal" onclick="closeModal()" style="position: absolute; top: 0.7rem; right: 1rem; background: none; border: none; font-size: 1.5rem; color: #aaa; cursor: pointer;">&times;</button>
-      <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Accedi</h2>
-      <input type="text" id="login-username" placeholder="Username" autocomplete="username" style="width: 90%; margin: 0.5rem 0; padding: 0.7rem; border-radius: 8px; border: 1px solid #e0e0e5; font-size: 1rem;">
-      <input type="password" id="login-password" placeholder="Password" autocomplete="current-password" style="width: 90%; margin: 0.5rem 0; padding: 0.7rem; border-radius: 8px; border: 1px solid #e0e0e5; font-size: 1rem;">
-      <div class="error-msg" id="login-error" style="color: #d32f2f; font-size: 0.98rem; margin-top: 0.5rem;"></div>
-      <button onclick="loginUser()" style="margin-top: 1rem; background: var(--primary-color); color: #fff; border: none; border-radius: 8px; padding: 0.6rem 1.5rem; font-weight: 600; cursor: pointer; font-size: 1rem; transition: background 0.2s;">Accedi</button>
-      <div class="switch-link" onclick="showRegister()" style="color: var(--primary-color); cursor: pointer; font-size: 0.98rem; margin-top: 1rem; display: inline-block;">Non hai un account? Registrati</div>
+  <div class="modal-bg" id="modal-bg">
+    <div class="modal" id="modal-login" style="display:none;">
+      <button class="close-modal" onclick="closeModal()">&times;</button>
+      <h2>Accedi</h2>
+      <input type="text" id="login-username" placeholder="Username" autocomplete="username">
+      <input type="password" id="login-password" placeholder="Password" autocomplete="current-password">
+      <div class="error-msg" id="login-error"></div>
+      <button onclick="loginUser()">Accedi</button>
+      <div class="switch-link" onclick="showRegister()">Non hai un account? Registrati</div>
     </div>
-    <div class="modal" id="modal-register" style="background: #fff; border-radius: 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.13); padding: 2.2rem 2rem 1.5rem 2rem; min-width: 320px; max-width: 95vw; text-align: center; position: relative; animation: fadeIn 0.3s; display:none;">
-      <button class="close-modal" onclick="closeModal()" style="position: absolute; top: 0.7rem; right: 1rem; background: none; border: none; font-size: 1.5rem; color: #aaa; cursor: pointer;">&times;</button>
-      <h2 style="color: var(--primary-color); margin-bottom: 1rem;">Registrati</h2>
-      <input type="text" id="register-username" placeholder="Scegli username" autocomplete="username" style="width: 90%; margin: 0.5rem 0; padding: 0.7rem; border-radius: 8px; border: 1px solid #e0e0e5; font-size: 1rem;">
-      <input type="password" id="register-password" placeholder="Scegli password" autocomplete="new-password" style="width: 90%; margin: 0.5rem 0; padding: 0.7rem; border-radius: 8px; border: 1px solid #e0e0e5; font-size: 1rem;">
-      <div class="error-msg" id="register-error" style="color: #d32f2f; font-size: 0.98rem; margin-top: 0.5rem;"></div>
-      <button onclick="registerUser()" style="margin-top: 1rem; background: var(--primary-color); color: #fff; border: none; border-radius: 8px; padding: 0.6rem 1.5rem; font-weight: 600; cursor: pointer; font-size: 1rem; transition: background 0.2s;">Registrati</button>
-      <div class="switch-link" onclick="showLogin()" style="color: var(--primary-color); cursor: pointer; font-size: 0.98rem; margin-top: 1rem; display: inline-block;">Hai già un account? Accedi</div>
+    <div class="modal" id="modal-register" style="display:none;">
+      <button class="close-modal" onclick="closeModal()">&times;</button>
+      <h2>Registrati</h2>
+      <input type="text" id="register-username" placeholder="Scegli username" autocomplete="username">
+      <input type="password" id="register-password" placeholder="Scegli password" autocomplete="new-password">
+      <div class="error-msg" id="register-error"></div>
+      <button onclick="registerUser()">Registrati</button>
+      <div class="switch-link" onclick="showLogin()">Hai già un account? Accedi</div>
     </div>
   </div>
 
   <header>
     <h1>Unisciti ai nostri Gruppi</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="products.html">Prodotti</a>
-      <a href="gropus.html">Gruppi</a>
-      <a href="come-funziona.html">Come Funziona</a>
-      <a href="faq.html">FAQ</a>
-      <a href="favorites.html">Preferiti</a>
-    </nav>
   </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="products.html">Prodotti</a>
+    <a href="groups.html">Gruppi</a>
+    <a href="come-funziona.html">Come Funziona</a>
+    <a href="faq.html">FAQ</a>
+    <a href="favorites.html">Preferiti</a>
+  </nav>
 
   <main>
     <section class="group-section">
@@ -156,10 +135,10 @@
       <a href="https://whatsapp.com/channel/0029Vb5wE6mDeON8PBORW02R" class="whatsapp-btn" target="_blank">Unisciti al gruppo</a>
     </section>
   </main>
+  
   <script>
-    // --- Funzioni di Account e Tema Universali (copia da index.html) ---
+    // --- Funzioni di Account e Tema Universali ---
 
-    // Helpers
     function hash(str) {
       let h = 0, i, chr;
       if (str.length === 0) return h;
@@ -187,8 +166,6 @@
       localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify(data));
     }
 
-
-    // Gestione del Tema
     function applyTheme(theme) {
         if (theme === 'dark') {
             document.body.classList.add('dark-mode');
@@ -199,20 +176,18 @@
 
     function loadThemePreference() {
         const user = getUser();
-        let savedTheme = 'light'; // Default theme
+        let savedTheme = 'light';
         if (user && user.username) {
             const userDb = getUserDb(user.username);
             if (userDb && userDb.settings && userDb.settings.theme) {
                 savedTheme = userDb.settings.theme;
             }
         } else {
-            // Se non loggato, controlla una preferenza globale non utente specifica (opzionale)
             savedTheme = localStorage.getItem('global_theme_preference') || 'light';
         }
         applyTheme(savedTheme);
     }
 
-    // Banner e widget account
     function updateAccountBannerAndWidget() {
       const user = getUser();
       const banner = document.getElementById('account-banner');
@@ -223,7 +198,7 @@
 
       if (user && user.username) {
         if (banner) banner.style.display = 'none';
-        if (profileWidget) profileWidget.style.display = 'flex'; // Mostra il widget
+        if (profileWidget) profileWidget.style.display = 'flex';
         const userDb = getUserDb(user.username);
         if (profilePicWidget) {
             if (userDb && userDb.profilePic) {
@@ -237,11 +212,10 @@
 
       } else {
         if (banner) banner.style.display = 'flex';
-        if (profileWidget) profileWidget.style.display = 'none'; // Nasconde il widget
+        if (profileWidget) profileWidget.style.display = 'none';
       }
     }
 
-    // Modale Login/Registrazione
     function openModal(type) {
       const modalBg = document.getElementById('modal-bg');
       const modalLogin = document.getElementById('modal-login');
@@ -262,7 +236,6 @@
     function showLogin() { openModal('login'); }
     function showRegister() { openModal('register'); }
 
-    // Registrazione
     function registerUser() {
       const usernameInput = document.getElementById('register-username');
       const passwordInput = document.getElementById('register-password');
@@ -283,16 +256,15 @@
       localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify({
         username,
         password: hash(password),
-        email: '', // Inizializza l'email vuota
-        settings: { theme: 'light', notifications: { email: false } } // Impostazioni predefinite
+        email: '',
+        settings: { theme: 'light', notifications: { email: false } }
       }));
       setUser({ username });
       closeModal();
       updateAccountBannerAndWidget();
-      loadThemePreference(); // Applica il tema predefinito al login
+      loadThemePreference();
     }
 
-    // Login
     function loginUser() {
       const usernameInput = document.getElementById('login-username');
       const passwordInput = document.getElementById('login-password');
@@ -310,24 +282,21 @@
       setUser({ username });
       closeModal();
       updateAccountBannerAndWidget();
-      loadThemePreference(); // Applica il tema salvato al login
+      loadThemePreference();
     }
 
-    // Logout
     function logoutUser(event) {
-      if (event) event.stopPropagation(); // Evita che il click si propaghi al widget
+      if (event) event.stopPropagation();
       removeUser();
       updateAccountBannerAndWidget();
-      applyTheme('light'); // Torna al tema chiaro al logout
-      localStorage.removeItem('global_theme_preference'); // Rimuovi preferenza globale se non loggato
-      // Reindirizza l'utente alla home o alla pagina corrente se preferisci
-      // window.location.href = "index.html";
+      applyTheme('light');
+      localStorage.removeItem('global_theme_preference');
     }
 
-    // Event listeners per l'inizializzazione universale (copia da index.html)
+    // Event listeners per l'inizializzazione universale
     document.addEventListener('DOMContentLoaded', function() {
-        loadThemePreference(); // Carica il tema all'avvio della pagina
-        updateAccountBannerAndWidget(); // Inizializza banner e widget
+        loadThemePreference();
+        updateAccountBannerAndWidget();
 
         const openLoginBtn = document.getElementById('open-login');
         const openRegisterBtn = document.getElementById('open-register');
@@ -342,10 +311,8 @@
             };
         }
         
-        // Gestore per il click sul widget account
         if (userProfileWidget) {
             userProfileWidget.addEventListener('click', function(e) {
-                // Impedisci la navigazione se clicchi sul pulsante di logout all'interno del widget
                 if (e.target.classList.contains('logout-button')) {
                     return;
                 }
