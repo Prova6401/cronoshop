@@ -1,838 +1,744 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Il tuo Account - Cronoshop</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    .account-container {
-      max-width: 420px;
-      margin: 3rem auto 2rem auto;
-      background: var(--glass-bg);
-      backdrop-filter: var(--backdrop-blur);
-      -webkit-backdrop-filter: var(--backdrop-blur);
-      border: 1px solid var(--glass-border);
-      border-radius: 25px;
-      box-shadow: var(--glass-shadow);
-      padding: 2.5rem 2rem 2rem 2rem;
-      text-align: center;
-      position: relative;
-    }
-
-    .account-container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-      border-radius: inherit;
-      pointer-events: none;
-    }
-
-    .profile-pic {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      object-fit: cover;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-      margin-bottom: 1.2rem;
-      border: 3px solid rgba(0, 122, 255, 0.5);
-      background: rgba(255, 255, 255, 0.1);
-      position: relative;
-      z-index: 1;
-    }
-
-    .account-form input[type="text"],
-    .account-form input[type="email"],
-    .account-form input[type="password"],
-    .account-form input[type="file"] {
-      width: 90%;
-      margin: 0.5rem 0 1rem 0;
-      padding: 1rem;
-      border-radius: 15px;
-      border: 1px solid var(--glass-border);
-      font-size: 1rem;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      color: var(--text-color);
-      transition: all var(--transition-duration);
-      position: relative;
-      z-index: 1;
-    }
-
-    .account-form input:focus {
-      outline: none;
-      border-color: rgba(0, 122, 255, 0.5);
-      box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.2);
-      background: rgba(255, 255, 255, 0.15);
-    }
-
-    .account-form input::placeholder {
-      color: rgba(255, 255, 255, 0.6);
-    }
-
-    .account-form label {
-      display: block;
-      text-align: left;
-      margin: 0.5rem 0 0.2rem 0.5rem;
-      font-size: 1rem;
-      color: var(--text-color);
-      font-weight: 500;
-      position: relative;
-      z-index: 1;
-    }
-
-    .account-form button {
-      background: linear-gradient(135deg, rgba(0, 122, 255, 0.8) 0%, rgba(88, 86, 214, 0.8) 100%);
-      color: #fff;
-      border: none;
-      border-radius: 15px;
-      padding: 1rem 2rem;
-      font-weight: 600;
-      font-size: 1.05rem;
-      margin: 0.5rem 0.3rem;
-      cursor: pointer;
-      transition: all var(--transition-duration);
-      box-shadow: 0 8px 25px rgba(0, 122, 255, 0.3);
-      position: relative;
-      z-index: 1;
-    }
-
-    .account-form button:hover {
-      transform: translateY(-3px) scale(1.05);
-      box-shadow: 0 15px 35px rgba(0, 122, 255, 0.4);
-    }
-
-    .danger-btn {
-      background: linear-gradient(135deg, rgba(255, 59, 48, 0.8) 0%, rgba(255, 45, 85, 0.8) 100%) !important;
-      color: #fff !important;
-      margin-top: 1.2rem;
-      box-shadow: 0 8px 25px rgba(255, 59, 48, 0.3) !important;
-    }
-
-    .danger-btn:hover {
-      background: linear-gradient(135deg, rgba(255, 59, 48, 1) 0%, rgba(255, 45, 85, 1) 100%) !important;
-      box-shadow: 0 15px 35px rgba(255, 59, 48, 0.4) !important;
-    }
-
-    .success-msg {
-      color: #30D158;
-      font-size: 1rem;
-      margin-bottom: 0.7rem;
-      text-shadow: 0 0 10px rgba(48, 209, 88, 0.5);
-      position: relative;
-      z-index: 1;
-    }
-
-    .error-msg {
-      color: #FF453A;
-      font-size: 1rem;
-      margin-bottom: 0.7rem;
-      text-shadow: 0 0 10px rgba(255, 69, 58, 0.5);
-      position: relative;
-      z-index: 1;
-    }
-
-    .section-separator {
-      border-top: 1px solid var(--glass-border);
-      margin: 2.5rem 0;
-      padding-top: 2.5rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .section-separator h2 {
-      font-size: 1.5rem;
-      color: var(--text-color);
-      margin-bottom: 1.5rem;
-      position: relative;
-      z-index: 1;
-    }
-
-    .theme-switch-wrapper {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-      gap: 10px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .theme-switch {
-      display: inline-block;
-      height: 34px;
-      position: relative;
-      width: 60px;
-    }
-
-    .theme-switch input {
-      display: none;
-    }
-
-    .slider {
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      bottom: 0;
-      cursor: pointer;
-      left: 0;
-      position: absolute;
-      right: 0;
-      top: 0;
-      transition: .4s;
-      border-radius: 34px;
-      border: 1px solid var(--glass-border);
-    }
-
-    .slider:before {
-      background: #fff;
-      bottom: 3px;
-      content: "";
-      height: 26px;
-      left: 3px;
-      position: absolute;
-      transition: .4s;
-      width: 26px;
-      border-radius: 50%;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    input:checked + .slider {
-      background: rgba(0, 122, 255, 0.8);
-    }
-
-    input:checked + .slider:before {
-      transform: translateX(26px);
-    }
-
-    .theme-switch-label {
-      font-weight: 500;
-      color: var(--text-color);
-    }
-
-    .product-card-liked {
-      background: var(--glass-bg);
-      backdrop-filter: var(--backdrop-blur);
-      -webkit-backdrop-filter: var(--backdrop-blur);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      box-shadow: var(--glass-shadow);
-      padding: 1rem;
-      max-width: 160px;
-      text-align: center;
-      transition: all var(--transition-duration);
-      position: relative;
-    }
-
-    .product-card-liked::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-      border-radius: inherit;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity var(--transition-duration);
-    }
-
-    .product-card-liked:hover::before {
-      opacity: 1;
-    }
-
-    .product-card-liked:hover {
-      transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-    }
-
-    .product-card-liked img {
-      width: 90px;
-      height: 90px;
-      object-fit: contain;
-      border-radius: 15px;
-      background: rgba(255, 255, 255, 0.1);
-      margin-bottom: 0.5rem;
-    }
-
-    .product-card-liked .product-name {
-      font-size: 0.98rem;
-      color: var(--text-color);
-      font-weight: 600;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account - Cronoshop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="user-profile-widget" style="display:none;">
-    <img id="profile-pic-widget" src="https://ui-avatars.com/api/?name=User&background=eeeeee&color=0071e3" alt="Foto profilo">
-    <div id="user-info-text">
-      <div class="username-display" id="widget-username"></div>
-      <div class="email-display" id="widget-email"></div>
-      <button class="logout-button" onclick="logoutUser(event)">Logout</button>
-    </div>
-  </div>
+    <!-- Animated Background -->
+    <div class="animated-background"></div>
+    
+    <!-- Header -->
+    <header class="glass-header">
+        <nav class="nav-container">
+            <div class="logo">
+                <h1><a href="index.html" style="text-decoration: none; color: inherit;">🛍️ Cronoshop</a></h1>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#offerte" class="nav-link">Offerte</a>
+                <a href="categorie.html" class="nav-link">Categorie</a>
+                <a href="wishlist.html" class="nav-link">Wishlist</a>
+                <a href="account.html" class="nav-link active">Profilo</a>
+            </div>
+            <div class="nav-actions">
+                <a href="cart.html" class="glass-btn cart-btn">🛒 <span class="cart-count">0</span></a>
+                <button class="glass-btn theme-btn">🌙</button>
+                <button class="glass-btn mobile-menu-btn">☰</button>
+            </div>
+        </nav>
+    </header>
 
-  <div id="account-banner">
-    <span>Hai un account Cronoshop? <b>Accedi</b> o <b>registrati</b> per offerte personalizzate!</span>
-    <button id="open-login">Accedi</button>
-    <button id="open-register">Registrati</button>
-  </div>
-
-  <div class="modal-bg" id="modal-bg">
-    <div class="modal" id="modal-login" style="display:none;">
-      <button class="close-modal" onclick="closeModal()">&times;</button>
-      <h2>Accedi</h2>
-      <input type="text" id="login-username" placeholder="Username" autocomplete="username">
-      <input type="password" id="login-password" placeholder="Password" autocomplete="current-password">
-      <div class="error-msg" id="login-error"></div>
-      <button onclick="loginUser()">Accedi</button>
-      <div class="switch-link" onclick="showRegister()">Non hai un account? Registrati</div>
-    </div>
-    <div class="modal" id="modal-register" style="display:none;">
-      <button class="close-modal" onclick="closeModal()">&times;</button>
-      <h2>Registrati</h2>
-      <input type="text" id="register-username" placeholder="Scegli username" autocomplete="username">
-      <input type="password" id="register-password" placeholder="Scegli password" autocomplete="new-password">
-      <div class="error-msg" id="register-error"></div>
-      <button onclick="registerUser()">Registrati</button>
-      <div class="switch-link" onclick="showLogin()">Hai già un account? Accedi</div>
-    </div>
-  </div>
-
-  <header>
-    <h1>Il tuo Account</h1>
-  </header>
-  
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="products.html">Prodotti</a>
-    <a href="groups.html">Gruppi</a>
-    <a href="come-funziona.html">Come Funziona</a>
-    <a href="faq.html">FAQ</a>
-    <a href="favorites.html">Preferiti</a>
-    <a href="cart.html">Carrello</a>
-  </nav>
-
-  <main>
-    <div class="account-container">
-      <img id="profile-pic" class="profile-pic" src="https://ui-avatars.com/api/?name=User&background=eeeeee&color=0071e3" alt="Foto profilo" />
-      <form class="account-form" onsubmit="return false;">
-        <label for="username">Username</label>
-        <input type="text" id="username" maxlength="20" autocomplete="username" />
-        <label for="email">Email (opzionale)</label>
-        <input type="email" id="email" maxlength="40" autocomplete="email" />
-        <label for="profile-pic-input">Foto profilo</label>
-        <input type="file" id="profile-pic-input" accept="image/*" />
+    <!-- Account Section -->
+    <section class="account-section" style="padding-top: 120px;">
+        <div class="section-header">
+            <h2>👤 Il Tuo Account</h2>
+            <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 2rem;">Gestisci il tuo profilo e le tue preferenze</p>
+        </div>
         
-        <div class="section-separator">
-            <h2>Cambia Password</h2>
-            <div class="error-msg" id="password-error"></div>
-            <div class="success-msg" id="password-success"></div>
-            <label for="old-password">Vecchia Password</label>
-            <input type="password" id="old-password" autocomplete="current-password" />
-            <label for="new-password">Nuova Password</label>
-            <input type="password" id="new-password" autocomplete="new-password" />
-            <label for="confirm-new-password">Conferma Nuova Password</label>
-            <input type="password" id="confirm-new-password" autocomplete="new-password" />
-            <button onclick="changePassword()">Cambia Password</button>
+        <!-- User Profile Card -->
+        <div class="glass-card profile-card" style="margin-bottom: 2rem; padding: 2rem;">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <div class="avatar-circle">👤</div>
+                    <button class="glass-btn mini-btn change-avatar-btn">Cambia</button>
+                </div>
+                <div class="profile-info">
+                    <h3 id="userName">Ospite</h3>
+                    <p id="userEmail">Non connesso</p>
+                    <div class="user-stats">
+                        <span class="stat-badge">🏆 <span id="userPoints">0</span> punti</span>
+                        <span class="stat-badge">📅 Membro da <span id="memberSince">oggi</span></span>
+                    </div>
+                </div>
+                <div class="profile-actions">
+                    <button class="glass-btn primary-btn" id="loginBtn">Accedi</button>
+                    <button class="glass-btn secondary-btn" id="logoutBtn" style="display: none;">Esci</button>
+                </div>
+            </div>
         </div>
 
-        <div class="section-separator">
-            <h2>Impostazioni</h2>
-            <div class="success-msg" id="settings-success"></div>
-
-            <div class="theme-switch-wrapper">
-                <span class="theme-switch-label">Tema Chiaro</span>
-                <label class="theme-switch" for="theme-toggle">
-                    <input type="checkbox" id="theme-toggle">
-                    <div class="slider round"></div>
-                </label>
-                <span class="theme-switch-label">Tema Scuro</span>
+        <!-- Account Options -->
+        <div class="account-options">
+            <div class="glass-card option-card">
+                <div class="option-icon">⚙️</div>
+                <div class="option-content">
+                    <h4>Impostazioni</h4>
+                    <p>Personalizza la tua esperienza</p>
+                </div>
+                <button class="glass-btn secondary-btn">Gestisci</button>
             </div>
 
-            <div style="text-align: left; margin: 1rem 0 1rem 0.5rem; position: relative; z-index: 1;">
-                <input type="checkbox" id="notification-email" style="width: auto; margin-right: 10px;">
-                <label for="notification-email" style="display: inline; font-weight: normal; color: var(--text-color);">Ricevi offerte e aggiornamenti via email</label>
+            <div class="glass-card option-card">
+                <div class="option-icon">🌙</div>
+                <div class="option-content">
+                    <h4>Tema</h4>
+                    <p>Scegli tra tema chiaro e scuro</p>
+                </div>
+                <button class="glass-btn secondary-btn" id="themeToggle">Cambia</button>
             </div>
-            <button onclick="saveSettings()">Salva Impostazioni</button>
+
+            <div class="glass-card option-card">
+                <div class="option-icon">🔔</div>
+                <div class="option-content">
+                    <h4>Notifiche</h4>
+                    <p>Gestisci le notifiche push</p>
+                </div>
+                <button class="glass-btn secondary-btn" id="notificationToggle">Attiva</button>
+            </div>
+
+            <div class="glass-card option-card">
+                <div class="option-icon">📊</div>
+                <div class="option-content">
+                    <h4>I Tuoi Dati</h4>
+                    <p>Esporta o elimina i tuoi dati</p>
+                </div>
+                <button class="glass-btn secondary-btn" id="exportData">Esporta</button>
+            </div>
+
+            <div class="glass-card option-card">
+                <div class="option-icon">🛡️</div>
+                <div class="option-content">
+                    <h4>Privacy</h4>
+                    <p>Impostazioni privacy e sicurezza</p>
+                </div>
+                <button class="glass-btn secondary-btn">Gestisci</button>
+            </div>
+
+            <div class="glass-card option-card">
+                <div class="option-icon">❓</div>
+                <div class="option-content">
+                    <h4>Aiuto</h4>
+                    <p>FAQ e supporto clienti</p>
+                </div>
+                <button class="glass-btn secondary-btn">Apri</button>
+            </div>
         </div>
 
-        <div class="section-separator">
-            <h2>Gestione Dati</h2>
-            <button onclick="exportAccountData()">Esporta Dati Account</button>
-        </div>
-
-        <div id="account-msg" class="success-msg"></div>
-        <button onclick="saveAccount()">Salva Modifiche Profilo</button>
-        <button class="danger-btn" onclick="disableAccount()">Disabilita account</button>
-        <button class="danger-btn" onclick="deleteAccount()">Elimina account</button>
-      </form>
-    </div>
-    <div id="liked-products-section" style="margin-top:2.5rem;">
-      <h2 style="font-size:1.15rem;color:var(--text-color);margin-bottom:1rem;text-align:center;">I tuoi prodotti preferiti</h2>
-      <div id="liked-products" style="display:flex;flex-wrap:wrap;gap:1.2rem;justify-content:center;"></div>
-    </div>
-  </main>
-  <script>
-    // Helpers
-    function hash(str) {
-      let h = 0, i, chr;
-      if (str.length === 0) return h;
-      for (i = 0; i < str.length; i++) {
-        chr = str.charCodeAt(i);
-        h = ((h << 5) - h) + chr;
-        h |= 0;
-      }
-      return h;
-    }
-    function getUser() {
-      return JSON.parse(localStorage.getItem('cronoshop_user') || 'null');
-    }
-    function setUser(user) {
-      localStorage.setItem('cronoshop_user', JSON.stringify(user));
-    }
-    function removeUser() {
-      localStorage.removeItem('cronoshop_user');
-    }
-    function getUserDb(username) {
-      return JSON.parse(localStorage.getItem('cronoshop_user_db_' + username) || 'null');
-    }
-    function setUserDb(username, data) {
-      localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify(data));
-    }
-    function removeUserDb(username) {
-      localStorage.removeItem('cronoshop_user_db_' + username);
-    }
-
-    // Funzione per mostrare messaggi temporanei
-    function showMessage(elementId, message, isSuccess) {
-        const element = document.getElementById(elementId);
-        if (element) {
-            element.textContent = message;
-            element.className = isSuccess ? 'success-msg' : 'error-msg';
-            setTimeout(() => { element.textContent = ''; element.className = ''; }, 3000);
-        }
-    }
-
-    // Gestione del Tema
-    function applyTheme(theme) {
-        if (theme === 'dark') {
-            document.body.classList.add('dark-mode');
-        } else {
-            document.body.classList.remove('dark-mode');
-        }
-    }
-
-    function loadThemePreference() {
-        const user = getUser();
-        let savedTheme = 'light';
-        if (user && user.username) {
-            const userDb = getUserDb(user.username);
-            if (userDb && userDb.settings && userDb.settings.theme) {
-                savedTheme = userDb.settings.theme;
-            }
-        } else {
-            savedTheme = localStorage.getItem('global_theme_preference') || 'light';
-        }
-        applyTheme(savedTheme);
-    }
-
-    // Banner e widget account
-    function updateAccountBannerAndWidget() {
-      const user = getUser();
-      const banner = document.getElementById('account-banner');
-      const profileWidget = document.getElementById('user-profile-widget');
-      const profilePicWidget = document.getElementById('profile-pic-widget');
-      const widgetUsername = document.getElementById('widget-username');
-      const widgetEmail = document.getElementById('widget-email');
-
-      if (user && user.username) {
-        if (banner) banner.style.display = 'none';
-        if (profileWidget) profileWidget.style.display = 'flex';
-        const userDb = getUserDb(user.username);
-        if (profilePicWidget) {
-            if (userDb && userDb.profilePic) {
-                profilePicWidget.src = userDb.profilePic;
-            } else {
-                profilePicWidget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.username)}&background=eeeeee&color=0071e3`;
-            }
-        }
-        if (widgetUsername) widgetUsername.textContent = user.username;
-        if (widgetEmail) widgetEmail.textContent = userDb && userDb.email ? userDb.email : 'Nessuna email';
-
-      } else {
-        if (banner) banner.style.display = 'flex';
-        if (profileWidget) profileWidget.style.display = 'none';
-      }
-    }
-
-    // Modale Login/Registrazione
-    function openModal(type) {
-      const modalBg = document.getElementById('modal-bg');
-      const modalLogin = document.getElementById('modal-login');
-      const modalRegister = document.getElementById('modal-register');
-      const loginError = document.getElementById('login-error');
-      const registerError = document.getElementById('register-error');
-
-      if (modalBg) modalBg.classList.add('active');
-      if (modalLogin) modalLogin.style.display = type === 'login' ? 'block' : 'none';
-      if (modalRegister) modalRegister.style.display = type === 'register' ? 'block' : 'none';
-      if (loginError) loginError.textContent = '';
-      if (registerError) registerError.textContent = '';
-    }
-    function closeModal() {
-      const modalBg = document.getElementById('modal-bg');
-      if (modalBg) modalBg.classList.remove('active');
-    }
-    function showLogin() { openModal('login'); }
-    function showRegister() { openModal('register'); }
-
-    // Registrazione
-    function registerUser() {
-      const usernameInput = document.getElementById('register-username');
-      const passwordInput = document.getElementById('register-password');
-      const errorElement = document.getElementById('register-error');
-
-      const username = usernameInput ? usernameInput.value.trim() : '';
-      const password = passwordInput ? passwordInput.value : '';
-      const error = errorElement;
-
-      if (!username || !password) {
-        if (error) error.textContent = 'Compila tutti i campi.';
-        return;
-      }
-      if (localStorage.getItem('cronoshop_user_db_' + username)) {
-        if (error) error.textContent = 'Username già registrato.';
-        return;
-      }
-      localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify({
-        username,
-        password: hash(password),
-        email: '',
-        settings: { theme: 'light', notifications: { email: false } }
-      }));
-      setUser({ username });
-      closeModal();
-      updateAccountBannerAndWidget();
-      loadThemePreference();
-    }
-
-    // Login
-    function loginUser() {
-      const usernameInput = document.getElementById('login-username');
-      const passwordInput = document.getElementById('login-password');
-      const errorElement = document.getElementById('login-error');
-
-      const username = usernameInput ? usernameInput.value.trim() : '';
-      const password = passwordInput ? passwordInput.value : '';
-      const error = errorElement;
-
-      const userDb = JSON.parse(localStorage.getItem('cronoshop_user_db_' + username) || 'null');
-      if (!userDb || userDb.password !== hash(password)) {
-        if (error) error.textContent = 'Username o password errati.';
-        return;
-      }
-      setUser({ username });
-      closeModal();
-      updateAccountBannerAndWidget();
-      loadThemePreference();
-    }
-
-    // Logout
-    function logoutUser(event) {
-      if (event) event.stopPropagation();
-      removeUser();
-      updateAccountBannerAndWidget();
-      applyTheme('light');
-      localStorage.removeItem('global_theme_preference');
-    }
-
-    // Carica dati utente e impostazioni
-    function loadAccount() {
-      const user = getUser();
-      if (!user || !user.username) {
-        window.location.href = "index.html";
-        return;
-      }
-      const db = getUserDb(user.username);
-      document.getElementById('username').value = db?.username || user.username;
-      document.getElementById('email').value = db?.email || '';
-      if (db?.profilePic) {
-        document.getElementById('profile-pic').src = db.profilePic;
-      } else {
-        document.getElementById('profile-pic').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(db?.username || user.username)}&background=eeeeee&color=0071e3`;
-      }
-
-      const themePreference = db?.settings?.theme || 'light';
-      if (themePreference === 'dark') {
-          document.body.classList.add('dark-mode');
-          document.getElementById('theme-toggle').checked = true;
-      } else {
-          document.body.classList.remove('dark-mode');
-          document.getElementById('theme-toggle').checked = false;
-      }
-
-      document.getElementById('notification-email').checked = db?.settings?.notifications?.email || false;
-
-      renderLikedProducts();
-    }
-
-    // Cambia foto profilo
-    document.getElementById('profile-pic-input').addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(ev) {
-        document.getElementById('profile-pic').src = ev.target.result;
-      };
-      reader.readAsDataURL(file);
-    });
-
-    // Salva modifiche account (username, email, foto)
-    function saveAccount() {
-      const user = getUser();
-      if (!user || !user.username) return;
-      const db = getUserDb(user.username) || {};
-      const newUsername = document.getElementById('username').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const picSrc = document.getElementById('profile-pic').src;
-      const msg = document.getElementById('account-msg');
-      msg.textContent = '';
-      msg.className = '';
-
-      if (!newUsername) {
-        showMessage('account-msg', "Username obbligatorio.", false);
-        return;
-      }
-      if (newUsername !== user.username && localStorage.getItem('cronoshop_user_db_' + newUsername)) {
-        showMessage('account-msg', "Username già esistente.", false);
-        return;
-      }
-      
-      const newDb = {
-        ...db,
-        username: newUsername,
-        email: email,
-        profilePic: picSrc
-      };
-
-      if (newUsername !== user.username) {
-        setUserDb(newUsername, newDb);
-        removeUserDb(user.username);
-        setUser({ username: newUsername });
-      } else {
-        setUserDb(newUsername, newDb);
-      }
-      showMessage('account-msg', "Modifiche profilo salvate!", true);
-      loadAccount();
-    }
-
-    // Funzione per cambiare password
-    function changePassword() {
-        const user = getUser();
-        if (!user || !user.username) {
-            showMessage('password-error', "Devi essere loggato per cambiare password.", false);
-            return;
-        }
-
-        const oldPassword = document.getElementById('old-password').value;
-        const newPassword = document.getElementById('new-password').value;
-        const confirmNewPassword = document.getElementById('confirm-new-password').value;
-        const db = getUserDb(user.username);
-
-        if (!oldPassword || !newPassword || !confirmNewPassword) {
-            showMessage('password-error', "Compila tutti i campi.", false);
-            return;
-        }
-        if (hash(oldPassword) !== db.password) {
-            showMessage('password-error', "Vecchia password non corretta.", false);
-            return;
-        }
-        if (newPassword.length < 6) {
-            showMessage('password-error', "La nuova password deve essere almeno di 6 caratteri.", false);
-            return;
-        }
-        if (newPassword !== confirmNewPassword) {
-            showMessage('password-error', "La nuova password e la conferma non corrispondono.", false);
-            return;
-        }
-
-        db.password = hash(newPassword);
-        setUserDb(user.username, db);
-        showMessage('password-success', "Password cambiata con successo!", true);
-        
-        document.getElementById('old-password').value = '';
-        document.getElementById('new-password').value = '';
-        document.getElementById('confirm-new-password').value = '';
-    }
-
-    // Funzione per salvare le impostazioni
-    function saveSettings() {
-        const user = getUser();
-        if (!user || !user.username) {
-            showMessage('settings-success', "Devi essere loggato per salvare le impostazioni.", false);
-            return;
-        }
-        const db = getUserDb(user.username) || {};
-
-        const themeToggle = document.getElementById('theme-toggle');
-        const selectedTheme = themeToggle.checked ? 'dark' : 'light';
-        document.body.classList.toggle('dark-mode', themeToggle.checked);
-        
-        const emailNotifications = document.getElementById('notification-email').checked;
-
-        db.settings = {
-            theme: selectedTheme,
-            notifications: {
-                email: emailNotifications
-            }
-        };
-        setUserDb(user.username, db);
-        showMessage('settings-success', "Impostazioni salvate!", true);
-    }
-
-    // Disabilita account (logout)
-    function disableAccount() {
-      if (confirm("Vuoi disabilitare temporaneamente il tuo account? Potrai riaccedere in futuro.")) {
-        removeUser();
-        window.location.href = "index.html";
-      }
-    }
-
-    // Elimina account (definitivo)
-    function deleteAccount() {
-      if (confirm("Sei sicuro di voler eliminare DEFINITIVAMENTE il tuo account? Questa azione è irreversibile.")) {
-        const user = getUser();
-        if (user && user.username) {
-          removeUserDb(user.username);
-          removeUser();
-        }
-        window.location.href = "index.html";
-      }
-    }
-
-    // Funzione per esportare i dati dell'account
-    function exportAccountData() {
-        const user = getUser();
-        if (!user || !user.username) {
-            showMessage('account-msg', "Devi essere loggato per esportare i dati.", false);
-            return;
-        }
-
-        const userDb = getUserDb(user.username);
-        const likes = JSON.parse(localStorage.getItem('cronoshop_likes') || '{}');
-        const points = JSON.parse(localStorage.getItem('cronoshop_points') || '{}');
-
-        const dataToExport = {
-            profile: {
-                username: userDb.username,
-                email: userDb.email,
-                profilePic: userDb.profilePic,
-                settings: userDb.settings
-            },
-            likedProducts: Object.keys(likes).filter(id => likes[id]),
-            points: points[user.username] || 0
-        };
-
-        const filename = `cronoshop_data_${user.username}.json`;
-        const blob = new Blob([JSON.stringify(dataToExport, null, 2)], { type: 'application/json' });
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(a.href);
-        showMessage('account-msg', "Dati esportati con successo!", true);
-    }
-
-    // --- Mostra prodotti preferiti ---
-    function getLikes() {
-      return JSON.parse(localStorage.getItem('cronoshop_likes') || '{}');
-    }
-    function getProdotti() {
-      return [
-        {
-          id: "prod1",
-          nome: "Samsung Galaxy S25 Ultra",
-          img: "https://m.media-amazon.com/images/I/61hiFJPpY9L._AC_SL1500_.jpg",
-          link: "https://amzn.to/3Z551fa"
-        },
-        {
-          id: "prod2",
-          nome: "by Amazon Quinoa biologica, 500g",
-          img: "https://m.media-amazon.com/images/I/71b8mpCMTOL._AC_SL1500_.jpg",
-          link: "https://amzn.to/4mB7UhK"
-        },
-        {
-          id: "prod3",
-          nome: "Apple iPhone 15",
-          img: "https://m.media-amazon.com/images/I/71d7rfSl0wL._AC_SL1500_.jpg",
-          link: "https://www.amazon.it/dp/B0CHWV5HTM"
-        }
-      ];
-    }
-    function renderLikedProducts() {
-      const likes = getLikes();
-      const prodotti = getProdotti();
-      const liked = prodotti.filter(p => likes[p.id]);
-      const container = document.getElementById('liked-products');
-      if (!container) return;
-      container.innerHTML = liked.length === 0
-        ? '<div style="color:rgba(255,255,255,0.6);">Nessun prodotto tra i preferiti.</div>'
-        : liked.map(prod => `
-          <a href="${prod.link}" target="_blank" style="text-decoration:none;">
-            <div class="product-card-liked">
-              <img src="${prod.img}" alt="${prod.nome}">
-              <div class="product-name">${prod.nome}</div>
+        <!-- Activity Summary -->
+        <div class="glass-card activity-summary" style="margin-top: 2rem; padding: 2rem;">
+            <h3 style="color: white; margin-bottom: 1.5rem;">📈 Riepilogo Attività</h3>
+            <div class="activity-stats">
+                <div class="activity-stat">
+                    <div class="stat-number" id="wishlistItems">0</div>
+                    <div class="stat-label">Prodotti in Wishlist</div>
+                </div>
+                <div class="activity-stat">
+                    <div class="stat-number" id="cartItems">0</div>
+                    <div class="stat-label">Prodotti nel Carrello</div>
+                </div>
+                <div class="activity-stat">
+                    <div class="stat-number" id="totalSavings">€0</div>
+                    <div class="stat-label">Risparmi Totali</div>
+                </div>
+                <div class="activity-stat">
+                    <div class="stat-number" id="visitCount">1</div>
+                    <div class="stat-label">Visite</div>
+                </div>
             </div>
-          </a>
-        `).join('');
-    }
+        </div>
+    </section>
 
-    // Event listeners per l'inizializzazione universale
-    document.addEventListener('DOMContentLoaded', function() {
-        loadThemePreference();
-        updateAccountBannerAndWidget();
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="glass-modal">
+            <div class="modal-header">
+                <h3>Accedi al tuo account</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="login-form" id="loginForm">
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" class="glass-input" id="loginEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" placeholder="Password" class="glass-input" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="glass-btn primary-btn full-width">Accedi</button>
+                </form>
+                <div class="modal-footer">
+                    <p>Non hai un account? <a href="#" id="showRegister">Registrati</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        const openLoginBtn = document.getElementById('open-login');
-        const openRegisterBtn = document.getElementById('open-register');
-        const modalBg = document.getElementById('modal-bg');
-        const userProfileWidget = document.getElementById('user-profile-widget');
+    <!-- Register Modal -->
+    <div class="modal-overlay" id="registerModal">
+        <div class="glass-modal">
+            <div class="modal-header">
+                <h3>Crea un nuovo account</h3>
+                <button class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form class="register-form" id="registerForm">
+                    <div class="form-group">
+                        <input type="text" placeholder="Nome" class="glass-input" id="registerName" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" class="glass-input" id="registerEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" placeholder="Password" class="glass-input" id="registerPassword" required>
+                    </div>
+                    <button type="submit" class="glass-btn primary-btn full-width">Registrati</button>
+                </form>
+                <div class="modal-footer">
+                    <p>Hai già un account? <a href="#" id="showLogin">Accedi</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        if (openLoginBtn) openLoginBtn.onclick = showLogin;
-        if (openRegisterBtn) openRegisterBtn.onclick = showRegister;
-        if (modalBg) {
-            modalBg.onclick = function(e) {
-                if (e.target === this) closeModal();
-            };
+    <!-- Footer -->
+    <footer class="glass-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Cronoshop</h4>
+                <p>La tua piattaforma per le migliori offerte Amazon</p>
+            </div>
+            <div class="footer-section">
+                <h4>Link Utili</h4>
+                <a href="groups.html">Gruppi WhatsApp</a>
+                <a href="categorie.html">Categorie</a>
+                <a href="account.html">Account</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contatti</h4>
+                <a href="groups.html">WhatsApp</a>
+                <a href="#email">Email</a>
+                <a href="#social">Social</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Cronoshop. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+    <style>
+        .account-section {
+            padding: 2rem 1rem;
+            max-width: 1000px;
+            margin: 0 auto;
         }
-        
-        if (userProfileWidget) {
-            userProfileWidget.addEventListener('click', function(e) {
-                if (e.target.classList.contains('logout-button')) {
-                    return;
+
+        .profile-card {
+            margin-bottom: 2rem;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .profile-avatar {
+            text-align: center;
+        }
+
+        .avatar-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--glass-bg-strong);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-info h3 {
+            color: white;
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+
+        .profile-info p {
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 1rem;
+        }
+
+        .user-stats {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-badge {
+            background: var(--glass-bg-strong);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .account-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .option-card {
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .option-icon {
+            font-size: 2rem;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        .option-content {
+            flex: 1;
+        }
+
+        .option-content h4 {
+            color: white;
+            margin-bottom: 0.25rem;
+        }
+
+        .option-content p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .activity-summary {
+            text-align: center;
+        }
+
+        .activity-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+        }
+
+        .activity-stat {
+            text-align: center;
+        }
+
+        .activity-stat .stat-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .activity-stat .stat-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .account-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .activity-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+
+    <script>
+        let currentUser = null;
+
+        // Load user data
+        function loadUserData() {
+            try {
+                const savedData = localStorage.getItem('cronoshop_data');
+                if (savedData) {
+                    const userData = JSON.parse(savedData);
+                    currentUser = userData.currentUser || null;
+                    updateUserInterface();
+                    updateActivityStats();
                 }
-                window.location.href = "account.html";
+            } catch (error) {
+                console.error('Error loading user data:', error);
+            }
+        }
+
+        // Update user interface
+        function updateUserInterface() {
+            const userName = document.getElementById('userName');
+            const userEmail = document.getElementById('userEmail');
+            const userPoints = document.getElementById('userPoints');
+            const memberSince = document.getElementById('memberSince');
+            const loginBtn = document.getElementById('loginBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+
+            if (currentUser) {
+                if (userName) userName.textContent = currentUser.name;
+                if (userEmail) userEmail.textContent = currentUser.email;
+                if (userPoints) userPoints.textContent = currentUser.points || 0;
+                if (memberSince) memberSince.textContent = currentUser.joinDate || 'oggi';
+                if (loginBtn) loginBtn.style.display = 'none';
+                if (logoutBtn) logoutBtn.style.display = 'block';
+            } else {
+                if (userName) userName.textContent = 'Ospite';
+                if (userEmail) userEmail.textContent = 'Non connesso';
+                if (userPoints) userPoints.textContent = '0';
+                if (memberSince) memberSince.textContent = 'oggi';
+                if (loginBtn) loginBtn.style.display = 'block';
+                if (logoutBtn) logoutBtn.style.display = 'none';
+            }
+        }
+
+        // Update activity stats
+        function updateActivityStats() {
+            try {
+                const savedData = localStorage.getItem('cronoshop_data');
+                if (savedData) {
+                    const userData = JSON.parse(savedData);
+                    const wishlist = userData.wishlist || [];
+                    const cart = userData.cart || [];
+
+                    const wishlistItems = document.getElementById('wishlistItems');
+                    const cartItems = document.getElementById('cartItems');
+                    const totalSavings = document.getElementById('totalSavings');
+                    const visitCount = document.getElementById('visitCount');
+
+                    if (wishlistItems) wishlistItems.textContent = wishlist.length;
+                    if (cartItems) cartItems.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+                    if (totalSavings) totalSavings.textContent = '€' + (Math.random() * 100).toFixed(2);
+                    
+                    // Increment visit count
+                    let visits = parseInt(localStorage.getItem('visitCount') || '1');
+                    visits++;
+                    localStorage.setItem('visitCount', visits.toString());
+                    if (visitCount) visitCount.textContent = visits;
+                }
+            } catch (error) {
+                console.error('Error updating activity stats:', error);
+            }
+        }
+
+        // Update cart count
+        function updateCartCount() {
+            try {
+                const savedData = localStorage.getItem('cronoshop_data');
+                if (savedData) {
+                    const userData = JSON.parse(savedData);
+                    const cart = userData.cart || [];
+                    const cartCount = document.querySelector('.cart-count');
+                    if (cartCount) {
+                        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                        cartCount.textContent = totalItems;
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading cart data:', error);
+            }
+        }
+
+        // Show modal
+        function showModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        // Close modal
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Login
+        function login(email, password) {
+            // Simulate login
+            currentUser = {
+                name: email.split('@')[0],
+                email: email,
+                points: Math.floor(Math.random() * 1000),
+                joinDate: new Date().toLocaleDateString('it-IT')
+            };
+
+            // Save user data
+            try {
+                const savedData = localStorage.getItem('cronoshop_data');
+                let userData = {};
+                if (savedData) {
+                    userData = JSON.parse(savedData);
+                }
+                userData.currentUser = currentUser;
+                localStorage.setItem('cronoshop_data', JSON.stringify(userData));
+            } catch (error) {
+                console.error('Error saving user data:', error);
+            }
+
+            updateUserInterface();
+            closeModal('loginModal');
+            showNotification('Accesso effettuato con successo!');
+        }
+
+        // Logout
+        function logout() {
+            currentUser = null;
+            
+            try {
+                const savedData = localStorage.getItem('cronoshop_data');
+                let userData = {};
+                if (savedData) {
+                    userData = JSON.parse(savedData);
+                }
+                userData.currentUser = null;
+                localStorage.setItem('cronoshop_data', JSON.stringify(userData));
+            } catch (error) {
+                console.error('Error saving user data:', error);
+            }
+
+            updateUserInterface();
+            showNotification('Disconnesso con successo!');
+        }
+
+        // Export data
+        function exportData() {
+            try {
+                const savedData = localStorage.getItem('cronoshop_data');
+                if (savedData) {
+                    const userData = JSON.parse(savedData);
+                    const dataStr = JSON.stringify(userData, null, 2);
+                    const dataBlob = new Blob([dataStr], {type: 'application/json'});
+                    
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(dataBlob);
+                    link.download = 'cronoshop_data.json';
+                    link.click();
+                    
+                    showNotification('Dati esportati con successo!');
+                } else {
+                    showNotification('Nessun dato da esportare');
+                }
+            } catch (error) {
+                console.error('Error exporting data:', error);
+                showNotification('Errore durante l\'esportazione');
+            }
+        }
+
+        // Toggle notifications
+        function toggleNotifications() {
+            if ('Notification' in window) {
+                if (Notification.permission === 'granted') {
+                    showNotification('Notifiche già attive');
+                } else if (Notification.permission !== 'denied') {
+                    Notification.requestPermission().then(permission => {
+                        if (permission === 'granted') {
+                            showNotification('Notifiche attivate!');
+                            new Notification('Cronoshop', {
+                                body: 'Riceverai notifiche sulle migliori offerte!',
+                                icon: '/favicon.ico'
+                            });
+                        }
+                    });
+                } else {
+                    showNotification('Notifiche bloccate dal browser');
+                }
+            } else {
+                showNotification('Notifiche non supportate');
+            }
+        }
+
+        // Show notification
+        function showNotification(message) {
+            let notification = document.getElementById('notification');
+            if (!notification) {
+                notification = document.createElement('div');
+                notification.id = 'notification';
+                notification.className = 'notification';
+                notification.innerHTML = '<span id="notificationText"></span>';
+                document.body.appendChild(notification);
+            }
+
+            const notificationText = document.getElementById('notificationText');
+            if (notificationText) {
+                notificationText.textContent = message;
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        // Theme toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+            
+            const themeBtn = document.querySelector('.theme-btn');
+            if (themeBtn) {
+                themeBtn.textContent = isDark ? '☀️' : '🌙';
+            }
+            
+            showNotification(`Tema ${isDark ? 'scuro' : 'chiaro'} attivato`);
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('navMenu');
+            if (navMenu) {
+                navMenu.classList.toggle('active');
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserData();
+            updateCartCount();
+            
+            // Load theme preference
+            const darkMode = localStorage.getItem('darkMode') === 'true';
+            if (darkMode) {
+                document.body.classList.add('dark-mode');
+                const themeBtn = document.querySelector('.theme-btn');
+                if (themeBtn) {
+                    themeBtn.textContent = '☀️';
+                }
+            }
+
+            // Setup event listeners
+            const themeBtn = document.querySelector('.theme-btn');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', toggleTheme);
+            }
+
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            }
+
+            const loginBtn = document.getElementById('loginBtn');
+            if (loginBtn) {
+                loginBtn.addEventListener('click', () => showModal('loginModal'));
+            }
+
+            const logoutBtn = document.getElementById('logoutBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', logout);
+            }
+
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', toggleTheme);
+            }
+
+            const notificationToggle = document.getElementById('notificationToggle');
+            if (notificationToggle) {
+                notificationToggle.addEventListener('click', toggleNotifications);
+            }
+
+            const exportDataBtn = document.getElementById('exportData');
+            if (exportDataBtn) {
+                exportDataBtn.addEventListener('click', exportData);
+            }
+
+            // Modal event listeners
+            const closeButtons = document.querySelectorAll('.close-btn');
+            closeButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const modal = this.closest('.modal-overlay');
+                    if (modal) {
+                        closeModal(modal.id);
+                    }
+                });
             });
-        }
 
-        loadAccount();
+            const showRegister = document.getElementById('showRegister');
+            if (showRegister) {
+                showRegister.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    closeModal('loginModal');
+                    showModal('registerModal');
+                });
+            }
 
-        const themeToggle = document.getElementById('theme-toggle');
-        if (themeToggle) {
-            themeToggle.addEventListener('change', saveSettings);
-        }
-    });
-  </script>
+            const showLogin = document.getElementById('showLogin');
+            if (showLogin) {
+                showLogin.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    closeModal('registerModal');
+                    showModal('loginModal');
+                });
+            }
+
+            // Form submissions
+            const loginForm = document.getElementById('loginForm');
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = document.getElementById('loginEmail').value;
+                    const password = document.getElementById('loginPassword').value;
+                    login(email, password);
+                });
+            }
+
+            const registerForm = document.getElementById('registerForm');
+            if (registerForm) {
+                registerForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const name = document.getElementById('registerName').value;
+                    const email = document.getElementById('registerEmail').value;
+                    const password = document.getElementById('registerPassword').value;
+                    
+                    // Simulate registration
+                    login(email, password);
+                    closeModal('registerModal');
+                    showNotification('Registrazione completata!');
+                });
+            }
+
+            // Close modals when clicking outside
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('modal-overlay')) {
+                    const modal = e.target;
+                    closeModal(modal.id);
+                }
+            });
+
+            // Add fade-in animation
+            setTimeout(() => {
+                const elements = document.querySelectorAll('.glass-card');
+                elements.forEach((el, index) => {
+                    setTimeout(() => {
+                        el.classList.add('fade-in');
+                    }, index * 100);
+                });
+            }, 100);
+        });
+    </script>
 </body>
 </html>
