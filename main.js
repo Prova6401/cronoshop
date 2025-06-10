@@ -1,6 +1,8 @@
 // Cronoshop JavaScript - Liquid Glass Design
 // Product Data
+// Esempio prodotti (sostituisci con i tuoi veri dati)
 const products = [
+  
   {
     "id": "prod1",
     "link": "https://amzn.to/3Z551fa",
@@ -1038,8 +1040,66 @@ function loadUserData() {
 }
 
 function updateUserWidget(user) {
-    const userName = document.querySelector('.user-name');
-    const userPoints = document.querySelector('.user-points');
-    if (userName) userName.textContent = user.name || "Ospite";
-    if (userPoints) userPoints.textContent = (user.points || 0) + " punti";
+  const userName = document.querySelector('.user-name');
+  const userPoints = document.querySelector('.user-points');
+  if (userName) userName.textContent = user.name || "Ospite";
+  if (userPoints) userPoints.textContent = (user.points || 0) + " punti";
 }
+
+// Carica prodotti nella griglia
+function renderProducts(category = "all") {
+  const grid = document.getElementById('productsGrid');
+  if (!grid) return;
+  grid.innerHTML = "";
+  let filtered = products;
+  if (category !== "all") {
+    filtered = products.filter(p => p.category === category);
+  }
+  filtered.forEach(prod => {
+    const div = document.createElement('div');
+    div.className = "product-card glass-card";
+    div.innerHTML = `
+      <img src="${prod.img}" alt="${prod.nome}" class="product-img">
+      <h4>${prod.nome}</h4>
+      <p>${prod.descrizione}</p>
+      <div class="product-price">€${prod.prezzo}</div>
+      <button class="glass-btn primary-btn buy-btn" data-id="${prod.id}">Acquista</button>
+    `;
+    grid.appendChild(div);
+  });
+}
+
+// Eventi filtri
+function setupFilters() {
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      renderProducts(this.dataset.category);
+    });
+  });
+}
+
+// Navbar mobile
+function setupNavbar() {
+  const mobileBtn = document.querySelector('.mobile-menu-btn');
+  const navMenu = document.getElementById('navMenu');
+  if (mobileBtn && navMenu) {
+    mobileBtn.addEventListener('click', () => navMenu.classList.toggle('active'));
+  }
+}
+
+// Esempio caricamento dati utente
+function loadUserData() {
+  // Simula utente loggato
+  const user = JSON.parse(localStorage.getItem('cronoshop_data') || '{}').currentUser || { name: "Ospite", points: 0 };
+  updateUserWidget(user);
+}
+
+// Inizializzazione
+document.addEventListener('DOMContentLoaded', function() {
+  loadUserData();
+  renderProducts();
+  setupFilters();
+  setupNavbar();
+});
