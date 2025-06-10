@@ -1,7 +1,6 @@
 // Cronoshop JavaScript - Liquid Glass Design
 // Product Data
 const products = [
-   [
   {
     "id": "prod1",
     "link": "https://amzn.to/3Z551fa",
@@ -1020,6 +1019,13 @@ function loadUserData() {
         console.error('Error loading user data:', error);
     }
 
+    // Aggiorna la user-widget
+    if (currentUser) {
+        updateUserWidget(currentUser);
+    } else {
+        updateUserWidget({ name: "Ospite", points: 0 });
+    }
+
     // Load theme preference
     const darkMode = localStorage.getItem('darkMode') === 'true';
     if (darkMode) {
@@ -1029,4 +1035,11 @@ function loadUserData() {
             themeBtn.textContent = '☀️';
         }
     }
+}
+
+function updateUserWidget(user) {
+    const userName = document.querySelector('.user-name');
+    const userPoints = document.querySelector('.user-points');
+    if (userName) userName.textContent = user.name || "Ospite";
+    if (userPoints) userPoints.textContent = (user.points || 0) + " punti";
 }
