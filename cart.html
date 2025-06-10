@@ -1,423 +1,665 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Carrello</title>
-  <link rel="stylesheet" href="style.css"/>
-  <style>
-    .cart-product-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      justify-content: center;
-      margin: 2rem 0;
-    }
-    .cart-product-card {
-      background: var(--glass-bg);
-      backdrop-filter: var(--backdrop-blur);
-      -webkit-backdrop-filter: var(--backdrop-blur);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      box-shadow: var(--glass-shadow);
-      padding: 1.5rem 1rem;
-      text-align: center;
-      max-width: 220px;
-      min-width: 180px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-      transition: all var(--transition-duration);
-    }
-
-    .cart-product-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-      border-radius: inherit;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity var(--transition-duration);
-    }
-
-    .cart-product-card:hover::before {
-      opacity: 1;
-    }
-
-    .cart-product-card:hover {
-      transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-    }
-
-    .cart-product-card img {
-      width: 90px;
-      height: 90px;
-      object-fit: contain;
-      border-radius: 15px;
-      background: rgba(255, 255, 255, 0.1);
-      margin-bottom: 0.7rem;
-    }
-    .cart-product-card h3 {
-      font-size: 1.05rem;
-      margin-bottom: 0.4rem;
-      color: var(--text-color);
-      position: relative;
-      z-index: 1;
-    }
-    .cart-product-card .price {
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: #30D158;
-      margin-bottom: 0.5rem;
-      text-shadow: 0 0 10px rgba(48, 209, 88, 0.5);
-      position: relative;
-      z-index: 1;
-    }
-    .cart-product-card .remove-btn {
-      background: linear-gradient(135deg, rgba(255, 59, 48, 0.8) 0%, rgba(255, 45, 85, 0.8) 100%);
-      color: #fff;
-      border: none;
-      border-radius: 12px;
-      padding: 0.6rem 1.2rem;
-      font-weight: 600;
-      font-size: 0.95rem;
-      margin-top: 0.5rem;
-      cursor: pointer;
-      transition: all var(--transition-duration);
-      box-shadow: 0 4px 15px rgba(255, 59, 48, 0.3);
-      position: relative;
-      z-index: 1;
-    }
-    .cart-product-card .remove-btn:hover {
-      background: linear-gradient(135deg, rgba(255, 59, 48, 1) 0%, rgba(255, 45, 85, 1) 100%);
-      transform: translateY(-2px) scale(1.05);
-      box-shadow: 0 8px 25px rgba(255, 59, 48, 0.4);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrello - Cronoshop</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="user-profile-widget" style="display:none;">
-    <img id="profile-pic-widget" src="https://ui-avatars.com/api/?name=User&background=eeeeee&color=0071e3" alt="Foto profilo">
-    <div id="user-info-text">
-      <div class="username-display" id="widget-username"></div>
-      <div class="email-display" id="widget-email"></div>
-      <button class="logout-button" onclick="logoutUser(event)">Logout</button>
-    </div>
-  </div>
+    <!-- Animated Background -->
+    <div class="animated-background"></div>
+    
+    <!-- Header -->
+    <header class="glass-header">
+        <nav class="nav-container">
+            <div class="logo">
+                <h1><a href="index.html" style="text-decoration: none; color: inherit;">🛍️ Cronoshop</a></h1>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#offerte" class="nav-link">Offerte</a>
+                <a href="categorie.html" class="nav-link">Categorie</a>
+                <a href="wishlist.html" class="nav-link">Wishlist</a>
+                <a href="account.html" class="nav-link">Profilo</a>
+            </div>
+            <div class="nav-actions">
+                <a href="cart.html" class="glass-btn cart-btn active">🛒 <span class="cart-count">0</span></a>
+                <button class="glass-btn theme-btn">🌙</button>
+                <button class="glass-btn mobile-menu-btn">☰</button>
+            </div>
+        </nav>
+    </header>
 
-  <div id="account-banner">
-    <span>Hai un account Cronoshop? <b>Accedi</b> o <b>registrati</b> per offerte personalizzate!</span>
-    <button id="open-login">Accedi</button>
-    <button id="open-register">Registrati</button>
-  </div>
-
-  <div class="modal-bg" id="modal-bg">
-    <div class="modal" id="modal-login" style="display:none;">
-      <button class="close-modal" onclick="closeModal()">&times;</button>
-      <h2>Accedi</h2>
-      <input type="text" id="login-username" placeholder="Username" autocomplete="username">
-      <input type="password" id="login-password" placeholder="Password" autocomplete="current-password">
-      <div class="error-msg" id="login-error"></div>
-      <button onclick="loginUser()">Accedi</button>
-      <div class="switch-link" onclick="showRegister()">Non hai un account? Registrati</div>
-    </div>
-    <div class="modal" id="modal-register" style="display:none;">
-      <button class="close-modal" onclick="closeModal()">&times;</button>
-      <h2>Registrati</h2>
-      <input type="text" id="register-username" placeholder="Scegli username" autocomplete="username">
-      <input type="password" id="register-password" placeholder="Scegli password" autocomplete="new-password">
-      <div class="error-msg" id="register-error"></div>
-      <button onclick="registerUser()">Registrati</button>
-      <div class="switch-link" onclick="showLogin()">Hai già un account? Accedi</div>
-    </div>
-  </div>
-
-  <header>
-    <h1>Il tuo carrello</h1>
-  </header>
-  
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="products.html">Prodotti</a>
-    <a href="groups.html">Gruppi</a>
-    <a href="come-funziona.html">Come Funziona</a>
-    <a href="faq.html">FAQ</a>
-    <a href="account.html">Area Personale</a>
-    <a href="cart.html">Carrello <span id="cart-count" style="background:#30d158;color:#fff;border-radius:50%;padding:2px 8px;font-size:0.9em;vertical-align:top;margin-left:2px;">0</span></a>
-    <a href="favorites.html">Preferiti</a>
-  </nav>
-
-  <main>
-    <div id="cart-products" class="cart-product-list"></div>
-    <p id="empty-cart-msg" style="text-align:center;color:rgba(255,255,255,0.6);margin-top:2rem;display:none;">Il carrello è vuoto.</p>
-    <p style="text-align:center;color:rgba(255,255,255,0.6);margin-top:2rem;">Questa è solo una demo, non puoi davvero comprare nulla bruh.</p>
-  </main>
-  <script>
-    // --- Funzioni di Account e Tema Universali ---
-
-    function hash(str) {
-      let h = 0, i, chr;
-      if (str.length === 0) return h;
-      for (i = 0; i < str.length; i++) {
-        chr = str.charCodeAt(i);
-        h = ((h << 5) - h) + chr;
-        h |= 0;
-      }
-      return h;
-    }
-
-    function getUser() {
-      return JSON.parse(localStorage.getItem('cronoshop_user') || 'null');
-    }
-    function setUser(user) {
-      localStorage.setItem('cronoshop_user', JSON.stringify(user));
-    }
-    function removeUser() {
-      localStorage.removeItem('cronoshop_user');
-    }
-    function getUserDb(username) {
-        return JSON.parse(localStorage.getItem('cronoshop_user_db_' + username) || 'null');
-    }
-    function setUserDb(username, data) {
-      localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify(data));
-    }
-
-    function applyTheme(theme) {
-        if (theme === 'dark') {
-            document.body.classList.add('dark-mode');
-        } else {
-            document.body.classList.remove('dark-mode');
-        }
-    }
-
-    function loadThemePreference() {
-        const user = getUser();
-        let savedTheme = 'light';
-        if (user && user.username) {
-            const userDb = getUserDb(user.username);
-            if (userDb && userDb.settings && userDb.settings.theme) {
-                savedTheme = userDb.settings.theme;
-            }
-        } else {
-            savedTheme = localStorage.getItem('global_theme_preference') || 'light';
-        }
-        applyTheme(savedTheme);
-    }
-
-    function updateAccountBannerAndWidget() {
-      const user = getUser();
-      const banner = document.getElementById('account-banner');
-      const profileWidget = document.getElementById('user-profile-widget');
-      const profilePicWidget = document.getElementById('profile-pic-widget');
-      const widgetUsername = document.getElementById('widget-username');
-      const widgetEmail = document.getElementById('widget-email');
-
-      if (user && user.username) {
-        if (banner) banner.style.display = 'none';
-        if (profileWidget) profileWidget.style.display = 'flex';
-        const userDb = getUserDb(user.username);
-        if (profilePicWidget) {
-            if (userDb && userDb.profilePic) {
-                profilePicWidget.src = userDb.profilePic;
-            } else {
-                profilePicWidget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.username)}&background=eeeeee&color=0071e3`;
-            }
-        }
-        if (widgetUsername) widgetUsername.textContent = user.username;
-        if (widgetEmail) widgetEmail.textContent = userDb && userDb.email ? userDb.email : 'Nessuna email';
-
-      } else {
-        if (banner) banner.style.display = 'flex';
-        if (profileWidget) profileWidget.style.display = 'none';
-      }
-    }
-
-    function openModal(type) {
-      const modalBg = document.getElementById('modal-bg');
-      const modalLogin = document.getElementById('modal-login');
-      const modalRegister = document.getElementById('modal-register');
-      const loginError = document.getElementById('login-error');
-      const registerError = document.getElementById('register-error');
-
-      if (modalBg) modalBg.classList.add('active');
-      if (modalLogin) modalLogin.style.display = type === 'login' ? 'block' : 'none';
-      if (modalRegister) modalRegister.style.display = type === 'register' ? 'block' : 'none';
-      if (loginError) loginError.textContent = '';
-      if (registerError) registerError.textContent = '';
-    }
-    function closeModal() {
-      const modalBg = document.getElementById('modal-bg');
-      if (modalBg) modalBg.classList.remove('active');
-    }
-    function showLogin() { openModal('login'); }
-    function showRegister() { openModal('register'); }
-
-    function registerUser() {
-      const usernameInput = document.getElementById('register-username');
-      const passwordInput = document.getElementById('register-password');
-      const errorElement = document.getElementById('register-error');
-
-      const username = usernameInput ? usernameInput.value.trim() : '';
-      const password = passwordInput ? passwordInput.value : '';
-      const error = errorElement;
-
-      if (!username || !password) {
-        if (error) error.textContent = 'Compila tutti i campi.';
-        return;
-      }
-      if (localStorage.getItem('cronoshop_user_db_' + username)) {
-        if (error) error.textContent = 'Username già registrato.';
-        return;
-      }
-      localStorage.setItem('cronoshop_user_db_' + username, JSON.stringify({
-        username,
-        password: hash(password),
-        email: '',
-        settings: { theme: 'light', notifications: { email: false } }
-      }));
-      setUser({ username });
-      closeModal();
-      updateAccountBannerAndWidget();
-      loadThemePreference();
-    }
-
-    function loginUser() {
-      const usernameInput = document.getElementById('login-username');
-      const passwordInput = document.getElementById('login-password');
-      const errorElement = document.getElementById('login-error');
-
-      const username = usernameInput ? usernameInput.value.trim() : '';
-      const password = passwordInput ? passwordInput.value : '';
-      const error = errorElement;
-
-      const userDb = JSON.parse(localStorage.getItem('cronoshop_user_db_' + username) || 'null');
-      if (!userDb || userDb.password !== hash(password)) {
-        if (error) error.textContent = 'Username o password errati.';
-        return;
-      }
-      setUser({ username });
-      closeModal();
-      updateAccountBannerAndWidget();
-      loadThemePreference();
-    }
-
-    function logoutUser(event) {
-      if (event) event.stopPropagation();
-      removeUser();
-      updateAccountBannerAndWidget();
-      applyTheme('light');
-      localStorage.removeItem('global_theme_preference');
-    }
-
-    // --- Array prodotti ---
-    const prodotti = [
-      {
-        id: "prod1",
-        link: "https://amzn.to/3Z551fa",
-        img: "https://m.media-amazon.com/images/I/61hiFJPpY9L._AC_SL1500_.jpg",
-        nome: "Samsung Galaxy S25 Ultra",
-        prezzo: "1.199€",
-        descrizione: "Smartphone AI con display 6.9\" QHD+ Dynamic AMOLED 2X, fotocamera da 200MP, RAM 12GB, memoria interna da 256GB, batteria da 5000 mAh. Colore Titanium Silverblue. Garanzia 3 anni."
-      },
-      {
-        id: "prod2",
-        link: "https://amzn.to/4mB7UhK",
-        img: "https://m.media-amazon.com/images/I/71b8mpCMTOL._AC_SL1500_.jpg",
-        nome: "by Amazon Quinoa biologica, 500g",
-        prezzo: "5,49€",
-        descrizione: "Quinoa biologica di alta qualità, ricca di proteine e fibre. Perfetta per insalate e piatti salutari."
-      },
-      {
-        id: "prod3",
-        link: "https://www.amazon.it/dp/B0CHWV5HTM",
-        img: "https://m.media-amazon.com/images/I/71d7rfSl0wL._AC_SL1500_.jpg",
-        nome: "Apple iPhone 15",
-        prezzo: `<span style="text-decoration: line-through; color: #888;">879,00€</span> <span style="color: #007aff; font-weight: bold;">645,00€</span> <span style="color: red; font-weight: bold;">-27%</span>`,
-        descrizione: "Prestazioni top per l'uso quotidiano."
-      }
-    ];
-
-    function getCart() {
-      return JSON.parse(localStorage.getItem('cronoshop_cart') || '[]');
-    }
-    function setCart(cart) {
-      localStorage.setItem('cronoshop_cart', JSON.stringify(cart));
-    }
-    function count() {
-      const cart = getCart();
-      document.getElementById('cart-count').textContent = cart.length;
-    }
-
-    function renderCart() {
-      const cart = getCart();
-      const cartProducts = prodotti.filter(p => cart.includes(p.id));
-      const container = document.getElementById('cart-products');
-      const emptyMsg = document.getElementById('empty-cart-msg');
-      if (cartProducts.length === 0) {
-        container.innerHTML = '';
-        emptyMsg.style.display = 'block';
-        return;
-      }
-      emptyMsg.style.display = 'none';
-      container.innerHTML = cartProducts.map(prod => `
-        <div class="cart-product-card">
-          <img src="${prod.img}" alt="${prod.nome}">
-          <h3>${prod.nome}</h3>
-          <div class="price">${prod.prezzo}</div>
-          <a href="${prod.link}" target="_blank" style="text-decoration:none;">
-            <button style="background:linear-gradient(135deg, rgba(255, 149, 0, 0.8) 0%, rgba(255, 204, 0, 0.8) 100%);color:#fff;border:none;border-radius:12px;padding:0.6rem 1.2rem;font-weight:600;font-size:1rem;margin-bottom:0.5rem;cursor:pointer;transition:all 0.4s;box-shadow:0 4px 15px rgba(255, 149, 0, 0.3);">Compra su Amazon</button>
-          </a>
-          <button class="remove-btn" data-id="${prod.id}">Rimuovi</button>
+    <!-- Cart Section -->
+    <section class="cart-section" style="padding-top: 120px;">
+        <div class="section-header">
+            <h2>🛒 Il Tuo Carrello</h2>
+            <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 2rem;">Prodotti pronti per l'acquisto</p>
         </div>
-      `).join('');
-    }
-
-    document.addEventListener('click', function(e) {
-      if (e.target.classList.contains('remove-btn')) {
-        const id = e.target.getAttribute('data-id');
-        let cart = getCart();
-        cart = cart.filter(pid => pid !== id);
-        setCart(cart);
-        renderCart();
-        count();
-      }
-    });
-
-    // Event listeners per l'inizializzazione universale
-    document.addEventListener('DOMContentLoaded', function() {
-        loadThemePreference();
-        updateAccountBannerAndWidget();
-
-        const openLoginBtn = document.getElementById('open-login');
-        const openRegisterBtn = document.getElementById('open-register');
-        const modalBg = document.getElementById('modal-bg');
-        const userProfileWidget = document.getElementById('user-profile-widget');
-
-        if (openLoginBtn) openLoginBtn.onclick = showLogin;
-        if (openRegisterBtn) openRegisterBtn.onclick = showRegister;
-        if (modalBg) {
-            modalBg.onclick = function(e) {
-                if (e.target === this) closeModal();
-            };
-        }
         
-        if (userProfileWidget) {
-            userProfileWidget.addEventListener('click', function(e) {
-                if (e.target.classList.contains('logout-button')) {
-                    return;
-                }
-                window.location.href = "account.html";
-            });
+        <div class="cart-container">
+            <!-- Cart Items -->
+            <div class="cart-items">
+                <div class="cart-header glass-card" style="padding: 1rem; margin-bottom: 1rem;">
+                    <h3 style="color: white; margin: 0;">Prodotti nel Carrello</h3>
+                    <button class="glass-btn secondary-btn" id="clearCart">🗑️ Svuota Carrello</button>
+                </div>
+                
+                <div class="cart-list" id="cartList">
+                    <!-- Cart items will be loaded here -->
+                </div>
+
+                <div class="empty-cart" id="emptyCart" style="display: none; text-align: center; padding: 3rem;">
+                    <div class="glass-card" style="padding: 3rem;">
+                        <div style="font-size: 4rem; margin-bottom: 1rem;">🛒</div>
+                        <h3 style="color: white; margin-bottom: 1rem;">Il tuo carrello è vuoto</h3>
+                        <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 2rem;">
+                            Aggiungi prodotti per iniziare lo shopping!
+                        </p>
+                        <a href="index.html#offerte" class="glass-btn primary-btn">Scopri le Offerte</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cart Summary -->
+            <div class="cart-summary">
+                <div class="glass-card summary-card" style="padding: 2rem;">
+                    <h3 style="color: white; margin-bottom: 1.5rem;">📊 Riepilogo Ordine</h3>
+                    
+                    <div class="summary-row">
+                        <span>Prodotti (<span id="totalItems">0</span>):</span>
+                        <span id="subtotal">€0.00</span>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <span>Spedizione:</span>
+                        <span style="color: var(--success-color);">Gratuita</span>
+                    </div>
+                    
+                    <div class="summary-row discount-row" id="discountRow" style="display: none;">
+                        <span>Sconto:</span>
+                        <span id="discount" style="color: var(--success-color);">-€0.00</span>
+                    </div>
+                    
+                    <hr style="border: 1px solid var(--glass-border); margin: 1rem 0;">
+                    
+                    <div class="summary-row total-row">
+                        <span style="font-weight: 700; font-size: 1.2rem;">Totale:</span>
+                        <span id="total" style="font-weight: 700; font-size: 1.2rem; color: var(--primary-color);">€0.00</span>
+                    </div>
+                    
+                    <div class="promo-code" style="margin: 1.5rem 0;">
+                        <input type="text" placeholder="Codice promozionale" class="glass-input" id="promoCode">
+                        <button class="glass-btn secondary-btn" id="applyPromo">Applica</button>
+                    </div>
+                    
+                    <button class="glass-btn primary-btn full-width" id="checkoutBtn" style="margin-top: 1rem;">
+                        🚀 Procedi all'Acquisto
+                    </button>
+                    
+                    <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.8rem; text-align: center; margin-top: 1rem;">
+                        Verrai reindirizzato ad Amazon per completare l'acquisto
+                    </p>
+                </div>
+
+                <!-- Recommended Products -->
+                <div class="glass-card recommended-card" style="padding: 1.5rem; margin-top: 1rem;">
+                    <h4 style="color: white; margin-bottom: 1rem;">💡 Potrebbero interessarti</h4>
+                    <div class="recommended-items" id="recommendedItems">
+                        <!-- Recommended items will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="glass-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Cronoshop</h4>
+                <p>La tua piattaforma per le migliori offerte Amazon</p>
+            </div>
+            <div class="footer-section">
+                <h4>Link Utili</h4>
+                <a href="groups.html">Gruppi WhatsApp</a>
+                <a href="categorie.html">Categorie</a>
+                <a href="account.html">Account</a>
+            </div>
+            <div class="footer-section">
+                <h4>Contatti</h4>
+                <a href="groups.html">WhatsApp</a>
+                <a href="#email">Email</a>
+                <a href="#social">Social</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Cronoshop. Tutti i diritti riservati.</p>
+        </div>
+    </footer>
+
+    <style>
+        .cart-section {
+            padding: 2rem 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        renderCart();
-        count();
-    });
-  </script>
+        .cart-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-item {
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-info h4 {
+            color: white;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .cart-item-price {
+            color: var(--success-color);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--glass-bg);
+            border-radius: 20px;
+            padding: 0.25rem;
+        }
+
+        .quantity-btn {
+            background: none;
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: var(--glass-bg-strong);
+        }
+
+        .quantity-display {
+            color: white;
+            font-weight: 600;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .remove-item-btn {
+            background: rgba(255, 59, 48, 0.8);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 1rem;
+        }
+
+        .remove-item-btn:hover {
+            background: rgba(255, 59, 48, 1);
+            transform: scale(1.1);
+        }
+
+        .summary-card {
+            position: sticky;
+            top: 120px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .total-row {
+            color: white;
+        }
+
+        .promo-code {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .promo-code input {
+            flex: 1;
+        }
+
+        .recommended-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .recommended-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 10px;
+            background: var(--glass-bg);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .recommended-item:hover {
+            background: var(--glass-bg-strong);
+        }
+
+        .recommended-item img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .recommended-item-info {
+            flex: 1;
+        }
+
+        .recommended-item-info h5 {
+            color: white;
+            font-size: 0.8rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .recommended-item-price {
+            color: var(--success-color);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .cart-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .cart-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .cart-item-image {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .cart-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+
+    <script>
+        let cart = [];
+        const recommendedProducts = [
+            {
+                id: "rec1",
+                img: "https://m.media-amazon.com/images/I/71d7rfSl0wL._AC_SL1500_.jpg",
+                nome: "iPhone 15",
+                prezzo: "645€",
+                link: "https://www.amazon.it/dp/B0CHWV5HTM"
+            },
+            {
+                id: "rec2",
+                img: "https://m.media-amazon.com/images/I/51B45gaTgjL._AC_SL1000_.jpg",
+                nome: "Fire TV Stick HD",
+                prezzo: "28,99€",
+                link: "https://amzn.to/4jhgwHr"
+            }
+        ];
+
+        // Load cart data
+        function loadCartData() {
+            try {
+                const savedData = localStorage.getItem('cronoshop_data');
+                if (savedData) {
+                    const userData = JSON.parse(savedData);
+                    cart = userData.cart || [];
+                }
+            } catch (error) {
+                console.error('Error loading cart data:', error);
+            }
+        }
+
+        // Save cart data
+        function saveCartData() {
+            try {
+                const savedData = localStorage.getItem('cronoshop_data');
+                let userData = {};
+                if (savedData) {
+                    userData = JSON.parse(savedData);
+                }
+                userData.cart = cart;
+                localStorage.setItem('cronoshop_data', JSON.stringify(userData));
+            } catch (error) {
+                console.error('Error saving cart data:', error);
+            }
+        }
+
+        // Update cart count
+        function updateCartCount() {
+            const cartCount = document.querySelector('.cart-count');
+            if (cartCount) {
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCount.textContent = totalItems;
+            }
+        }
+
+        // Render cart
+        function renderCart() {
+            const cartList = document.getElementById('cartList');
+            const emptyCart = document.getElementById('emptyCart');
+
+            if (cart.length === 0) {
+                cartList.style.display = 'none';
+                emptyCart.style.display = 'block';
+            } else {
+                cartList.style.display = 'block';
+                emptyCart.style.display = 'none';
+
+                cartList.innerHTML = cart.map(item => `
+                    <div class="glass-card cart-item">
+                        <img src="${item.img}" alt="${item.nome}" class="cart-item-image">
+                        <div class="cart-item-info">
+                            <h4>${item.nome}</h4>
+                            <div class="cart-item-price">${item.prezzo}</div>
+                            <div class="cart-item-controls">
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn" onclick="updateQuantity('${item.id}', -1)">-</button>
+                                    <span class="quantity-display">${item.quantity}</span>
+                                    <button class="quantity-btn" onclick="updateQuantity('${item.id}', 1)">+</button>
+                                </div>
+                                <button class="remove-item-btn" onclick="removeFromCart('${item.id}')">×</button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            updateCartSummary();
+            updateCartCount();
+        }
+
+        // Update cart summary
+        function updateCartSummary() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const subtotal = cart.reduce((sum, item) => {
+                const price = parseFloat(item.prezzo.replace('€', '').replace(',', '.'));
+                return sum + (isNaN(price) ? 0 : price * item.quantity);
+            }, 0);
+
+            document.getElementById('totalItems').textContent = totalItems;
+            document.getElementById('subtotal').textContent = `€${subtotal.toFixed(2)}`;
+            document.getElementById('total').textContent = `€${subtotal.toFixed(2)}`;
+        }
+
+        // Update quantity
+        function updateQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    saveCartData();
+                    renderCart();
+                }
+            }
+        }
+
+        // Remove from cart
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            saveCartData();
+            renderCart();
+            showNotification('Prodotto rimosso dal carrello');
+        }
+
+        // Clear cart
+        function clearCart() {
+            if (cart.length === 0) {
+                showNotification('Il carrello è già vuoto!');
+                return;
+            }
+
+            if (confirm('Sei sicuro di voler svuotare il carrello?')) {
+                cart = [];
+                saveCartData();
+                renderCart();
+                showNotification('Carrello svuotato');
+            }
+        }
+
+        // Apply promo code
+        function applyPromoCode() {
+            const promoCode = document.getElementById('promoCode').value.trim().toLowerCase();
+            const discountRow = document.getElementById('discountRow');
+            const discountElement = document.getElementById('discount');
+            
+            if (promoCode === 'cronoshop10') {
+                const subtotal = cart.reduce((sum, item) => {
+                    const price = parseFloat(item.prezzo.replace('€', '').replace(',', '.'));
+                    return sum + (isNaN(price) ? 0 : price * item.quantity);
+                }, 0);
+                
+                const discount = subtotal * 0.1;
+                const total = subtotal - discount;
+                
+                discountElement.textContent = `-€${discount.toFixed(2)}`;
+                document.getElementById('total').textContent = `€${total.toFixed(2)}`;
+                discountRow.style.display = 'flex';
+                
+                showNotification('Codice promozionale applicato! 10% di sconto');
+            } else if (promoCode === '') {
+                showNotification('Inserisci un codice promozionale');
+            } else {
+                showNotification('Codice promozionale non valido');
+            }
+        }
+
+        // Checkout
+        function checkout() {
+            if (cart.length === 0) {
+                showNotification('Il carrello è vuoto!');
+                return;
+            }
+
+            // Simulate checkout process
+            showNotification('Reindirizzamento ad Amazon...');
+            
+            // Open first product link (in a real scenario, this would be a proper checkout flow)
+            if (cart[0] && cart[0].link) {
+                setTimeout(() => {
+                    window.open(cart[0].link, '_blank');
+                }, 1000);
+            }
+        }
+
+        // Render recommended products
+        function renderRecommendedProducts() {
+            const recommendedItems = document.getElementById('recommendedItems');
+            if (recommendedItems) {
+                recommendedItems.innerHTML = recommendedProducts.map(product => `
+                    <div class="recommended-item" onclick="addRecommendedToCart('${product.id}')">
+                        <img src="${product.img}" alt="${product.nome}">
+                        <div class="recommended-item-info">
+                            <h5>${product.nome}</h5>
+                            <div class="recommended-item-price">${product.prezzo}</div>
+                        </div>
+                        <span style="color: var(--primary-color); font-size: 1.2rem;">+</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Add recommended product to cart
+        function addRecommendedToCart(productId) {
+            const product = recommendedProducts.find(p => p.id === productId);
+            if (product) {
+                const existingItem = cart.find(item => item.id === productId);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({ ...product, quantity: 1 });
+                }
+                
+                saveCartData();
+                renderCart();
+                showNotification('Prodotto aggiunto al carrello');
+            }
+        }
+
+        // Show notification
+        function showNotification(message) {
+            let notification = document.getElementById('notification');
+            if (!notification) {
+                notification = document.createElement('div');
+                notification.id = 'notification';
+                notification.className = 'notification';
+                notification.innerHTML = '<span id="notificationText"></span>';
+                document.body.appendChild(notification);
+            }
+
+            const notificationText = document.getElementById('notificationText');
+            if (notificationText) {
+                notificationText.textContent = message;
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+        }
+
+        // Theme toggle
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark);
+            
+            const themeBtn = document.querySelector('.theme-btn');
+            if (themeBtn) {
+                themeBtn.textContent = isDark ? '☀️' : '🌙';
+            }
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navMenu = document.getElementById('navMenu');
+            if (navMenu) {
+                navMenu.classList.toggle('active');
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCartData();
+            renderCart();
+            renderRecommendedProducts();
+            
+            // Load theme preference
+            const darkMode = localStorage.getItem('darkMode') === 'true';
+            if (darkMode) {
+                document.body.classList.add('dark-mode');
+                const themeBtn = document.querySelector('.theme-btn');
+                if (themeBtn) {
+                    themeBtn.textContent = '☀️';
+                }
+            }
+
+            // Setup event listeners
+            const themeBtn = document.querySelector('.theme-btn');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', toggleTheme);
+            }
+
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+            }
+
+            const clearCartBtn = document.getElementById('clearCart');
+            if (clearCartBtn) {
+                clearCartBtn.addEventListener('click', clearCart);
+            }
+
+            const applyPromoBtn = document.getElementById('applyPromo');
+            if (applyPromoBtn) {
+                applyPromoBtn.addEventListener('click', applyPromoCode);
+            }
+
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            if (checkoutBtn) {
+                checkoutBtn.addEventListener('click', checkout);
+            }
+
+            // Add fade-in animation
+            setTimeout(() => {
+                const elements = document.querySelectorAll('.glass-card');
+                elements.forEach((el, index) => {
+                    setTimeout(() => {
+                        el.classList.add('fade-in');
+                    }, index * 100);
+                });
+            }, 100);
+        });
+    </script>
 </body>
 </html>
